@@ -1,6 +1,6 @@
 <?php
 class Test {
-    const TEST_URL = 'https://127.0.0.1/php-curl-class/tests/server.php';
+    const TEST_URL = 'http://php-curl-test.anezi.net/tests/server.php';
 
     function __construct() {
         $this->curl = new Curl();
