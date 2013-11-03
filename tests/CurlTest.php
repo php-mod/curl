@@ -1,8 +1,12 @@
 <?php
+
 namespace Curl;
+
 include 'helper.inc.php';
 
 class CurlTest extends \PHPUnit_Framework_TestCase {
+	
+	const TEST_URL = 'http://php-curl-test.anezi.net/tests/server.php';
 
 	public function testExtensionLoaded() {
 			
@@ -13,7 +17,7 @@ class CurlTest extends \PHPUnit_Framework_TestCase {
 			
 		$test = new \Test();
 		$test->curl->setUserAgent(Curl::USER_AGENT);
-		$this->assertEquals(Curl::USER_AGENT, $test->server('GET', array(
+		$this->assertEquals(Curl::USER_AGENT, $test->server(self::TEST_URL, 'GET', array(
 				'test' => 'server',
 				'key' => 'HTTP_USER_AGENT',
 		)));
@@ -22,7 +26,7 @@ class CurlTest extends \PHPUnit_Framework_TestCase {
 
 	public function testGet() {
 		$test = new \Test();
-		$this->assertTrue($test->server('GET', array(
+		$this->assertTrue($test->server(self::TEST_URL, 'GET', array(
 				'test' => 'server',
 				'key' => 'REQUEST_METHOD',
 		)) === 'GET');
@@ -30,7 +34,7 @@ class CurlTest extends \PHPUnit_Framework_TestCase {
 
 	public function testPostRequestMethod() {
 		$test = new \Test();
-		$this->assertTrue($test->server('POST', array(
+		$this->assertTrue($test->server(self::TEST_URL, 'POST', array(
 				'test' => 'server',
 				'key' => 'REQUEST_METHOD',
 		)) === 'POST');
@@ -38,7 +42,7 @@ class CurlTest extends \PHPUnit_Framework_TestCase {
 
 	public function testPostData() {
 		$test = new \Test();
-		$this->assertTrue($test->server('POST', array(
+		$this->assertTrue($test->server(self::TEST_URL, 'POST', array(
 				'test' => 'post',
 				'key' => 'test',
 		)) === 'post');
@@ -46,7 +50,7 @@ class CurlTest extends \PHPUnit_Framework_TestCase {
 
 	public function testPostMultidimensionalData() {
 		$test = new \Test();
-		$this->assertTrue($test->server('POST', array(
+		$this->assertTrue($test->server(self::TEST_URL, 'POST', array(
 				'test' => 'post_multidimensional',
 				'key' => 'file',
 				'file' => array(
@@ -61,7 +65,7 @@ class CurlTest extends \PHPUnit_Framework_TestCase {
 		$file_path = get_png();
 
 		$test = new \Test();
-		$this->assertTrue($test->server('POST', array(
+		$this->assertTrue($test->server(self::TEST_URL, 'POST', array(
 				'test' => 'post_file_path_upload',
 				'key' => 'image',
 				'image' => '@' . $file_path,
@@ -72,7 +76,7 @@ class CurlTest extends \PHPUnit_Framework_TestCase {
 
 	public function testPutRequestMethod() {
 		$test = new \Test();
-		$this->assertTrue($test->server('PUT', array(
+		$this->assertTrue($test->server(self::TEST_URL, 'PUT', array(
 				'test' => 'server',
 				'key' => 'REQUEST_METHOD',
 		)) === 'PUT');
@@ -80,7 +84,7 @@ class CurlTest extends \PHPUnit_Framework_TestCase {
 
 	public function testPutData() {
 		$test = new \Test();
-		$this->assertTrue($test->server('PUT', array(
+		$this->assertTrue($test->server(self::TEST_URL, 'PUT', array(
 				'test' => 'put',
 				'key' => 'test',
 		)) === 'put');
@@ -94,7 +98,7 @@ class CurlTest extends \PHPUnit_Framework_TestCase {
 		$test->curl->setopt(CURLOPT_PUT, TRUE);
 		$test->curl->setopt(CURLOPT_INFILE, $tmp_file);
 		$test->curl->setopt(CURLOPT_INFILESIZE, strlen($png));
-		$test->curl->put(\Test::TEST_URL, array(
+		$test->curl->put(self::TEST_URL, array(
 				'test' => 'put_file_handle',
 		));
 
@@ -105,13 +109,13 @@ class CurlTest extends \PHPUnit_Framework_TestCase {
 
 	public function testDelete() {
 		$test = new \Test();
-		$this->assertTrue($test->server('DELETE', array(
+		$this->assertTrue($test->server(self::TEST_URL, 'DELETE', array(
 				'test' => 'server',
 				'key' => 'REQUEST_METHOD',
 		)) === 'DELETE');
 
 		$test = new \Test();
-		$this->assertTrue($test->server('DELETE', array(
+		$this->assertTrue($test->server(self::TEST_URL, 'DELETE', array(
 				'test' => 'delete',
 				'key' => 'test',
 		)) === 'delete');
@@ -119,7 +123,7 @@ class CurlTest extends \PHPUnit_Framework_TestCase {
 
 	public function testBasicHttpAuth() {
 		$test = new \Test();
-		$this->assertTrue($test->server('GET', array(
+		$this->assertTrue($test->server(self::TEST_URL, 'GET', array(
 				'test' => 'http_basic_auth',
 		)) === 'canceled');
 
@@ -127,7 +131,7 @@ class CurlTest extends \PHPUnit_Framework_TestCase {
 		$password = 'mypassword';
 		$test = new \Test();
 		$test->curl->setBasicAuthentication($username, $password);
-		$test->server('GET', array(
+		$test->server(self::TEST_URL, 'GET', array(
 				'test' => 'http_basic_auth',
 		));
 		$json = json_decode($test->curl->response);
@@ -138,7 +142,7 @@ class CurlTest extends \PHPUnit_Framework_TestCase {
 	public function testReferrer() {
 		$test = new \Test();
 		$test->curl->setReferrer('myreferrer');
-		$this->assertTrue($test->server('GET', array(
+		$this->assertTrue($test->server(self::TEST_URL, 'GET', array(
 				'test' => 'server',
 				'key' => 'HTTP_REFERER',
 		)) === 'myreferrer');
@@ -147,7 +151,7 @@ class CurlTest extends \PHPUnit_Framework_TestCase {
 	public function testCookies() {
 		$test = new \Test();
 		$test->curl->setCookie('mycookie', 'yum');
-		$this->assertTrue($test->server('GET', array(
+		$this->assertTrue($test->server(self::TEST_URL, 'GET', array(
 				'test' => 'cookie',
 				'key' => 'mycookie',
 		)) === 'yum');
@@ -167,15 +171,15 @@ class CurlTest extends \PHPUnit_Framework_TestCase {
 		$test->curl->setHeader('Content-Type', 'application/json');
 		$test->curl->setHeader('X-Requested-With', 'XMLHttpRequest');
 		$test->curl->setHeader('Accept', 'application/json');
-		$this->assertTrue($test->server('GET', array(
+		$this->assertTrue($test->server(self::TEST_URL, 'GET', array(
 				'test' => 'server',
 				'key' => 'CONTENT_TYPE',
 		)) === 'application/json');
-		$this->assertTrue($test->server('GET', array(
+		$this->assertTrue($test->server(self::TEST_URL, 'GET', array(
 				'test' => 'server',
 				'key' => 'HTTP_X_REQUESTED_WITH',
 		)) === 'XMLHttpRequest');
-		$this->assertTrue($test->server('GET', array(
+		$this->assertTrue($test->server(self::TEST_URL, 'GET', array(
 				'test' => 'server',
 				'key' => 'HTTP_ACCEPT',
 		)) === 'application/json');

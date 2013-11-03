@@ -3,7 +3,6 @@
 use Curl\Curl;
 
 class Test {
-    const TEST_URL = 'http://php-curl-test.anezi.net/tests/server.php';
 
     function __construct() {
         $this->curl = new Curl();
@@ -11,9 +10,9 @@ class Test {
         $this->curl->setOpt(CURLOPT_SSL_VERIFYHOST, FALSE);
     }
 
-    function server($request_method, $data='') {
+    function server($url, $request_method, $data='') {
         $request_method = strtolower($request_method);
-        $this->curl->$request_method(self::TEST_URL, $data);
+        $this->curl->$request_method($url, $data);
         return $this->curl->response;
     }
 }
