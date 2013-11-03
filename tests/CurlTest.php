@@ -84,11 +84,20 @@ class CurlTest extends \PHPUnit_Framework_TestCase {
 	public function testPostFilePathUpload() {
 		$file_path = $this->get_png();
 
-		$this->assertEquals('image/png', $this->server('POST', array(
-				'test' => 'post_file_path_upload',
+		$data = array(
 				'key' => 'image',
 				'image' => '@' . $file_path,
-		)));
+		);
+
+		$this->curl->post($this->test_url . 'post_file_path_upload.php', $data);
+
+		$this->assertEquals(
+				array(
+						'request_method' => 'POST',
+						'key' => 'image',
+						'mime_content_type' => 'image/png'
+				),
+				json_decode($this->curl->response));
 
 		unlink($file_path);
 	}
@@ -144,10 +153,9 @@ class CurlTest extends \PHPUnit_Framework_TestCase {
 
 		$username = 'myusername';
 		$password = 'mypassword';
+
 		$this->curl->setBasicAuthentication($username, $password);
-		$this->server('GET', array(
-				'test' => 'http_basic_auth',
-		));
+
 		$json = json_decode($this->curl->response);
 		$this->assertTrue($json->username === $username);
 		$this->assertTrue($json->password === $password);

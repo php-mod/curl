@@ -4,11 +4,7 @@ $data_values = $request_method === 'POST' ? $_POST : $_GET;
 $test = isset($data_values['test']) ? $data_values['test'] : '';
 $key = isset($data_values['key']) ? $data_values['key'] : '';
 
-if ($test === 'post_file_path_upload') {
-    echo mime_content_type($_FILES[$key]['tmp_name']);
-    exit;
-}
-else if ($test === 'put_file_handle') {
+if ($test === 'put_file_handle') {
     $tmp_filename = tempnam('/tmp', 'php-curl-class.');
     file_put_contents($tmp_filename, file_get_contents('php://input'));
     echo mime_content_type($tmp_filename);

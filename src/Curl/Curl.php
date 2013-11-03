@@ -4,6 +4,15 @@ namespace Curl;
 
 class Curl {
 
+	// The HTTP authentication method(s) to use.
+
+	const AUTH_BASIC = CURLAUTH_BASIC;
+	const AUTH_DIGEST = CURLAUTH_DIGEST;
+	const AUTH_GSSNEGOTIATE = CURLAUTH_GSSNEGOTIATE;
+	const AUTH_NTLM = CURLAUTH_NTLM;
+	const AUTH_ANY = CURLAUTH_ANY;
+	const AUTH_ANYSAFE = CURLAUTH_ANYSAFE;
+
 	const USER_AGENT = 'PHP Curl/1.1 (+https://github.com/mod-php/curl)';
 
 	private $_cookies = array();
@@ -28,7 +37,7 @@ class Curl {
 	public $response = NULL;
 
 	public function __construct() {
-		
+
 		if (!extension_loaded('curl')) {
 			throw new ErrorException('cURL library is not loaded');
 		}
@@ -73,8 +82,12 @@ class Curl {
 	}
 
 	public function setBasicAuthentication($username, $password) {
-		$this->setopt(CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+		$this->setHttpAuth(self::AUTH_BASIC);
 		$this->setopt(CURLOPT_USERPWD, $username . ':' . $password);
+	}
+	
+	protected function setHttpAuth($httpauth) {
+		$this->setOpt(CURLOPT_HTTPAUTH, $httpauth);
 	}
 
 	public function setHeader($key, $value) {
