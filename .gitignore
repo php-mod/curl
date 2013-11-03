@@ -5,3 +5,4 @@ vendor/*
 .settings/*
 composer.lock
 *~
+tests/phpunit_report/*
