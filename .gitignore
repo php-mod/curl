@@ -4,3 +4,4 @@ vendor/*
 .project
 .settings/*
 composer.lock
+*~
