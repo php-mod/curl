@@ -3,179 +3,137 @@
 namespace Curl;
 
 class Curl {
-	
-    const USER_AGENT = 'PHP-Curl-Class/1.0 (+https://github.com/php-curl-class/php-curl-class)';
 
-    function __construct() {
-        if (!extension_loaded('curl')) {
-            throw new ErrorException('cURL library is not loaded');
-        }
+	const USER_AGENT = 'PHP Curl/1.1 (+https://github.com/mod-php/curl)';
 
-        $this->curl = curl_init();
-        $this->setUserAgent(self::USER_AGENT);
-        $this->setopt(CURLINFO_HEADER_OUT, TRUE);
-        $this->setopt(CURLOPT_HEADER, TRUE);
-        $this->setopt(CURLOPT_RETURNTRANSFER, TRUE);
-    }
+	private $_cookies = array();
+	private $_headers = array();
 
-    function get($url, $data=array()) {
-        $this->setopt(CURLOPT_URL, $url . '?' . http_build_query($data));
-        $this->setopt(CURLOPT_HTTPGET, TRUE);
-        $this->_exec();
-    }
+	public $curl;
 
-    function post($url, $data=array()) {
-        $this->setopt(CURLOPT_URL, $url);
-        $this->setopt(CURLOPT_POST, TRUE);
-        $this->setopt(CURLOPT_POSTFIELDS, $this->_postfields($data));
-        $this->_exec();
-    }
+	public $error = FALSE;
+	public $error_code = 0;
+	public $error_message = NULL;
 
-    function put($url, $data=array()) {
-        $this->setopt(CURLOPT_URL, $url . '?' . http_build_query($data));
-        $this->setopt(CURLOPT_CUSTOMREQUEST, 'PUT');
-        $this->_exec();
-    }
+	public $curl_error = FALSE;
+	public $curl_error_code = 0;
+	public $curl_error_message = NULL;
 
-    function patch($url, $data=array()) {
-        $this->setopt(CURLOPT_URL, $url);
-        $this->setopt(CURLOPT_CUSTOMREQUEST, 'PATCH');
-        $this->setopt(CURLOPT_POSTFIELDS, $data);
-        $this->_exec();
-    }
+	public $http_error = FALSE;
+	public $http_status_code = 0;
+	public $http_error_message = NULL;
 
-    function delete($url, $data=array()) {
-        $this->setopt(CURLOPT_URL, $url . '?' . http_build_query($data));
-        $this->setopt(CURLOPT_CUSTOMREQUEST, 'DELETE');
-        $this->_exec();
-    }
+	public $request_headers = NULL;
+	public $response_headers = NULL;
+	public $response = NULL;
 
-    function setBasicAuthentication($username, $password) {
-        $this->setopt(CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-        $this->setopt(CURLOPT_USERPWD, $username . ':' . $password);
-    }
+	public function __construct() {
+		
+		if (!extension_loaded('curl')) {
+			throw new ErrorException('cURL library is not loaded');
+		}
 
-    function setHeader($key, $value) {
-        $this->_headers[$key] = $key . ': ' . $value;
-        $this->setopt(CURLOPT_HTTPHEADER, array_values($this->_headers));
-    }
+		$this->curl = curl_init();
+		$this->setUserAgent(self::USER_AGENT);
+		$this->setopt(CURLINFO_HEADER_OUT, TRUE);
+		$this->setopt(CURLOPT_HEADER, TRUE);
+		$this->setopt(CURLOPT_RETURNTRANSFER, TRUE);
+	}
 
-    function setUserAgent($user_agent) {
-        $this->setopt(CURLOPT_USERAGENT, $user_agent);
-    }
+	public function get($url, $data = array()) {
+		$this->setopt(CURLOPT_URL, $url . '?' . http_build_query($data));
+		$this->setopt(CURLOPT_HTTPGET, TRUE);
+		$this->_exec();
+	}
 
-    function setReferrer($referrer) {
-        $this->setopt(CURLOPT_REFERER, $referrer);
-    }
+	public function post($url, $data=array()) {
+		$this->setopt(CURLOPT_URL, $url);
+		$this->setopt(CURLOPT_POST, TRUE);
+		$this->setopt(CURLOPT_POSTFIELDS, http_build_query($data));
+		$this->_exec();
+	}
 
-    function setCookie($key, $value) {
-        $this->_cookies[$key] = $value;
-        $this->setopt(CURLOPT_COOKIE, http_build_query($this->_cookies, '', '; '));
-    }
+	public function put($url, $data=array()) {
+		$this->setopt(CURLOPT_URL, $url . '?' . http_build_query($data));
+		$this->setopt(CURLOPT_CUSTOMREQUEST, 'PUT');
+		$this->_exec();
+	}
 
-    function setOpt($option, $value) {
-        return curl_setopt($this->curl, $option, $value);
-    }
+	public function patch($url, $data=array()) {
+		$this->setopt(CURLOPT_URL, $url);
+		$this->setopt(CURLOPT_CUSTOMREQUEST, 'PATCH');
+		$this->setopt(CURLOPT_POSTFIELDS, $data);
+		$this->_exec();
+	}
 
-    function verbose($on=TRUE) {
-        $this->setopt(CURLOPT_VERBOSE, $on);
-    }
+	public function delete($url, $data=array()) {
+		$this->setopt(CURLOPT_URL, $url . '?' . http_build_query($data));
+		$this->setopt(CURLOPT_CUSTOMREQUEST, 'DELETE');
+		$this->_exec();
+	}
 
-    function close() {
-        curl_close($this->curl);
-    }
+	public function setBasicAuthentication($username, $password) {
+		$this->setopt(CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+		$this->setopt(CURLOPT_USERPWD, $username . ':' . $password);
+	}
 
-    function http_build_multi_query($data, $key=NULL) {
-        $query = array();
+	public function setHeader($key, $value) {
+		$this->_headers[$key] = $key . ': ' . $value;
+		$this->setopt(CURLOPT_HTTPHEADER, array_values($this->_headers));
+	}
 
-        foreach ($data as $k => $value) {
-            if (is_string($value)) {
-                $query[] = urlencode(is_null($key) ? $k : $key) . '=' . rawurlencode($value);
-            }
-            else if (is_array($value)) {
-                $query[] = $this->http_build_multi_query($value, $k . '[]');
-            }
-        }
+	public function setUserAgent($user_agent) {
+		$this->setopt(CURLOPT_USERAGENT, $user_agent);
+	}
 
-        return implode('&', $query);
-    }
+	public function setReferrer($referrer) {
+		$this->setopt(CURLOPT_REFERER, $referrer);
+	}
 
-    function _postfields($data) {
-        if (is_array($data)) {
-            if (is_array_multidim($data)) {
-                $data = $this->http_build_multi_query($data);
-            }
-            else {
-                // Fix "Notice: Array to string conversion" when $value in
-                // curl_setopt($ch, CURLOPT_POSTFIELDS, $value) is an array
-                // that contains an empty array.
-                foreach ($data as &$value) {
-                    if (is_array($value) && empty($value)) {
-                        $value = '';
-                    }
-                }
-            }
-        }
+	public function setCookie($key, $value) {
+		$this->_cookies[$key] = $value;
+		$this->setopt(CURLOPT_COOKIE, http_build_query($this->_cookies, '', '; '));
+	}
 
-        return $data;
-    }
+	public function setOpt($option, $value) {
+		return curl_setopt($this->curl, $option, $value);
+	}
 
-    function _exec() {
-        $this->response = curl_exec($this->curl);
-        $this->curl_error_code = curl_errno($this->curl);
-        $this->curl_error_message = curl_error($this->curl);
-        $this->curl_error = !($this->curl_error_code === 0);
-        $this->http_status_code = curl_getinfo($this->curl, CURLINFO_HTTP_CODE);
-        $this->http_error = in_array(floor($this->http_status_code / 100), array(4, 5));
-        $this->error = $this->curl_error || $this->http_error;
-        $this->error_code = $this->error ? ($this->curl_error ? $this->curl_error_code : $this->http_status_code) : 0;
+	public function verbose($on=TRUE) {
+		$this->setopt(CURLOPT_VERBOSE, $on);
+	}
 
-        $this->request_headers = preg_split('/\r\n/', curl_getinfo($this->curl, CURLINFO_HEADER_OUT), NULL, PREG_SPLIT_NO_EMPTY);
-        $this->response_headers = '';
-        if (!(strpos($this->response, "\r\n\r\n") === FALSE)) {
-            list($response_header, $this->response) = explode("\r\n\r\n", $this->response, 2);
-            if ($response_header === 'HTTP/1.1 100 Continue') {
-                list($response_header, $this->response) = explode("\r\n\r\n", $this->response, 2);
-            }
-            $this->response_headers = preg_split('/\r\n/', $response_header, NULL, PREG_SPLIT_NO_EMPTY);
-        }
+	public function close() {
+		curl_close($this->curl);
+	}
 
-        $this->http_error_message = $this->error ? (isset($this->response_headers['0']) ? $this->response_headers['0'] : '') : '';
-        $this->error_message = $this->curl_error ? $this->curl_error_message : $this->http_error_message;
+	public function _exec() {
+		$this->response = curl_exec($this->curl);
+		$this->curl_error_code = curl_errno($this->curl);
+		$this->curl_error_message = curl_error($this->curl);
+		$this->curl_error = !($this->curl_error_code === 0);
+		$this->http_status_code = curl_getinfo($this->curl, CURLINFO_HTTP_CODE);
+		$this->http_error = in_array(floor($this->http_status_code / 100), array(4, 5));
+		$this->error = $this->curl_error || $this->http_error;
+		$this->error_code = $this->error ? ($this->curl_error ? $this->curl_error_code : $this->http_status_code) : 0;
 
-        return $this->error_code;
-    }
+		$this->request_headers = preg_split('/\r\n/', curl_getinfo($this->curl, CURLINFO_HEADER_OUT), NULL, PREG_SPLIT_NO_EMPTY);
+		$this->response_headers = '';
+		if (!(strpos($this->response, "\r\n\r\n") === FALSE)) {
+			list($response_header, $this->response) = explode("\r\n\r\n", $this->response, 2);
+			if ($response_header === 'HTTP/1.1 100 Continue') {
+				list($response_header, $this->response) = explode("\r\n\r\n", $this->response, 2);
+			}
+			$this->response_headers = preg_split('/\r\n/', $response_header, NULL, PREG_SPLIT_NO_EMPTY);
+		}
 
-    function __destruct() {
-        $this->close();
-    }
+		$this->http_error_message = $this->error ? (isset($this->response_headers['0']) ? $this->response_headers['0'] : '') : '';
+		$this->error_message = $this->curl_error ? $this->curl_error_message : $this->http_error_message;
 
-    private $_cookies = array();
-    private $_headers = array();
+		return $this->error_code;
+	}
 
-    public $curl;
-
-    public $error = FALSE;
-    public $error_code = 0;
-    public $error_message = NULL;
-
-    public $curl_error = FALSE;
-    public $curl_error_code = 0;
-    public $curl_error_message = NULL;
-
-    public $http_error = FALSE;
-    public $http_status_code = 0;
-    public $http_error_message = NULL;
-
-    public $request_headers = NULL;
-    public $response_headers = NULL;
-    public $response = NULL;
-}
-
-function is_array_multidim($array) {
-    if (!is_array($array)) {
-        return FALSE;
-    }
-
-    return !(count($array) === count($array, COUNT_RECURSIVE));
+	public function __destruct() {
+		$this->close();
+	}
 }

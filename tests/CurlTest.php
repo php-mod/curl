@@ -5,6 +5,8 @@ namespace Curl;
 class CurlTest extends \PHPUnit_Framework_TestCase {
 
 	const TEST_URL = 'http://php-curl-test.anezi.net/tests/server.php';
+	
+	var $test_url = 'http://php-curl-test.anezi.net/tests/server/';
 
 	/**
 	 *
@@ -61,25 +63,27 @@ class CurlTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testPostMultidimensionalData() {
-		$this->assertTrue($this->server('POST', array(
-				'test' => 'post_multidimensional',
-				'key' => 'file',
-				'file' => array(
-						'wibble',
-						'wubble',
-						'wobble',
-				),
-		)) === 'test=post_multidimensional&key=file&file%5B%5D=wibble&file%5B%5D=wubble&file%5B%5D=wobble');
+		$this->assertEquals(
+				'test=post_multidimensional&key=file&file%5B0%5D=wibble&file%5B1%5D=wubble&file%5B2%5D=wobble',
+				$this->server('POST', array(
+						'test' => 'post_multidimensional',
+						'key' => 'file',
+						'file' => array(
+								'wibble',
+								'wubble',
+								'wobble',
+						),
+				)));
 	}
 
 	public function testPostFilePathUpload() {
 		$file_path = $this->get_png();
 
-		$this->assertTrue($this->server('POST', array(
+		$this->assertEquals('image/png', $this->server('POST', array(
 				'test' => 'post_file_path_upload',
 				'key' => 'image',
 				'image' => '@' . $file_path,
-		)) === 'image/png');
+		)));
 
 		unlink($file_path);
 	}
@@ -127,9 +131,11 @@ class CurlTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testBasicHttpAuth() {
-		$this->assertTrue($this->server('GET', array(
-				'test' => 'http_basic_auth',
-		)) === 'canceled');
+		
+		$data = array();
+		$this->curl->get($this->test_url . 'http_basic_auth.php', $data);
+		
+		$this->assertEquals('canceled', $this->curl->response);
 
 		$username = 'myusername';
 		$password = 'mypassword';
