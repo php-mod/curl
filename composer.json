@@ -7,9 +7,17 @@
   "license": "MIT",
   "authors": [
     {
+      "name": "php-curl-class",
+      "homepage": "https://github.com/php-curl-class"
+    },
+    {
       "name": "Hassan Amouhzi",
       "email": "hassan@anezi.net",
       "homepage": "http://hassan.amouhzi.com"
+    },
+    {
+      "name": "user52",
+      "homepage": "https://github.com/user52"
     }
   ],
   "require": {
