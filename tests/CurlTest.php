@@ -2,11 +2,27 @@
 
 namespace Curl;
 
-include 'helper.inc.php';
-
 class CurlTest extends \PHPUnit_Framework_TestCase {
 	
 	const TEST_URL = 'http://php-curl-test.anezi.net/tests/server.php';
+	
+	/**
+	 * 
+	 * @var Curl
+	 */
+	protected $curl;
+	
+	function setUp() {
+		$this->curl = new Curl();
+		$this->curl->setOpt(CURLOPT_SSL_VERIFYPEER, FALSE);
+		$this->curl->setOpt(CURLOPT_SSL_VERIFYHOST, FALSE);
+	}
+	
+	function server($url, $request_method, $data='') {
+		$request_method = strtolower($request_method);
+		$this->curl->$request_method($url, $data);
+		return $this->curl->response;
+	}
 
 	public function testExtensionLoaded() {
 			
@@ -15,9 +31,8 @@ class CurlTest extends \PHPUnit_Framework_TestCase {
 
 	public function testUserAgent() {
 			
-		$test = new \Test();
-		$test->curl->setUserAgent(Curl::USER_AGENT);
-		$this->assertEquals(Curl::USER_AGENT, $test->server(self::TEST_URL, 'GET', array(
+		$this->curl->setUserAgent(Curl::USER_AGENT);
+		$this->assertEquals(Curl::USER_AGENT, $this->server(self::TEST_URL, 'GET', array(
 				'test' => 'server',
 				'key' => 'HTTP_USER_AGENT',
 		)));
@@ -25,32 +40,28 @@ class CurlTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testGet() {
-		$test = new \Test();
-		$this->assertTrue($test->server(self::TEST_URL, 'GET', array(
+		$this->assertTrue($this->server(self::TEST_URL, 'GET', array(
 				'test' => 'server',
 				'key' => 'REQUEST_METHOD',
 		)) === 'GET');
 	}
 
 	public function testPostRequestMethod() {
-		$test = new \Test();
-		$this->assertTrue($test->server(self::TEST_URL, 'POST', array(
+		$this->assertTrue($this->server(self::TEST_URL, 'POST', array(
 				'test' => 'server',
 				'key' => 'REQUEST_METHOD',
 		)) === 'POST');
 	}
 
 	public function testPostData() {
-		$test = new \Test();
-		$this->assertTrue($test->server(self::TEST_URL, 'POST', array(
+		$this->assertTrue($this->server(self::TEST_URL, 'POST', array(
 				'test' => 'post',
 				'key' => 'test',
 		)) === 'post');
 	}
 
 	public function testPostMultidimensionalData() {
-		$test = new \Test();
-		$this->assertTrue($test->server(self::TEST_URL, 'POST', array(
+		$this->assertTrue($this->server(self::TEST_URL, 'POST', array(
 				'test' => 'post_multidimensional',
 				'key' => 'file',
 				'file' => array(
@@ -62,10 +73,9 @@ class CurlTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testPostFilePathUpload() {
-		$file_path = get_png();
+		$file_path = $this->get_png();
 
-		$test = new \Test();
-		$this->assertTrue($test->server(self::TEST_URL, 'POST', array(
+		$this->assertTrue($this->server(self::TEST_URL, 'POST', array(
 				'test' => 'post_file_path_upload',
 				'key' => 'image',
 				'image' => '@' . $file_path,
@@ -75,113 +85,124 @@ class CurlTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testPutRequestMethod() {
-		$test = new \Test();
-		$this->assertTrue($test->server(self::TEST_URL, 'PUT', array(
+		$this->assertTrue($this->server(self::TEST_URL, 'PUT', array(
 				'test' => 'server',
 				'key' => 'REQUEST_METHOD',
 		)) === 'PUT');
 	}
 
 	public function testPutData() {
-		$test = new \Test();
-		$this->assertTrue($test->server(self::TEST_URL, 'PUT', array(
+		$this->assertTrue($this->server(self::TEST_URL, 'PUT', array(
 				'test' => 'put',
 				'key' => 'test',
 		)) === 'put');
 	}
 
 	public function testPutFileHandle() {
-		$png = create_png();
-		$tmp_file = create_tmp_file($png);
+		$png = $this->create_png();
+		$tmp_file = $this->create_tmp_file($png);
 
-		$test = new \Test();
-		$test->curl->setopt(CURLOPT_PUT, TRUE);
-		$test->curl->setopt(CURLOPT_INFILE, $tmp_file);
-		$test->curl->setopt(CURLOPT_INFILESIZE, strlen($png));
-		$test->curl->put(self::TEST_URL, array(
+		$this->curl->setopt(CURLOPT_PUT, TRUE);
+		$this->curl->setopt(CURLOPT_INFILE, $tmp_file);
+		$this->curl->setopt(CURLOPT_INFILESIZE, strlen($png));
+		$this->curl->put(self::TEST_URL, array(
 				'test' => 'put_file_handle',
 		));
 
 		fclose($tmp_file);
 
-		$this->assertTrue($test->curl->response === 'image/png');
+		$this->assertTrue($this->curl->response === 'image/png');
 	}
 
 	public function testDelete() {
-		$test = new \Test();
-		$this->assertTrue($test->server(self::TEST_URL, 'DELETE', array(
+		$this->assertTrue($this->server(self::TEST_URL, 'DELETE', array(
 				'test' => 'server',
 				'key' => 'REQUEST_METHOD',
 		)) === 'DELETE');
 
-		$test = new \Test();
-		$this->assertTrue($test->server(self::TEST_URL, 'DELETE', array(
+		$this->assertTrue($this->server(self::TEST_URL, 'DELETE', array(
 				'test' => 'delete',
 				'key' => 'test',
 		)) === 'delete');
 	}
 
 	public function testBasicHttpAuth() {
-		$test = new \Test();
-		$this->assertTrue($test->server(self::TEST_URL, 'GET', array(
+		$this->assertTrue($this->server(self::TEST_URL, 'GET', array(
 				'test' => 'http_basic_auth',
 		)) === 'canceled');
 
 		$username = 'myusername';
 		$password = 'mypassword';
-		$test = new \Test();
-		$test->curl->setBasicAuthentication($username, $password);
-		$test->server(self::TEST_URL, 'GET', array(
+		$this->curl->setBasicAuthentication($username, $password);
+		$this->server(self::TEST_URL, 'GET', array(
 				'test' => 'http_basic_auth',
 		));
-		$json = json_decode($test->curl->response);
+		$json = json_decode($this->curl->response);
 		$this->assertTrue($json->username === $username);
 		$this->assertTrue($json->password === $password);
 	}
 
 	public function testReferrer() {
-		$test = new \Test();
-		$test->curl->setReferrer('myreferrer');
-		$this->assertTrue($test->server(self::TEST_URL, 'GET', array(
+		$this->curl->setReferrer('myreferrer');
+		$this->assertTrue($this->server(self::TEST_URL, 'GET', array(
 				'test' => 'server',
 				'key' => 'HTTP_REFERER',
 		)) === 'myreferrer');
 	}
 
 	public function testCookies() {
-		$test = new \Test();
-		$test->curl->setCookie('mycookie', 'yum');
-		$this->assertTrue($test->server(self::TEST_URL, 'GET', array(
+		$this->curl->setCookie('mycookie', 'yum');
+		$this->assertTrue($this->server(self::TEST_URL, 'GET', array(
 				'test' => 'cookie',
 				'key' => 'mycookie',
 		)) === 'yum');
 	}
 
 	public function testError() {
-		$test = new \Test();
-		$test->curl->setOpt(CURLOPT_CONNECTTIMEOUT_MS, 2000);
-		$test->curl->get('http://1.2.3.4/');
-		$this->assertTrue($test->curl->error === TRUE);
-		$this->assertTrue($test->curl->curl_error === TRUE);
-		$this->assertTrue($test->curl->curl_error_code === CURLE_OPERATION_TIMEOUTED);
+		$this->curl->setOpt(CURLOPT_CONNECTTIMEOUT_MS, 2000);
+		$this->curl->get('http://1.2.3.4/');
+		$this->assertTrue($this->curl->error === TRUE);
+		$this->assertTrue($this->curl->curl_error === TRUE);
+		$this->assertTrue($this->curl->curl_error_code === CURLE_OPERATION_TIMEOUTED);
 	}
 
 	public function testHeaders() {
-		$test = new \Test();
-		$test->curl->setHeader('Content-Type', 'application/json');
-		$test->curl->setHeader('X-Requested-With', 'XMLHttpRequest');
-		$test->curl->setHeader('Accept', 'application/json');
-		$this->assertTrue($test->server(self::TEST_URL, 'GET', array(
+		$this->curl->setHeader('Content-Type', 'application/json');
+		$this->curl->setHeader('X-Requested-With', 'XMLHttpRequest');
+		$this->curl->setHeader('Accept', 'application/json');
+		$this->assertTrue($this->server(self::TEST_URL, 'GET', array(
 				'test' => 'server',
 				'key' => 'CONTENT_TYPE',
 		)) === 'application/json');
-		$this->assertTrue($test->server(self::TEST_URL, 'GET', array(
+		$this->assertTrue($this->server(self::TEST_URL, 'GET', array(
 				'test' => 'server',
 				'key' => 'HTTP_X_REQUESTED_WITH',
 		)) === 'XMLHttpRequest');
-		$this->assertTrue($test->server(self::TEST_URL, 'GET', array(
+		$this->assertTrue($this->server(self::TEST_URL, 'GET', array(
 				'test' => 'server',
 				'key' => 'HTTP_ACCEPT',
 		)) === 'application/json');
+	}
+	
+	function create_png() {
+		// PNG image data, 1 x 1, 1-bit colormap, non-interlaced
+		ob_start();
+		imagepng(imagecreatefromstring(base64_decode('R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7')));
+		$raw_image = ob_get_contents();
+		ob_end_clean();
+		return $raw_image;
+	}
+	
+	function create_tmp_file($data) {
+		$tmp_file = tmpfile();
+		fwrite($tmp_file, $data);
+		rewind($tmp_file);
+		return $tmp_file;
+	}
+	
+	function get_png() {
+		$tmp_filename = tempnam('/tmp', 'php-curl-class.');
+		file_put_contents($tmp_filename, $this->create_png());
+		return $tmp_filename;
 	}
 }
