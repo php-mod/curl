@@ -1,4 +1,7 @@
 <?php
+
+use Curl\Curl;
+
 class Test {
     const TEST_URL = 'http://php-curl-test.anezi.net/tests/server.php';
 
