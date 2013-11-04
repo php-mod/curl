@@ -10,7 +10,6 @@ $key = isset($data_values['key']) ? $data_values['key'] : '';
 $response = array();
 
 $response['request_method'] = $request_method;
-$response['data_values'] = $data_values;
 $response['key'] = $key;
 
 if(isset($_FILES[$key])) {
