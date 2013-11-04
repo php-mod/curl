@@ -76,7 +76,7 @@ class CurlTest extends \PHPUnit_Framework_TestCase {
 		$this->curl->post($this->test_url . 'post_multidimensional.php', $data);
 
 		$this->assertEquals(
-				'test=post_multidimensional&key=file&file%5B0%5D=wibble&file%5B1%5D=wubble&file%5B2%5D=wobble',
+				'key=file&file%5B0%5D=wibble&file%5B1%5D=wubble&file%5B2%5D=wobble',
 				$this->curl->response);
 
 	}
@@ -86,7 +86,14 @@ class CurlTest extends \PHPUnit_Framework_TestCase {
 
 		$data = array(
 				'key' => 'image',
-				'image' => '@' . $file_path,
+				'image' => "@" . $file_path,
+		);
+		
+		$image = file_get_contents($file_path);
+
+		$data = array(
+				'key' => 'image',
+				'image' => $image,
 		);
 
 		$this->curl->post($this->test_url . 'post_file_path_upload.php', $data);
@@ -97,7 +104,7 @@ class CurlTest extends \PHPUnit_Framework_TestCase {
 						'key' => 'image',
 						'mime_content_type' => 'image/png'
 				),
-				json_decode($this->curl->response));
+				json_decode($this->curl->response, true));
 
 		unlink($file_path);
 	}
@@ -147,6 +154,7 @@ class CurlTest extends \PHPUnit_Framework_TestCase {
 	public function testBasicHttpAuth() {
 
 		$data = array();
+
 		$this->curl->get($this->test_url . 'http_basic_auth.php', $data);
 
 		$this->assertEquals('canceled', $this->curl->response);
@@ -156,9 +164,11 @@ class CurlTest extends \PHPUnit_Framework_TestCase {
 
 		$this->curl->setBasicAuthentication($username, $password);
 
-		$json = json_decode($this->curl->response);
-		$this->assertTrue($json->username === $username);
-		$this->assertTrue($json->password === $password);
+		$this->curl->get($this->test_url . 'http_basic_auth.php', $data);
+
+		$this->assertEquals(
+				'{"username":"myusername","password":"mypassword"}',
+				$this->curl->response);
 	}
 
 	public function testReferrer() {
