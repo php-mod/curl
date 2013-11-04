@@ -93,7 +93,7 @@ class CurlTest extends \PHPUnit_Framework_TestCase {
 
 		$data = array(
 				'key' => 'image',
-				'image' => $image,
+				'image' => $image . ';filename=test.png;type=image/png',
 		);
 
 		$this->curl->post($this->test_url . 'post_file_path_upload.php', $data);

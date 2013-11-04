@@ -58,7 +58,8 @@ class Curl {
 	public function post($url, $data=array()) {
 		$this->setopt(CURLOPT_URL, $url);
 		$this->setopt(CURLOPT_POST, TRUE);
-		$this->setopt(CURLOPT_POSTFIELDS, http_build_query($data));
+		$data = http_build_query($data);
+		$this->setopt(CURLOPT_POSTFIELDS, $data);
 		$this->_exec();
 	}
 
