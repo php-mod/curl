@@ -1,6 +1,8 @@
 <?php
 
-$request_method = isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : '';
+$request_method = isset($_SERVER['REQUEST_METHOD']) ?
+						$_SERVER['REQUEST_METHOD'] : '';
+
 $data_values = $request_method === 'POST' ? $_POST : $_GET;
 
 $key = isset($data_values['key']) ? $data_values['key'] : '';
@@ -8,6 +10,7 @@ $key = isset($data_values['key']) ? $data_values['key'] : '';
 $response = array();
 
 $response['request_method'] = $request_method;
+$response['data_values'] = $data_values;
 $response['key'] = $key;
 
 if(isset($_FILES[$key])) {
