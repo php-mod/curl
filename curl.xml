@@ -16,6 +16,7 @@
 	</description>
 	<files>
 		<folder>src</folder>
-    <file>curl.xml</file>
+        <file>curl.xml</file>
+        <file>jautoload.php</file>
 	</files>
 </extension>
