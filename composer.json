@@ -1,5 +1,5 @@
 {
-  "name": "php-mod/curl",
+  "name": "curl/curl",
   "description": "cURL class for PHP",
   "keywords": ["dot", "curl"],
   "homepage": "https://github.com/php-mod/curl",
