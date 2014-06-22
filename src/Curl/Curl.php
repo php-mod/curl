@@ -50,7 +50,10 @@ class Curl {
 	}
 
 	public function get($url, $data = array()) {
-		$this->setopt(CURLOPT_URL, $url . '?' . http_build_query($data));
+		if (count($data) > 0)
+		    $this->setopt(CURLOPT_URL, $url . '?' . http_build_query($data));
+	        else
+	            $this->setopt(CURLOPT_URL, $url);
 		$this->setopt(CURLOPT_HTTPGET, TRUE);
 		$this->_exec();
 	}
