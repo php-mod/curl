@@ -3,6 +3,7 @@ vendor/*
 .buildpath
 .project
 .settings/*
+.idea/*
 composer.lock
 *~
 tests/phpunit_report/*
