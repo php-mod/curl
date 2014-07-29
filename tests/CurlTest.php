@@ -2,11 +2,10 @@
 
 namespace Curl;
 
-class CurlTest extends \PHPUnit_Framework_TestCase {
+class CurlTest extends \PHPUnit_Framework_TestCase
+{
 
-	const TEST_URL = 'http://php-curl-test.anezi.net/tests/server.php';
-
-	var $test_url = 'http://php-curl-test.anezi.net/tests/server/';
+	const TEST_URL = 'http://php-curl-test.anezi.net';
 
 	/**
 	 *
@@ -22,7 +21,7 @@ class CurlTest extends \PHPUnit_Framework_TestCase {
 
 	function server($request_method, $data='') {
 		$request_method = strtolower($request_method);
-		$this->curl->$request_method(self::TEST_URL, $data);
+		$this->curl->$request_method(self::TEST_URL . '/server.php', $data);
 		return $this->curl->response;
 	}
 
@@ -73,7 +72,7 @@ class CurlTest extends \PHPUnit_Framework_TestCase {
 				),
 		);
 
-		$this->curl->post($this->test_url . 'post_multidimensional.php', $data);
+		$this->curl->post(self::TEST_URL . '/post_multidimensional.php', $data);
 
 		$this->assertEquals(
 				'key=file&file%5B0%5D=wibble&file%5B1%5D=wubble&file%5B2%5D=wobble',
@@ -81,22 +80,19 @@ class CurlTest extends \PHPUnit_Framework_TestCase {
 
 	}
 
-	public function testPostFilePathUpload() {
+	public function testPostFilePathUpload()
+    {
+
 		$file_path = $this->get_png();
 
 		$data = array(
 				'key' => 'image',
-				'image' => "@" . $file_path,
-		);
-		
-		$image = file_get_contents($file_path);
-
-		$data = array(
-				'key' => 'image',
-				'image' => $image . ';filename=test.png;type=image/png',
+				'image' => '@' . $file_path,
 		);
 
-		$this->curl->post($this->test_url . 'post_file_path_upload.php', $data);
+        $this->curl->setOpt(CURLOPT_RETURNTRANSFER, true);
+
+		$this->curl->post(self::TEST_URL . '/post_file_path_upload.php', $data);
 
 		$this->assertEquals(
 				array(
@@ -104,7 +100,7 @@ class CurlTest extends \PHPUnit_Framework_TestCase {
 						'key' => 'image',
 						'mime_content_type' => 'image/png'
 				),
-				json_decode($this->curl->response, true));
+                json_decode($this->curl->response, true));
 
 		unlink($file_path);
 	}
@@ -130,7 +126,7 @@ class CurlTest extends \PHPUnit_Framework_TestCase {
 		$this->curl->setopt(CURLOPT_PUT, TRUE);
 		$this->curl->setopt(CURLOPT_INFILE, $tmp_file);
 		$this->curl->setopt(CURLOPT_INFILESIZE, strlen($png));
-		$this->curl->put(self::TEST_URL, array(
+		$this->curl->put(self::TEST_URL . '/server.php', array(
 				'test' => 'put_file_handle',
 		));
 
@@ -155,7 +151,7 @@ class CurlTest extends \PHPUnit_Framework_TestCase {
 
 		$data = array();
 
-		$this->curl->get($this->test_url . 'http_basic_auth.php', $data);
+		$this->curl->get(self::TEST_URL . '/http_basic_auth.php', $data);
 
 		$this->assertEquals('canceled', $this->curl->response);
 
@@ -164,7 +160,7 @@ class CurlTest extends \PHPUnit_Framework_TestCase {
 
 		$this->curl->setBasicAuthentication($username, $password);
 
-		$this->curl->get($this->test_url . 'http_basic_auth.php', $data);
+		$this->curl->get(self::TEST_URL . '/http_basic_auth.php', $data);
 
 		$this->assertEquals(
 				'{"username":"myusername","password":"mypassword"}',
