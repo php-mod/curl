@@ -121,7 +121,9 @@ class Curl {
 	}
 
 	public function close() {
-		curl_close($this->curl);
+		if (is_resource($this->curl)) {
+			curl_close($this->curl);
+		}
 	}
 
 	public function _exec() {
