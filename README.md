@@ -23,11 +23,6 @@ $curl->post('http://www.example.com/login/', array(
     'username' => 'myusername',
     'password' => 'mypassword',
 ));
-// Or for json APIs
-$curl->post('http://www.example.com/login/', json_encode(array(
-    'username' => 'myusername',
-    'password' => 'mypassword',
-)));
 ```
 
 ```php
@@ -63,11 +58,6 @@ $curl->put('http://api.example.com/user/', array(
     'first_name' => 'Zach',
     'last_name' => 'Borboa',
 ));
-// Or for json APIs
-$curl->put('http://api.example.com/user/', json_encode(array(
-    'first_name' => 'Zach',
-    'last_name' => 'Borboa',
-)));
 ```
 
 ```php
@@ -75,10 +65,6 @@ $curl = new Curl\Curl();
 $curl->patch('http://api.example.com/profile/', array(
     'image' => '@path/to/file.jpg',
 ));
-// Or for json APIs
-$curl->patch('http://api.example.com/profile/', json_encode(array(
-    'image' => '@path/to/file.jpg',
-)));
 ```
 
 ```php
