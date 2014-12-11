@@ -208,6 +208,28 @@ class CurlTest extends \PHPUnit_Framework_TestCase
 				'key' => 'HTTP_ACCEPT',
 		)) === 'application/json');
 	}
+	
+	public function testReset()
+	{
+		$curl = $this->getMockBuilder(get_class($this->curl))->getMock();
+		$curl->expects($this->once())->method('reset')->with();
+		// lets make small request
+		$curl->setOpt(CURLOPT_CONNECTTIMEOUT_MS, 2000);
+		$curl->get('http://1.2.3.4/');
+		$curl->reset();
+		$this->assertFalse($curl->error);
+		$this->assertSame(0, $curl->error_code);
+		$this->assertNull($curl->error_message);
+		$this->assertFalse($curl->curl_error);
+		$this->assertSame(0, $curl->curl_error_code);
+		$this->assertNull($curl->curl_error_message);
+		$this->assertFalse($curl->http_error);
+		$this->assertSame(0, $curl->http_status_code);
+		$this->assertNull($curl->http_error_message);
+		$this->assertNull($curl->request_headers);
+		$this->assertNull($curl->response_headers);
+		$this->assertNull($curl->response);
+	}
 
 	function create_png() {
 		// PNG image data, 1 x 1, 1-bit colormap, non-interlaced
