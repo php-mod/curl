@@ -42,11 +42,7 @@ class Curl {
 			throw new \ErrorException('cURL library is not loaded');
 		}
 
-		$this->curl = curl_init();
-		$this->setUserAgent(self::USER_AGENT);
-		$this->setopt(CURLINFO_HEADER_OUT, TRUE);
-		$this->setopt(CURLOPT_HEADER, TRUE);
-		$this->setopt(CURLOPT_RETURNTRANSFER, TRUE);
+		$this->init();
 	}
 
 	public function get($url, $data = array()) {
@@ -125,6 +121,25 @@ class Curl {
 			curl_close($this->curl);
 		}
 	}
+	
+	public function reset() {
+		$this->close();
+		$this->_cookies = array();
+		$this->_headers = array();
+		$this->error = FALSE;
+		$this->error_code = 0;
+		$this->error_message = NULL;
+		$this->curl_error = FALSE;
+		$this->curl_error_code = 0;
+		$this->curl_error_message = NULL;
+		$this->http_error = FALSE;
+		$this->http_status_code = 0;
+		$this->http_error_message = NULL;
+		$this->request_headers = NULL;
+		$this->response_headers = NULL;
+		$this->response = NULL;
+		$this->init();
+	}
 
 	public function _exec() {
 		$this->response = curl_exec($this->curl);
@@ -154,5 +169,13 @@ class Curl {
 
 	public function __destruct() {
 		$this->close();
+	}
+	
+	private function init() {
+		$this->curl = curl_init();
+		$this->setUserAgent(self::USER_AGENT);
+		$this->setopt(CURLINFO_HEADER_OUT, TRUE);
+		$this->setopt(CURLOPT_HEADER, TRUE);
+		$this->setopt(CURLOPT_RETURNTRANSFER, TRUE);
 	}
 }
