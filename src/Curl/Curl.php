@@ -47,7 +47,7 @@ class Curl {
 
 	public function get($url, $data = array()) {
 		if (count($data) > 0)
-		    $this->setopt(CURLOPT_URL, $url . '?' g. http_build_query($data));
+		    $this->setopt(CURLOPT_URL, $url . '?' . http_build_query($data));
 	        else
 	            $this->setopt(CURLOPT_URL, $url);
 		$this->setopt(CURLOPT_HTTPGET, TRUE);
@@ -57,40 +57,27 @@ class Curl {
 	public function post($url, $data=array()) {
 		$this->setopt(CURLOPT_URL, $url);
 		$this->setopt(CURLOPT_POST, TRUE);
-        if(is_array($data)){
-            $data = http_build_query($data);
-        }
+		$data = http_build_query($data);
 		$this->setopt(CURLOPT_POSTFIELDS, $data);
 		$this->_exec();
 	}
 
 	public function put($url, $data=array()) {
-		$this->setopt(CURLOPT_URL, $url);
+		$this->setopt(CURLOPT_URL, $url . '?' . http_build_query($data));
 		$this->setopt(CURLOPT_CUSTOMREQUEST, 'PUT');
-        if(is_array($data)){
-            $data = http_build_query($data);
-        }
-        $this->setopt(CURLOPT_POSTFIELDS, $data);
 		$this->_exec();
 	}
 
 	public function patch($url, $data=array()) {
 		$this->setopt(CURLOPT_URL, $url);
 		$this->setopt(CURLOPT_CUSTOMREQUEST, 'PATCH');
-        if(is_array($data)){
-            $data = http_build_query($data);
-        }
-        $this->setopt(CURLOPT_POSTFIELDS, $data);
+		$this->setopt(CURLOPT_POSTFIELDS, $data);
 		$this->_exec();
 	}
 
 	public function delete($url, $data=array()) {
-		$this->setopt(CURLOPT_URL, $url);
+		$this->setopt(CURLOPT_URL, $url . '?' . http_build_query($data));
 		$this->setopt(CURLOPT_CUSTOMREQUEST, 'DELETE');
-        if(is_array($data)){
-            $data = http_build_query($data);
-        }
-        $this->setopt(CURLOPT_POSTFIELDS, $data);
 		$this->_exec();
 	}
 
