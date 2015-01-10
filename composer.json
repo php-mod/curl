@@ -25,7 +25,8 @@
     "ext-curl": "*"
   },
   "require-dev": {
-    "phpunit/phpunit": "3.7.*"
+    "phpunit/phpunit": "3.7.*",
+    "squizlabs/php_codesniffer": "~2.1"
   },
   "autoload": {
     "psr-0": {
