@@ -6,6 +6,7 @@ before_script:
 
 script:
   - ./vendor/bin/phpcs --warning-severity=0 --standard=PSR2 src
+  - phpunit
 
 php:
   - 5.3
