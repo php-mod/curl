@@ -11,21 +11,3 @@ if ($test === 'put_file_handle') {
     unlink($tmp_filename);
     exit;
 }
-
-header('Content-Type: text/plain');
-
-$data_mapping = array(
-    'cookie' => '_COOKIE',
-    'delete' => '_GET',
-    'post' => '_POST',
-    'put' => '_GET',
-    'server' => '_SERVER',
-);
-
-if(isset($data_mapping[$test])) {
-    $data = $$data_mapping[$test];
-    $value = isset($data[$key]) ? $data[$key] : '';
-echo $value;
-} else {
-    echo "Error.";
-}

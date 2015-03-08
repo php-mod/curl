@@ -1,0 +1,1 @@
+127.0.0.1	FALSE	/	FALSE	0	my_cookie	m_i_a_m

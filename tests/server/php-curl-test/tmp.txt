@@ -1,0 +1,216 @@
+    /**
+     * @return mixed
+     */
+    public function getUrl()
+    {
+        return $this->info['url'];
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getContentType()
+    {
+        return $this->info['content_type'];
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHttpCode()
+    {
+        return $this->info['http_code'];
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHeaderSize()
+    {
+        return $this->info['header_size'];
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRequestSize()
+    {
+        return $this->info['request_size'];
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFileTime()
+    {
+        return $this->info['filetime'];
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSslVerifyResult()
+    {
+        return $this->info['ssl_verify_result'];
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRedirectCount()
+    {
+        return $this->info['redirect_count'];
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTotalTime()
+    {
+        return $this->info['total_time'];
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNameLookupTime()
+    {
+        return $this->info['namelookup_time'];
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getConnectTime()
+    {
+        return $this->info['connect_time'];
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPreTransferTime()
+    {
+        return $this->info['pretransfer_time'];
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSizeUpload()
+    {
+        return $this->info['size_upload'];
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSizeDownload()
+    {
+        return $this->info['size_download'];
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSpeedDownload()
+    {
+        return $this->info['speed_download'];
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSpeedUpload()
+    {
+        return $this->info['speed_upload'];
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDownloadContentLength()
+    {
+        return $this->info['download_content_length'];
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUploadContentLength()
+    {
+        return $this->info['upload_content_length'];
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStartTransferTime()
+    {
+        return $this->info['starttransfer_time'];
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRedirectTime()
+    {
+        return $this->info['redirect_time'];
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCertInfo()
+    {
+        return $this->info['certinfo'];
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPrimaryIp()
+    {
+        return $this->info['primary_ip'];
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPrimaryPort()
+    {
+        return $this->info['primary_port'];
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLocalIp()
+    {
+        return $this->info['local_ip'];
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLocalPort()
+    {
+        return $this->info['local_port'];
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRedirectUrl()
+    {
+        return $this->info['redirect_url'];
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRequestHeader()
+    {
+        return $this->info['request_header'];
+    }
+
