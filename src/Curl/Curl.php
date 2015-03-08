@@ -1512,9 +1512,7 @@ class Curl
      */
     public function setHttp200aliases(array $http200aliases)
     {
-        $this->setOption(CURLOPT_HTTP200ALIASES, $http200aliases);
-
-        return $this;
+        return $this->setOption(CURLOPT_HTTP200ALIASES, $http200aliases);
     }
 
     /**
@@ -1528,9 +1526,7 @@ class Curl
      */
     public function setHttpHeader(array $httpHeader)
     {
-        $this->setOption(CURLOPT_HTTPHEADER, $httpHeader);
-
-        return $this;
+        return $this->setOption(CURLOPT_HTTPHEADER, $httpHeader);
     }
 
     /**
@@ -1544,9 +1540,7 @@ class Curl
      */
     public function setPostQuote(array $postQuote)
     {
-        $this->setOption(CURLOPT_POSTQUOTE, $postQuote);
-
-        return $this;
+        return $this->setOption(CURLOPT_POSTQUOTE, $postQuote);
     }
 
     /**
@@ -1560,9 +1554,7 @@ class Curl
      */
     public function setQuote(array $quote)
     {
-        $this->setOption(CURLOPT_QUOTE, $quote);
-
-        return $this;
+        return $this->setOption(CURLOPT_QUOTE, $quote);
     }
 
     /**
@@ -1580,9 +1572,7 @@ class Curl
             throw new \InvalidArgumentException('setFile method only accepts resource.');
         }
 
-        $this->setOption(CURLOPT_FILE, $file);
-
-        return $this;
+        return $this->setOption(CURLOPT_FILE, $file);
     }
 
     /**
@@ -1596,13 +1586,7 @@ class Curl
      */
     public function setStderr($stderr)
     {
-        if (!is_resource($stderr)) {
-            throw new \InvalidArgumentException('setStderr method only accepts resource.');
-        }
-
-        $this->setOption(CURLOPT_STDERR, $stderr);
-
-        return $this;
+        return $this->setResourceOption(CURLOPT_STDERR, $stderr);
     }
 
     /**
@@ -1615,13 +1599,7 @@ class Curl
      */
     public function setWriteHeader($writeHeader)
     {
-        if (!is_resource($writeHeader)) {
-            throw new \InvalidArgumentException('setWriteHeader method only accepts resource.');
-        }
-
-        $this->setOption(CURLOPT_WRITEHEADER, $writeHeader);
-
-        return $this;
+        return $this->setResourceOption(CURLOPT_WRITEHEADER, $writeHeader);
     }
 
     /**
@@ -1654,10 +1632,6 @@ class Curl
      */
     public function setPasswordFunction($passwordFunction)
     {
-        if (!is_string($passwordFunction)) {
-            throw new \InvalidArgumentException('setPasswordFunction method only accepts string.');
-        }
-
         return $this->setStringOption(CURLOPT_PASSWDFUNCTION, $passwordFunction);
     }
 
@@ -1682,10 +1656,6 @@ class Curl
      */
     public function setProgressFunction($progressFunction)
     {
-        if (!is_string($progressFunction)) {
-            throw new \InvalidArgumentException('setProgressFunction method only accepts string.');
-        }
-
         return $this->setStringOption(CURLOPT_PROGRESSFUNCTION, $progressFunction);
     }
 
@@ -1706,10 +1676,6 @@ class Curl
      */
     public function setReadFunction($readFunction)
     {
-        if (!is_string($readFunction)) {
-            throw new \InvalidArgumentException('setReadFunction method only accepts string.');
-        }
-
         return $this->setStringOption(CURLOPT_READFUNCTION, $readFunction);
     }
 
@@ -1727,10 +1693,6 @@ class Curl
      */
     public function setWriteFunction($writeFunction)
     {
-        if (!is_string($writeFunction)) {
-            throw new \InvalidArgumentException('setWriteFunction method only accepts string.');
-        }
-
         return $this->setStringOption(CURLOPT_WRITEFUNCTION, $writeFunction);
     }
 
@@ -1744,9 +1706,7 @@ class Curl
      */
     public function setShare($share)
     {
-        $this->setOption(CURLOPT_SHARE, $share);
-
-        return $this;
+        return $this->setOption(CURLOPT_SHARE, $share);
     }
 
     /**
@@ -1848,10 +1808,6 @@ class Curl
      */
     private function setCookieString($cookie)
     {
-        if (!is_string($cookie)) {
-            throw new \InvalidArgumentException('setCookie method only accepts string.');
-        }
-
         return $this->setStringOption(CURLOPT_COOKIE, $cookie);
     }
 
@@ -2252,12 +2208,9 @@ class Curl
      */
     public function setUrl($url)
     {
-        if (!is_string($url)) {
-            throw new \InvalidArgumentException('setUrl method only accepts string.');
-        }
-
+        $this->setStringOption(CURLOPT_URL, $url);
         $this->url = $url;
-        return $this->setStringOption(CURLOPT_URL, $url);
+        return $this;
     }
 
     private function setBooleanOption($key, $value)
@@ -2282,6 +2235,15 @@ class Curl
     {
         if (!is_int($value)) {
             throw new \InvalidArgumentException($key . ' only accepts integer.');
+        }
+
+        return $this->setOption($key, $value);
+    }
+
+    private function setResourceOption($key, $value)
+    {
+        if (!is_resource($value)) {
+            throw new \InvalidArgumentException($key . ' only accepts resource.');
         }
 
         return $this->setOption($key, $value);
