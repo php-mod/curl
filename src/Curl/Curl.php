@@ -60,13 +60,7 @@ class Curl
      */
     public function autoReferer($autoReferer = true)
     {
-        if (!is_bool($autoReferer)) {
-            throw new \InvalidArgumentException('autoReferer method only accepts boolean.');
-        }
-
-        $this->setOption(CURLOPT_AUTOREFERER, $autoReferer);
-
-        return $this;
+        return $this->setBooleanOption(CURLOPT_AUTOREFERER, $autoReferer);
     }
 
     /**
@@ -75,6 +69,7 @@ class Curl
      * @param $option
      * @param $value
      *
+     * @return $this
      * @throws \ErrorException
      */
     private function setOption($option, $value)
@@ -82,6 +77,8 @@ class Curl
         if (curl_setopt($this->handle, $option, $value) === false) {
             throw new \ErrorException('failure.');
         }
+
+        return $this;
     }
 
     /**
@@ -97,13 +94,7 @@ class Curl
      */
     public function newCookieSession($newCookieSession = true)
     {
-        if (!is_bool($newCookieSession)) {
-            throw new \InvalidArgumentException('newCookieSession method only accepts boolean.');
-        }
-
-        $this->setOption(CURLOPT_COOKIESESSION, $newCookieSession);
-
-        return $this;
+        return $this->setBooleanOption(CURLOPT_COOKIESESSION, $newCookieSession);
     }
 
     /**
@@ -124,9 +115,7 @@ class Curl
             $this->verbose();
         }
 
-        $this->setOption(CURLOPT_CERTINFO, $certInfo);
-
-        return $this;
+        return $this->setOption(CURLOPT_CERTINFO, $certInfo);
     }
 
     /**
@@ -140,11 +129,7 @@ class Curl
      */
     public function verbose($verbose = true, $filePath = null)
     {
-        if (!is_bool($verbose)) {
-            throw new \InvalidArgumentException('verbose method only accepts boolean.');
-        }
-
-        $this->setOption(CURLOPT_VERBOSE, $verbose);
+        $this->setBooleanOption(CURLOPT_VERBOSE, $verbose);
 
         if ($filePath) {
             $this->setStdErrLocation($filePath);
@@ -163,13 +148,7 @@ class Curl
      */
     public function setStdErrLocation($filePath)
     {
-        if (!is_string($filePath)) {
-            throw new \InvalidArgumentException('setStdErrLocation method only accepts string.');
-        }
-
-        $this->setOption(CURLOPT_STDERR, $filePath);
-
-        return $this;
+        return $this->setStringOption(CURLOPT_STDERR, $filePath);
     }
 
     /**
@@ -183,13 +162,7 @@ class Curl
      */
     public function connectOnly($connectOnly = true)
     {
-        if (!is_bool($connectOnly)) {
-            throw new \InvalidArgumentException('connectOnly method only accepts string.');
-        }
-
-        $this->setOption(CURLOPT_CONNECT_ONLY, $connectOnly);
-
-        return $this;
+        return $this->setBooleanOption(CURLOPT_CONNECT_ONLY, $connectOnly);
     }
 
     /**
@@ -202,13 +175,7 @@ class Curl
      */
     public function crlf($crlf = true)
     {
-        if (!is_bool($crlf)) {
-            throw new \InvalidArgumentException('crlf method only accepts string.');
-        }
-
-        $this->setOption(CURLOPT_CRLF, $crlf);
-
-        return $this;
+        return $this->setBooleanOption(CURLOPT_CRLF, $crlf);
     }
 
     /**
@@ -221,13 +188,7 @@ class Curl
      */
     public function dnsUseGlobalCache($useGlobalCache = true)
     {
-        if (!is_bool($useGlobalCache)) {
-            throw new \InvalidArgumentException('dnsUseGlobalCache method only accepts string.');
-        }
-
-        $this->setOption(CURLOPT_DNS_USE_GLOBAL_CACHE, $useGlobalCache);
-
-        return $this;
+        return $this->setBooleanOption(CURLOPT_DNS_USE_GLOBAL_CACHE, $useGlobalCache);
     }
 
     /**
@@ -241,13 +202,7 @@ class Curl
      */
     public function failOnError($failOnError = true)
     {
-        if (!is_bool($failOnError)) {
-            throw new \InvalidArgumentException('failOnError method only accepts string.');
-        }
-
-        $this->setOption(CURLOPT_FAILONERROR, $failOnError);
-
-        return $this;
+        return $this->setBooleanOption(CURLOPT_FAILONERROR, $failOnError);
     }
 
     /**
@@ -261,13 +216,7 @@ class Curl
      */
     public function retrieveFileTime($retrieveFileTime = true)
     {
-        if (!is_bool($retrieveFileTime)) {
-            throw new \InvalidArgumentException('retrieveFileTime method only accepts string.');
-        }
-
-        $this->setOption(CURLOPT_FILETIME, $retrieveFileTime);
-
-        return $this;
+        return $this->setBooleanOption(CURLOPT_FILETIME, $retrieveFileTime);
     }
 
     /**
@@ -280,13 +229,7 @@ class Curl
      */
     public function forbidReuse($forbidReuse = true)
     {
-        if (!is_bool($forbidReuse)) {
-            throw new \InvalidArgumentException('forbidReuse method only accepts string.');
-        }
-
-        $this->setOption(CURLOPT_FORBID_REUSE, $forbidReuse);
-
-        return $this;
+        return $this->setBooleanOption(CURLOPT_FORBID_REUSE, $forbidReuse);
     }
 
     /**
@@ -299,13 +242,7 @@ class Curl
      */
     public function freshConnect($freshConnect = true)
     {
-        if (!is_bool($freshConnect)) {
-            throw new \InvalidArgumentException('freshConnect method only accepts string.');
-        }
-
-        $this->setOption(CURLOPT_FRESH_CONNECT, $freshConnect);
-
-        return $this;
+        return $this->setBooleanOption(CURLOPT_FRESH_CONNECT, $freshConnect);
     }
 
     /**
@@ -319,13 +256,7 @@ class Curl
      */
     public function ftpUseEPRT($ftpUseEPRT = true)
     {
-        if (!is_bool($ftpUseEPRT)) {
-            throw new \InvalidArgumentException('ftpUseEPRT method only accepts string.');
-        }
-
-        $this->setOption(CURLOPT_FTP_USE_EPRT, $ftpUseEPRT);
-
-        return $this;
+        return $this->setBooleanOption(CURLOPT_FTP_USE_EPRT, $ftpUseEPRT);
     }
 
     /**
@@ -338,13 +269,7 @@ class Curl
      */
     public function ftpUseEPSV($ftpUseEPSV = true)
     {
-        if (!is_bool($ftpUseEPSV)) {
-            throw new \InvalidArgumentException('ftpUseEPSV method only accepts string.');
-        }
-
-        $this->setOption(CURLOPT_FTP_USE_EPSV, $ftpUseEPSV);
-
-        return $this;
+        return $this->setBooleanOption(CURLOPT_FTP_USE_EPSV, $ftpUseEPSV);
     }
 
     /**
@@ -357,13 +282,7 @@ class Curl
      */
     public function ftpCreateMissingDirs($ftpCreateMissingDirs = true)
     {
-        if (!is_bool($ftpCreateMissingDirs)) {
-            throw new \InvalidArgumentException('ftpCreateMissingDirs method only accepts string.');
-        }
-
-        $this->setOption(CURLOPT_FTP_CREATE_MISSING_DIRS, $ftpCreateMissingDirs);
-
-        return $this;
+        return $this->setBooleanOption(CURLOPT_FTP_CREATE_MISSING_DIRS, $ftpCreateMissingDirs);
     }
 
     /**
@@ -376,13 +295,7 @@ class Curl
      */
     public function ftpAppend($ftpAppend = true)
     {
-        if (!is_bool($ftpAppend)) {
-            throw new \InvalidArgumentException('ftpAppend method only accepts string.');
-        }
-
-        $this->setOption(CURLOPT_FTPAPPEND, $ftpAppend);
-
-        return $this;
+        return $this->setBooleanOption(CURLOPT_FTPAPPEND, $ftpAppend);
     }
 
     /**
@@ -396,13 +309,7 @@ class Curl
      */
     public function tcpNoDelay($tcpNoDelay = true)
     {
-        if (!is_bool($tcpNoDelay)) {
-            throw new \InvalidArgumentException('tcpNoDelay method only accepts string.');
-        }
-
-        $this->setOption(CURLOPT_TCP_NODELAY, $tcpNoDelay);
-
-        return $this;
+        return $this->setBooleanOption(CURLOPT_TCP_NODELAY, $tcpNoDelay);
     }
 
     /**
@@ -417,13 +324,7 @@ class Curl
      */
     public function ftpASCII($ftpASCII = true)
     {
-        if (!is_bool($ftpASCII)) {
-            throw new \InvalidArgumentException('ftpASCII method only accepts string.');
-        }
-
-        $this->setOption(CURLOPT_FTPASCII, $ftpASCII);
-
-        return $this;
+        return $this->setBooleanOption(CURLOPT_FTPASCII, $ftpASCII);
     }
 
     /**
@@ -436,13 +337,7 @@ class Curl
      */
     public function ftpListOnly($ftpListOnly = true)
     {
-        if (!is_bool($ftpListOnly)) {
-            throw new \InvalidArgumentException('ftpListOnly method only accepts string.');
-        }
-
-        $this->setOption(CURLOPT_FTPLISTONLY, $ftpListOnly);
-
-        return $this;
+        return $this->setBooleanOption(CURLOPT_FTPLISTONLY, $ftpListOnly);
     }
 
     /**
@@ -455,13 +350,7 @@ class Curl
      */
     public function includeHeader($includeHeader = true)
     {
-        if (!is_bool($includeHeader)) {
-            throw new \InvalidArgumentException('includeHeader method only accepts string.');
-        }
-
-        $this->setOption(CURLOPT_HEADER, $includeHeader);
-
-        return $this;
+        return $this->setBooleanOption(CURLOPT_HEADER, $includeHeader);
     }
 
     /**
@@ -474,13 +363,7 @@ class Curl
      */
     public function headerOut($track = true)
     {
-        if (!is_bool($track)) {
-            throw new \InvalidArgumentException('headerOut method only accepts string.');
-        }
-
-        $this->setOption(CURLINFO_HEADER_OUT, $track);
-
-        return $this;
+        return $this->setBooleanOption(CURLINFO_HEADER_OUT, $track);
     }
 
     /**
@@ -494,13 +377,7 @@ class Curl
      */
     public function httpGET($httpGET = true)
     {
-        if (!is_bool($httpGET)) {
-            throw new \InvalidArgumentException('httpGET method only accepts string.');
-        }
-
-        $this->setOption(CURLOPT_HTTPGET, $httpGET);
-
-        return $this;
+        return $this->setBooleanOption(CURLOPT_HTTPGET, $httpGET);
     }
 
     /**
@@ -513,13 +390,7 @@ class Curl
      */
     public function httpProxyTunnel($httpProxyTunnel = true)
     {
-        if (!is_bool($httpProxyTunnel)) {
-            throw new \InvalidArgumentException('httpProxyTunnel method only accepts string.');
-        }
-
-        $this->setOption(CURLOPT_HTTPPROXYTUNNEL, $httpProxyTunnel);
-
-        return $this;
+        return $this->setBooleanOption(CURLOPT_HTTPPROXYTUNNEL, $httpProxyTunnel);
     }
 
     /**
@@ -533,13 +404,7 @@ class Curl
      */
     public function netrc($netrc = true)
     {
-        if (!is_bool($netrc)) {
-            throw new \InvalidArgumentException('netrc method only accepts string.');
-        }
-
-        $this->setOption(CURLOPT_NETRC, $netrc);
-
-        return $this;
+        return $this->setBooleanOption(CURLOPT_NETRC, $netrc);
     }
 
     /**
@@ -553,13 +418,7 @@ class Curl
      */
     public function noBody($noBody = true)
     {
-        if (!is_bool($noBody)) {
-            throw new \InvalidArgumentException('noBody method only accepts string.');
-        }
-
-        $this->setOption(CURLOPT_NOBODY, $noBody);
-
-        return $this;
+        return $this->setBooleanOption(CURLOPT_NOBODY, $noBody);
     }
 
     /**
@@ -573,13 +432,7 @@ class Curl
      */
     public function noProgress($noProgress = true)
     {
-        if (!is_bool($noProgress)) {
-            throw new \InvalidArgumentException('noProgress method only accepts string.');
-        }
-
-        $this->setOption(CURLOPT_NOPROGRESS, $noProgress);
-
-        return $this;
+        return $this->setBooleanOption(CURLOPT_NOPROGRESS, $noProgress);
     }
 
     /**
@@ -593,13 +446,7 @@ class Curl
      */
     public function noSignal($noSignal = true)
     {
-        if (!is_bool($noSignal)) {
-            throw new \InvalidArgumentException('noSignal method only accepts string.');
-        }
-
-        $this->setOption(CURLOPT_NOSIGNAL, $noSignal);
-
-        return $this;
+        return $this->setBooleanOption(CURLOPT_NOSIGNAL, $noSignal);
     }
 
     /**
@@ -613,13 +460,7 @@ class Curl
      */
     public function post($post = true)
     {
-        if (!is_bool($post)) {
-            throw new \InvalidArgumentException('post method only accepts string.');
-        }
-
-        $this->setOption(CURLOPT_POST, $post);
-
-        return $this;
+        return $this->setBooleanOption(CURLOPT_POST, $post);
     }
 
     /**
@@ -633,13 +474,7 @@ class Curl
      */
     public function returnTransfer($returnTransfer = true)
     {
-        if (!is_bool($returnTransfer)) {
-            throw new \InvalidArgumentException('returnTransfer method only accepts string.');
-        }
-
-        $this->setOption(CURLOPT_RETURNTRANSFER, $returnTransfer);
-
-        return $this;
+        return $this->setBooleanOption(CURLOPT_RETURNTRANSFER, $returnTransfer);
     }
 
     /**
@@ -653,13 +488,7 @@ class Curl
      */
     public function transferText($transferText)
     {
-        if (!is_bool($transferText)) {
-            throw new \InvalidArgumentException('transferText method only accepts string.');
-        }
-
-        $this->setOption(CURLOPT_TRANSFERTEXT, $transferText);
-
-        return $this;
+        return $this->setBooleanOption(CURLOPT_TRANSFERTEXT, $transferText);
     }
 
     /**
@@ -672,13 +501,7 @@ class Curl
      */
     public function upload($upload = true)
     {
-        if (!is_bool($upload)) {
-            throw new \InvalidArgumentException('upload method only accepts string.');
-        }
-
-        $this->setOption(CURLOPT_UPLOAD, $upload);
-
-        return $this;
+        return $this->setBooleanOption(CURLOPT_UPLOAD, $upload);
     }
 
     /**
@@ -1320,13 +1143,7 @@ class Curl
      */
     public function setCaInfo($caInfo)
     {
-        if (!is_string($caInfo)) {
-            throw new \InvalidArgumentException('setCaInfo method only accepts string.');
-        }
-
-        $this->setOption(CURLOPT_CAINFO, $caInfo);
-
-        return $this;
+        return $this->setStringOption(CURLOPT_CAINFO, $caInfo);
     }
 
     /**
@@ -1340,13 +1157,7 @@ class Curl
      */
     public function setCapath($capath)
     {
-        if (!is_string($capath)) {
-            throw new \InvalidArgumentException('setCapath method only accepts string.');
-        }
-
-        $this->setOption(CURLOPT_CAPATH, $capath);
-
-        return $this;
+        return $this->setStringOption(CURLOPT_CAPATH, $capath);
     }
 
     /**
@@ -1392,13 +1203,7 @@ class Curl
      */
     public function setCookieFile($cookieFile)
     {
-        if (!is_string($cookieFile)) {
-            throw new \InvalidArgumentException('setCookieFile method only accepts string.');
-        }
-
-        $this->setOption(CURLOPT_COOKIEFILE, $cookieFile);
-
-        return $this;
+        return $this->setStringOption(CURLOPT_COOKIEFILE, $cookieFile);
     }
 
     /**
@@ -1412,13 +1217,7 @@ class Curl
      */
     public function setCookieJar($cookieJar)
     {
-        if (!is_string($cookieJar)) {
-            throw new \InvalidArgumentException('setCookieJar method only accepts string.');
-        }
-
-        $this->setOption(CURLOPT_COOKIEJAR, $cookieJar);
-
-        return $this;
+        return $this->setStringOption(CURLOPT_COOKIEJAR, $cookieJar);
     }
 
     /**
@@ -1442,13 +1241,7 @@ class Curl
      */
     public function setCustomRequest($customRequest)
     {
-        if (!is_string($customRequest)) {
-            throw new \InvalidArgumentException('setCustomRequest method only accepts string.');
-        }
-
-        $this->setOption(CURLOPT_CUSTOMREQUEST, $customRequest);
-
-        return $this;
+        return $this->setStringOption(CURLOPT_CUSTOMREQUEST, $customRequest);
     }
 
     /**
@@ -1462,13 +1255,7 @@ class Curl
      */
     public function setEgdSocket($egdSocket)
     {
-        if (!is_string($egdSocket)) {
-            throw new \InvalidArgumentException('setEgdSocket method only accepts string.');
-        }
-
-        $this->setOption(CURLOPT_EGDSOCKET, $egdSocket);
-
-        return $this;
+        return $this->setStringOption(CURLOPT_EGDSOCKET, $egdSocket);
     }
 
     /**
@@ -1486,13 +1273,7 @@ class Curl
      */
     public function setEncoding($encoding)
     {
-        if (!is_string($encoding)) {
-            throw new \InvalidArgumentException('setEncoding method only accepts string.');
-        }
-
-        $this->setOption(CURLOPT_ENCODING, $encoding);
-
-        return $this;
+        return $this->setStringOption(CURLOPT_ENCODING, $encoding);
     }
 
     /**
@@ -1510,13 +1291,7 @@ class Curl
      */
     public function setFtpPort($ftpPort)
     {
-        if (!is_string($ftpPort)) {
-            throw new \InvalidArgumentException('setFtpPort method only accepts string.');
-        }
-
-        $this->setOption(CURLOPT_FTPPORT, $ftpPort);
-
-        return $this;
+        return $this->setStringOption(CURLOPT_FTPPORT, $ftpPort);
     }
 
     /**
@@ -1530,13 +1305,7 @@ class Curl
      */
     public function setInterface($interface)
     {
-        if (!is_string($interface)) {
-            throw new \InvalidArgumentException('setInterface method only accepts string.');
-        }
-
-        $this->setOption(CURLOPT_INTERFACE, $interface);
-
-        return $this;
+        return $this->setStringOption(CURLOPT_INTERFACE, $interface);
     }
 
     /**
@@ -1551,13 +1320,7 @@ class Curl
      */
     public function setKeyPassword($keyPassword)
     {
-        if (!is_string($keyPassword)) {
-            throw new \InvalidArgumentException('setKeyPassword method only accepts string.');
-        }
-
-        $this->setOption(CURLOPT_KEYPASSWD, $keyPassword);
-
-        return $this;
+        return $this->setStringOption(CURLOPT_KEYPASSWD, $keyPassword);
     }
 
     /**
@@ -1579,13 +1342,7 @@ class Curl
      */
     public function setKrb4level($krb4level)
     {
-        if (!is_string($krb4level)) {
-            throw new \InvalidArgumentException('setKrb4level method only accepts string.');
-        }
-
-        $this->setOption(CURLOPT_KRB4LEVEL, $krb4level);
-
-        return $this;
+        return $this->setStringOption(CURLOPT_KRB4LEVEL, $krb4level);
     }
 
     /**
@@ -1633,13 +1390,7 @@ class Curl
      */
     public function setProxy($proxy)
     {
-        if (!is_string($proxy)) {
-            throw new \InvalidArgumentException('setProxy method only accepts string.');
-        }
-
-        $this->setOption(CURLOPT_PROXY, $proxy);
-
-        return $this;
+        return $this->setStringOption(CURLOPT_PROXY, $proxy);
     }
 
     /**
@@ -1654,13 +1405,7 @@ class Curl
      */
     public function setProxyUserAndPassword($proxyUserAndPassword)
     {
-        if (!is_string($proxyUserAndPassword)) {
-            throw new \InvalidArgumentException('setProxyUserAndPassword method only accepts string.');
-        }
-
-        $this->setOption(CURLOPT_PROXYUSERPWD, $proxyUserAndPassword);
-
-        return $this;
+        return $this->setStringOption(CURLOPT_PROXYUSERPWD, $proxyUserAndPassword);
     }
 
     /**
@@ -1673,13 +1418,7 @@ class Curl
      */
     public function setRandomFile($randomFile)
     {
-        if (!is_string($randomFile)) {
-            throw new \InvalidArgumentException('setRandomFile method only accepts string.');
-        }
-
-        $this->setOption(CURLOPT_RANDOM_FILE, $randomFile);
-
-        return $this;
+        return $this->setStringOption(CURLOPT_RANDOM_FILE, $randomFile);
     }
 
     /**
@@ -1695,13 +1434,7 @@ class Curl
      */
     public function setRange($range)
     {
-        if (!is_string($range)) {
-            throw new \InvalidArgumentException('setRange method only accepts string.');
-        }
-
-        $this->setOption(CURLOPT_RANGE, $range);
-
-        return $this;
+        return $this->setStringOption(CURLOPT_RANGE, $range);
     }
 
     /**
@@ -1715,13 +1448,7 @@ class Curl
      */
     public function setReferer($referer)
     {
-        if (!is_string($referer)) {
-            throw new \InvalidArgumentException('setReferer method only accepts string.');
-        }
-
-        $this->setOption(CURLOPT_REFERER, $referer);
-
-        return $this;
+        return $this->setStringOption(CURLOPT_REFERER, $referer);
     }
 
     /**
@@ -1738,13 +1465,7 @@ class Curl
      */
     public function setSshHostPublicKeyMd5($sshHostPublicKeyMd5)
     {
-        if (!is_string($sshHostPublicKeyMd5)) {
-            throw new \InvalidArgumentException('setSshHostPublicKeyMd5 method only accepts string.');
-        }
-
-        $this->setOption(CURLOPT_SSH_HOST_PUBLIC_KEY_MD5, $sshHostPublicKeyMd5);
-
-        return $this;
+        return $this->setStringOption(CURLOPT_SSH_HOST_PUBLIC_KEY_MD5, $sshHostPublicKeyMd5);
     }
 
     /**
@@ -1760,13 +1481,7 @@ class Curl
      */
     public function setSshPublicKeyFile($sshPublicKeyFile)
     {
-        if (!is_string($sshPublicKeyFile)) {
-            throw new \InvalidArgumentException('setSshPublicKeyFile method only accepts string.');
-        }
-
-        $this->setOption(CURLOPT_SSH_PUBLIC_KEYFILE, $sshPublicKeyFile);
-
-        return $this;
+        return $this->setStringOption(CURLOPT_SSH_PUBLIC_KEYFILE, $sshPublicKeyFile);
     }
 
     /**
@@ -1784,13 +1499,7 @@ class Curl
      */
     public function setSshPrivateKeyFile($sshPrivateKeyFile)
     {
-        if (!is_string($sshPrivateKeyFile)) {
-            throw new \InvalidArgumentException('setSshPrivateKeyFile method only accepts string.');
-        }
-
-        $this->setOption(CURLOPT_SSH_PRIVATE_KEYFILE, $sshPrivateKeyFile);
-
-        return $this;
+        return $this->setStringOption(CURLOPT_SSH_PRIVATE_KEYFILE, $sshPrivateKeyFile);
     }
 
     /**
@@ -1805,13 +1514,7 @@ class Curl
      */
     public function setSslCipherList($sslCipherList)
     {
-        if (!is_string($sslCipherList)) {
-            throw new \InvalidArgumentException('setSslCipherList method only accepts string.');
-        }
-
-        $this->setOption(CURLOPT_SSL_CIPHER_LIST, $sslCipherList);
-
-        return $this;
+        return $this->setStringOption(CURLOPT_SSL_CIPHER_LIST, $sslCipherList);
     }
 
     /**
@@ -1824,13 +1527,7 @@ class Curl
      */
     public function setSslCertificate($sslCertificate)
     {
-        if (!is_string($sslCertificate)) {
-            throw new \InvalidArgumentException('setSslCertificate method only accepts string.');
-        }
-
-        $this->setOption(CURLOPT_SSLCERT, $sslCertificate);
-
-        return $this;
+        return $this->setStringOption(CURLOPT_SSLCERT, $sslCertificate);
     }
 
     /**
@@ -1844,13 +1541,7 @@ class Curl
      */
     public function setSslCertificatePassword($sslCertificatePassword)
     {
-        if (!is_string($sslCertificatePassword)) {
-            throw new \InvalidArgumentException('setSslCertificatePassword method only accepts string.');
-        }
-
-        $this->setOption(CURLOPT_SSLCERTPASSWD, $sslCertificatePassword);
-
-        return $this;
+        return $this->setStringOption(CURLOPT_SSLCERTPASSWD, $sslCertificatePassword);
     }
 
     /**
@@ -1866,13 +1557,7 @@ class Curl
      */
     public function setSslCertificateType($sslCertificateType)
     {
-        if (!is_string($sslCertificateType)) {
-            throw new \InvalidArgumentException('setSslCertificateType method only accepts string.');
-        }
-
-        $this->setOption(CURLOPT_SSLCERTTYPE, $sslCertificateType);
-
-        return $this;
+        return $this->setStringOption(CURLOPT_SSLCERTTYPE, $sslCertificateType);
     }
 
     /**
@@ -1886,13 +1571,7 @@ class Curl
      */
     public function setSslEngine($sslEngine)
     {
-        if (!is_string($sslEngine)) {
-            throw new \InvalidArgumentException('setSslEngine method only accepts string.');
-        }
-
-        $this->setOption(CURLOPT_SSLENGINE, $sslEngine);
-
-        return $this;
+        return $this->setStringOption(CURLOPT_SSLENGINE, $sslEngine);
     }
 
     /**
@@ -1906,13 +1585,7 @@ class Curl
      */
     public function setSslEngineDefault($sslEngineDefault)
     {
-        if (!is_string($sslEngineDefault)) {
-            throw new \InvalidArgumentException('setSslEngineDefault method only accepts string.');
-        }
-
-        $this->setOption(CURLOPT_SSLENGINE_DEFAULT, $sslEngineDefault);
-
-        return $this;
+        return $this->setStringOption(CURLOPT_SSLENGINE_DEFAULT, $sslEngineDefault);
     }
 
     /**
@@ -1925,13 +1598,7 @@ class Curl
      */
     public function setSslKey($sslKey)
     {
-        if (!is_string($sslKey)) {
-            throw new \InvalidArgumentException('setSslKey method only accepts string.');
-        }
-
-        $this->setOption(CURLOPT_SSLKEY, $sslKey);
-
-        return $this;
+        return $this->setStringOption(CURLOPT_SSLKEY, $sslKey);
     }
 
     /**
@@ -1948,13 +1615,7 @@ class Curl
      */
     public function setSslKeyPassword($sslKeyPassword)
     {
-        if (!is_string($sslKeyPassword)) {
-            throw new \InvalidArgumentException('setSslKeyPassword method only accepts string.');
-        }
-
-        $this->setOption(CURLOPT_SSLKEYPASSWD, $sslKeyPassword);
-
-        return $this;
+        return $this->setStringOption(CURLOPT_SSLKEYPASSWD, $sslKeyPassword);
     }
 
     /**
@@ -1970,13 +1631,7 @@ class Curl
      */
     public function setSslKeyType($sslKeyType)
     {
-        if (!is_string($sslKeyType)) {
-            throw new \InvalidArgumentException('setSslKeyType method only accepts string.');
-        }
-
-        $this->setOption(CURLOPT_SSLKEYTYPE, $sslKeyType);
-
-        return $this;
+        return $this->setStringOption(CURLOPT_SSLKEYTYPE, $sslKeyType);
     }
 
     /**
@@ -1990,13 +1645,7 @@ class Curl
      */
     public function setUserAgent($userAgent)
     {
-        if (!is_string($userAgent)) {
-            throw new \InvalidArgumentException('setUserAgent method only accepts string.');
-        }
-
-        $this->setOption(CURLOPT_USERAGENT, $userAgent);
-
-        return $this;
+        return $this->setStringOption(CURLOPT_USERAGENT, $userAgent);
     }
 
     /**
@@ -2156,20 +1805,14 @@ class Curl
      * be written when by this callback. Return the number of
      * bytes written.
      *
-     * @param string $headerFunction
+     * @param string|array $headerFunction
      *
      * @return $this
      * @throws \ErrorException
      */
     public function setHeaderFunction($headerFunction)
     {
-        //        if (!is_string($headerFunction)) {
-        //            throw new \InvalidArgumentException('setHeaderFunction method only accepts string.');
-        //        }
-
-        $this->setOption(CURLOPT_HEADERFUNCTION, $headerFunction);
-
-        return $this;
+        return $this->setOption(CURLOPT_HEADERFUNCTION, $headerFunction);
     }
 
     /**
@@ -2189,9 +1832,7 @@ class Curl
             throw new \InvalidArgumentException('setPasswordFunction method only accepts string.');
         }
 
-        $this->setOption(CURLOPT_PASSWDFUNCTION, $passwordFunction);
-
-        return $this;
+        return $this->setStringOption(CURLOPT_PASSWDFUNCTION, $passwordFunction);
     }
 
     /**
@@ -2219,9 +1860,7 @@ class Curl
             throw new \InvalidArgumentException('setProgressFunction method only accepts string.');
         }
 
-        $this->setOption(CURLOPT_PROGRESSFUNCTION, $progressFunction);
-
-        return $this;
+        return $this->setStringOption(CURLOPT_PROGRESSFUNCTION, $progressFunction);
     }
 
     /**
@@ -2245,9 +1884,7 @@ class Curl
             throw new \InvalidArgumentException('setReadFunction method only accepts string.');
         }
 
-        $this->setOption(CURLOPT_READFUNCTION, $readFunction);
-
-        return $this;
+        return $this->setStringOption(CURLOPT_READFUNCTION, $readFunction);
     }
 
     /**
@@ -2268,9 +1905,7 @@ class Curl
             throw new \InvalidArgumentException('setWriteFunction method only accepts string.');
         }
 
-        $this->setOption(CURLOPT_WRITEFUNCTION, $writeFunction);
-
-        return $this;
+        return $this->setStringOption(CURLOPT_WRITEFUNCTION, $writeFunction);
     }
 
     /**
@@ -2391,9 +2026,7 @@ class Curl
             throw new \InvalidArgumentException('setCookie method only accepts string.');
         }
 
-        $this->setOption(CURLOPT_COOKIE, $cookie);
-
-        return $this;
+        return $this->setStringOption(CURLOPT_COOKIE, $cookie);
     }
 
     /**
@@ -2729,13 +2362,7 @@ class Curl
      */
     public function followLocation($followLocation = true)
     {
-        if (!is_bool($followLocation)) {
-            throw new \InvalidArgumentException('followLocation method only accepts string.');
-        }
-
-        $this->setOption(CURLOPT_FOLLOWLOCATION, $followLocation);
-
-        return $this;
+        return $this->setBooleanOption(CURLOPT_FOLLOWLOCATION, $followLocation);
     }
 
     /**
@@ -2804,9 +2431,25 @@ class Curl
         }
 
         $this->url = $url;
-        $this->setOption(CURLOPT_URL, $url);
+        return $this->setStringOption(CURLOPT_URL, $url);
+    }
 
-        return $this;
+    private function setBooleanOption($key, $value)
+    {
+        if (!is_bool($value)) {
+            throw new \InvalidArgumentException($key . ' only accepts boolean.');
+        }
+
+        return $this->setOption($key, $value);
+    }
+
+    private function setStringOption($key, $value)
+    {
+        if (!is_string($value)) {
+            throw new \InvalidArgumentException($key . ' only accepts string.');
+        }
+
+        return $this->setOption($key, $value);
     }
 
     /**
