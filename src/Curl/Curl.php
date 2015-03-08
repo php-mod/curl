@@ -514,13 +514,7 @@ class Curl
      */
     public function setBufferSize($bufferSize)
     {
-        if (!is_int($bufferSize)) {
-            throw new \InvalidArgumentException('setBufferSize method only accepts integer.');
-        }
-
-        $this->setOption(CURLOPT_BUFFERSIZE, $bufferSize);
-
-        return $this;
+        return $this->setIntegerOption(CURLOPT_BUFFERSIZE, $bufferSize);
     }
 
     /**
@@ -533,13 +527,7 @@ class Curl
      */
     public function setConnectTimeout($connectTimeout)
     {
-        if (!is_int($connectTimeout)) {
-            throw new \InvalidArgumentException('setConnectTimeout method only accepts integer.');
-        }
-
-        $this->setOption(CURLOPT_CONNECTTIMEOUT, $connectTimeout);
-
-        return $this;
+        return $this->setIntegerOption(CURLOPT_CONNECTTIMEOUT, $connectTimeout);
     }
 
     /**
@@ -555,13 +543,7 @@ class Curl
      */
     public function setConnectTimeoutMs($connectTimeoutMs)
     {
-        if (!is_int($connectTimeoutMs)) {
-            throw new \InvalidArgumentException('setConnectTimeoutMs method only accepts integer.');
-        }
-
-        $this->setOption(CURLOPT_CONNECTTIMEOUT_MS, $connectTimeoutMs);
-
-        return $this;
+        return $this->setIntegerOption(CURLOPT_CONNECTTIMEOUT_MS, $connectTimeoutMs);
     }
 
     /**
@@ -574,13 +556,7 @@ class Curl
      */
     public function setDnsCacheTimeout($dnsCacheTimeout)
     {
-        if (!is_int($dnsCacheTimeout)) {
-            throw new \InvalidArgumentException('setDnsCacheTimeout method only accepts integer.');
-        }
-
-        $this->setOption(CURLOPT_DNS_CACHE_TIMEOUT, $dnsCacheTimeout);
-
-        return $this;
+        return $this->setIntegerOption(CURLOPT_DNS_CACHE_TIMEOUT, $dnsCacheTimeout);
     }
 
     /**
@@ -596,13 +572,7 @@ class Curl
      */
     public function setFtpSslAuth($ftpSslAuth)
     {
-        if (!is_int($ftpSslAuth)) {
-            throw new \InvalidArgumentException('setFtpSslAuth method only accepts integer.');
-        }
-
-        $this->setOption(CURLOPT_FTPSSLAUTH, $ftpSslAuth);
-
-        return $this;
+        return $this->setIntegerOption(CURLOPT_FTPSSLAUTH, $ftpSslAuth);
     }
 
     /**
@@ -616,13 +586,7 @@ class Curl
      */
     public function setHttpVersion($httpVersion)
     {
-        if (!is_int($httpVersion)) {
-            throw new \InvalidArgumentException('setHttpVersion method only accepts integer.');
-        }
-
-        $this->setOption(CURLOPT_HTTP_VERSION, $httpVersion);
-
-        return $this;
+        return $this->setIntegerOption(CURLOPT_HTTP_VERSION, $httpVersion);
     }
 
     /**
@@ -645,13 +609,7 @@ class Curl
      */
     public function setHttpAuth($httpAuth)
     {
-        if (!is_int($httpAuth)) {
-            throw new \InvalidArgumentException('setHttpAuth method only accepts integer.');
-        }
-
-        $this->setOption(CURLOPT_HTTPAUTH, $httpAuth);
-
-        return $this;
+        return $this->setIntegerOption(CURLOPT_HTTPAUTH, $httpAuth);
     }
 
     /**
@@ -665,13 +623,7 @@ class Curl
      */
     public function setLowSpeedLimit($lowSpeedLimit)
     {
-        if (!is_int($lowSpeedLimit)) {
-            throw new \InvalidArgumentException('setLowSpeedLimit method only accepts integer.');
-        }
-
-        $this->setOption(CURLOPT_LOW_SPEED_LIMIT, $lowSpeedLimit);
-
-        return $this;
+        return $this->setIntegerOption(CURLOPT_LOW_SPEED_LIMIT, $lowSpeedLimit);
     }
 
     /**
@@ -685,13 +637,7 @@ class Curl
      */
     public function setLowSpeedTime($lowSpeedTime)
     {
-        if (!is_int($lowSpeedTime)) {
-            throw new \InvalidArgumentException('setLowSpeedTime method only accepts integer.');
-        }
-
-        $this->setOption(CURLOPT_LOW_SPEED_TIME, $lowSpeedTime);
-
-        return $this;
+        return $this->setIntegerOption(CURLOPT_LOW_SPEED_TIME, $lowSpeedTime);
     }
 
     /**
@@ -705,13 +651,7 @@ class Curl
      */
     public function setMaxConnects($maxConnects)
     {
-        if (!is_int($maxConnects)) {
-            throw new \InvalidArgumentException('setMaxConnects method only accepts integer.');
-        }
-
-        $this->setOption(CURLOPT_MAXCONNECTS, $maxConnects);
-
-        return $this;
+        return $this->setIntegerOption(CURLOPT_MAXCONNECTS, $maxConnects);
     }
 
     /**
@@ -724,13 +664,7 @@ class Curl
      */
     public function setMaxRedirects($maxRedirects)
     {
-        if (!is_int($maxRedirects)) {
-            throw new \InvalidArgumentException('setMaxRedirects method only accepts integer.');
-        }
-
-        $this->setOption(CURLOPT_MAXREDIRS, $maxRedirects);
-
-        return $this;
+        return $this->setIntegerOption(CURLOPT_MAXREDIRS, $maxRedirects);
     }
 
     /**
@@ -743,13 +677,7 @@ class Curl
      */
     public function setPort($port)
     {
-        if (!is_int($port)) {
-            throw new \InvalidArgumentException('setPort method only accepts integer.');
-        }
-
-        $this->setOption(CURLOPT_PORT, $port);
-
-        return $this;
+        return $this->setIntegerOption(CURLOPT_PORT, $port);
     }
 
     /**
@@ -763,13 +691,7 @@ class Curl
      */
     public function setPostRedirect($postRedirect)
     {
-        if (!is_int($postRedirect)) {
-            throw new \InvalidArgumentException('setPostRedirect method only accepts integer.');
-        }
-
-        $this->setOption(CURLOPT_POSTREDIR, $postRedirect);
-
-        return $this;
+        return $this->setIntegerOption(CURLOPT_POSTREDIR, $postRedirect);
     }
 
     /**
@@ -800,13 +722,7 @@ class Curl
      */
     public function setProtocols($protocols)
     {
-        if (!is_int($protocols)) {
-            throw new \InvalidArgumentException('setProtocols method only accepts integer.');
-        }
-
-        $this->setOption(CURLOPT_PROTOCOLS, $protocols);
-
-        return $this;
+        return $this->setIntegerOption(CURLOPT_PROTOCOLS, $protocols);
     }
 
     /**
@@ -823,13 +739,7 @@ class Curl
      */
     public function setProxyAuth($proxyAuth)
     {
-        if (!is_int($proxyAuth)) {
-            throw new \InvalidArgumentException('setProxyAuth method only accepts integer.');
-        }
-
-        $this->setOption(CURLOPT_PROXYAUTH, $proxyAuth);
-
-        return $this;
+        return $this->setIntegerOption(CURLOPT_PROXYAUTH, $proxyAuth);
     }
 
     /**
@@ -842,13 +752,7 @@ class Curl
      */
     public function setProxyPort($proxyPort)
     {
-        if (!is_int($proxyPort)) {
-            throw new \InvalidArgumentException('setProxyPort method only accepts integer.');
-        }
-
-        $this->setOption(CURLOPT_PROXYPORT, $proxyPort);
-
-        return $this;
+        return $this->setIntegerOption(CURLOPT_PROXYPORT, $proxyPort);
     }
 
     /**
@@ -861,13 +765,7 @@ class Curl
      */
     public function setProxyType($proxyType)
     {
-        if (!is_int($proxyType)) {
-            throw new \InvalidArgumentException('setProxyType method only accepts integer.');
-        }
-
-        $this->setOption(CURLOPT_PROXYTYPE, $proxyType);
-
-        return $this;
+        return $this->setIntegerOption(CURLOPT_PROXYTYPE, $proxyType);
     }
 
     /**
@@ -887,13 +785,7 @@ class Curl
      */
     public function setRedirectProtocols($redirectProtocols)
     {
-        if (!is_int($redirectProtocols)) {
-            throw new \InvalidArgumentException('setRedirectProtocols method only accepts integer.');
-        }
-
-        $this->setOption(CURLOPT_REDIR_PROTOCOLS, $redirectProtocols);
-
-        return $this;
+        return $this->setIntegerOption(CURLOPT_REDIR_PROTOCOLS, $redirectProtocols);
     }
 
     /**
@@ -906,13 +798,7 @@ class Curl
      */
     public function setResumeFrom($resumeFrom)
     {
-        if (!is_int($resumeFrom)) {
-            throw new \InvalidArgumentException('setResumeFrom method only accepts integer.');
-        }
-
-        $this->setOption(CURLOPT_RESUME_FROM, $resumeFrom);
-
-        return $this;
+        return $this->setIntegerOption(CURLOPT_RESUME_FROM, $resumeFrom);
     }
 
     /**
@@ -927,13 +813,7 @@ class Curl
      */
     public function setSslVerifyHost($sslVerifyHost)
     {
-        if (!is_int($sslVerifyHost)) {
-            throw new \InvalidArgumentException('setSslVerifyHost method only accepts integer.');
-        }
-
-        $this->setOption(CURLOPT_SSL_VERIFYHOST, $sslVerifyHost);
-
-        return $this;
+        return $this->setIntegerOption(CURLOPT_SSL_VERIFYHOST, $sslVerifyHost);
     }
 
     /**
@@ -955,13 +835,7 @@ class Curl
      */
     public function setSslVersion($sslVersion)
     {
-        if (!is_int($sslVersion)) {
-            throw new \InvalidArgumentException('setSslVersion method only accepts integer.');
-        }
-
-        $this->setOption(CURLOPT_SSLVERSION, $sslVersion);
-
-        return $this;
+        return $this->setIntegerOption(CURLOPT_SSLVERSION, $sslVersion);
     }
 
     /**
@@ -978,13 +852,7 @@ class Curl
      */
     public function setTimeCondition($timeCondition)
     {
-        if (!is_int($timeCondition)) {
-            throw new \InvalidArgumentException('setTimeCondition method only accepts integer.');
-        }
-
-        $this->setOption(CURLOPT_TIMECONDITION, $timeCondition);
-
-        return $this;
+        return $this->setIntegerOption(CURLOPT_TIMECONDITION, $timeCondition);
     }
 
     /**
@@ -997,13 +865,7 @@ class Curl
      */
     public function setTimeout($timeout)
     {
-        if (!is_int($timeout)) {
-            throw new \InvalidArgumentException('setTimeout method only accepts integer.');
-        }
-
-        $this->setOption(CURLOPT_TIMEOUT, $timeout);
-
-        return $this;
+        return $this->setIntegerOption(CURLOPT_TIMEOUT, $timeout);
     }
 
     /**
@@ -1018,13 +880,7 @@ class Curl
      */
     public function setTimeoutMs($timeoutMs)
     {
-        if (!is_int($timeoutMs)) {
-            throw new \InvalidArgumentException('setTimeoutMs method only accepts integer.');
-        }
-
-        $this->setOption(CURLOPT_TIMEOUT_MS, $timeoutMs);
-
-        return $this;
+        return $this->setIntegerOption(CURLOPT_TIMEOUT_MS, $timeoutMs);
     }
 
     /**
@@ -1038,13 +894,7 @@ class Curl
      */
     public function setTimeValue($timeValue)
     {
-        if (!is_int($timeValue)) {
-            throw new \InvalidArgumentException('setTimeValue method only accepts integer.');
-        }
-
-        $this->setOption(CURLOPT_TIMEVALUE, $timeValue);
-
-        return $this;
+        return $this->setIntegerOption(CURLOPT_TIMEVALUE, $timeValue);
     }
 
     /**
@@ -1059,13 +909,7 @@ class Curl
      */
     public function setMaxRecvSpeedLarge($maxRecvSpeedLarge)
     {
-        if (!is_int($maxRecvSpeedLarge)) {
-            throw new \InvalidArgumentException('setMaxRecvSpeedLarge method only accepts integer.');
-        }
-
-        $this->setOption(CURLOPT_MAX_RECV_SPEED_LARGE, $maxRecvSpeedLarge);
-
-        return $this;
+        return $this->setIntegerOption(CURLOPT_MAX_RECV_SPEED_LARGE, $maxRecvSpeedLarge);
     }
 
     /**
@@ -1080,13 +924,7 @@ class Curl
      */
     public function setMaxSendSpeedLarge($maxSendSpeedLarge)
     {
-        if (!is_int($maxSendSpeedLarge)) {
-            throw new \InvalidArgumentException('setMaxSendSpeedLarge method only accepts integer.');
-        }
-
-        $this->setOption(CURLOPT_MAX_SEND_SPEED_LARGE, $maxSendSpeedLarge);
-
-        return $this;
+        return $this->setIntegerOption(CURLOPT_MAX_SEND_SPEED_LARGE, $maxSendSpeedLarge);
     }
 
     /**
@@ -1100,13 +938,7 @@ class Curl
      */
     public function setSshAuthTypes($sshAuthTypes)
     {
-        if (!is_int($sshAuthTypes)) {
-            throw new \InvalidArgumentException('setSshAuthTypes method only accepts integer.');
-        }
-
-        $this->setOption(CURLOPT_SSH_AUTH_TYPES, $sshAuthTypes);
-
-        return $this;
+        return $this->setIntegerOption(CURLOPT_SSH_AUTH_TYPES, $sshAuthTypes);
     }
 
     /**
@@ -1121,13 +953,7 @@ class Curl
      */
     public function setIpResolve($ipResolve)
     {
-        if (!is_int($ipResolve)) {
-            throw new \InvalidArgumentException('setIpResolve method only accepts integer.');
-        }
-
-        $this->setOption(CURLOPT_IPRESOLVE, $ipResolve);
-
-        return $this;
+        return $this->setIntegerOption(CURLOPT_IPRESOLVE, $ipResolve);
     }
 
     /**
@@ -2447,6 +2273,15 @@ class Curl
     {
         if (!is_string($value)) {
             throw new \InvalidArgumentException($key . ' only accepts string.');
+        }
+
+        return $this->setOption($key, $value);
+    }
+
+    private function setIntegerOption($key, $value)
+    {
+        if (!is_int($value)) {
+            throw new \InvalidArgumentException($key . ' only accepts integer.');
         }
 
         return $this->setOption($key, $value);
