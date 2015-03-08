@@ -149,7 +149,7 @@ class Client
      */
     public function getHeader($key)
     {
-        if ($this->parsedHeaders == null) {
+        if ($this->parsedHeaders === null) {
             $this->parsedHeaders = [];
             foreach ($this->headers as $header) {
                 $parts = explode(':', $header, 2);
