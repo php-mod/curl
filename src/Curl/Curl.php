@@ -62,10 +62,10 @@ class Curl
     {
         $this->setopt(CURLOPT_URL, $url);
         $this->setopt(CURLOPT_POST, true);
-        if (count($data)>0)
-        {
-        $data = http_build_query($data);
-        }
+       if (is_array($data) || is_object($data))
+		{
+			$data = http_build_query($data);
+		}
         $this->setopt(CURLOPT_POSTFIELDS, $data);
         $this->_exec();
     }
