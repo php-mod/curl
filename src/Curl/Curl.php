@@ -177,7 +177,7 @@ class Curl
         $this->response_headers = '';
         if (!(strpos($this->response, "\r\n\r\n") === false)) {
             list($response_header, $this->response) = explode("\r\n\r\n", $this->response, 2);
-            if ($response_header === 'HTTP/1.1 100 Continue') {
+            while (strtolower(trim($response_header)) === 'http/1.1 100 continue') {
                 list($response_header, $this->response) = explode("\r\n\r\n", $this->response, 2);
             }
             $this->response_headers = preg_split('/\r\n/', $response_header, null, PREG_SPLIT_NO_EMPTY);
