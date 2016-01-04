@@ -5,7 +5,7 @@ namespace Curl;
 class CurlTest extends \PHPUnit_Framework_TestCase
 {
 
-	const TEST_URL = 'http://php-curl-test.anezi.net';
+	const TEST_URL = 'http://localhost';
 
 	/**
 	 *
