@@ -72,8 +72,13 @@ class Curl
 
     public function put($url, $data = array())
     {
-        $this->setopt(CURLOPT_URL, $url . '?' . http_build_query($data));
+        $this->setopt(CURLOPT_URL, $url);
         $this->setopt(CURLOPT_CUSTOMREQUEST, 'PUT');
+        if (is_array($data) || is_object($data))
+		{
+			$data = http_build_query($data);
+		}
+        $this->setopt(CURLOPT_POSTFIELDS, $data);
         $this->_exec();
     }
 
@@ -81,6 +86,10 @@ class Curl
     {
         $this->setopt(CURLOPT_URL, $url);
         $this->setopt(CURLOPT_CUSTOMREQUEST, 'PATCH');
+        if (is_array($data) || is_object($data))
+		{
+			$data = http_build_query($data);
+		}
         $this->setopt(CURLOPT_POSTFIELDS, $data);
         $this->_exec();
     }
