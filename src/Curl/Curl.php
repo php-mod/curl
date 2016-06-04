@@ -70,9 +70,21 @@ class Curl
         $this->_exec();
     }
 
-    public function put($url, $data = array())
+    public function put($url, $data = array(), $json = 0)
     {
-        $this->setopt(CURLOPT_URL, $url . '?' . http_build_query($data));
+        if ($json == 0) {
+            $url .= '?' . http_build_query($data);
+        } else {
+            $this->setopt(CURLOPT_POST, true);
+
+            if (is_array($data) || is_object($data)) {
+                $data = http_build_query($data);
+            }
+
+            $this->setopt(CURLOPT_POSTFIELDS, $data);
+        }
+
+        $this->setopt(CURLOPT_URL, $url);
         $this->setopt(CURLOPT_CUSTOMREQUEST, 'PUT');
         $this->_exec();
     }
