@@ -50,23 +50,23 @@ class Curl
     public function get($url, $data = array())
     {
         if (count($data) > 0) {
-            $this->setopt(CURLOPT_URL, $url . '?' . http_build_query($data));
+            $this->setOpt(CURLOPT_URL, $url . '?' . http_build_query($data));
         } else {
-            $this->setopt(CURLOPT_URL, $url);
+            $this->setOpt(CURLOPT_URL, $url);
         }
-        $this->setopt(CURLOPT_HTTPGET, true);
+        $this->setOpt(CURLOPT_HTTPGET, true);
         $this->_exec();
     }
 
     public function post($url, $data = array())
     {
-        $this->setopt(CURLOPT_URL, $url);
-        $this->setopt(CURLOPT_POST, true);
+        $this->setOpt(CURLOPT_URL, $url);
+        $this->setOpt(CURLOPT_POST, true);
        if (is_array($data) || is_object($data))
 		{
 			$data = http_build_query($data);
 		}
-        $this->setopt(CURLOPT_POSTFIELDS, $data);
+        $this->setOpt(CURLOPT_POSTFIELDS, $data);
         $this->_exec();
     }
 
@@ -75,39 +75,39 @@ class Curl
         if ($json == 0) {
             $url .= '?' . http_build_query($data);
         } else {
-            $this->setopt(CURLOPT_POST, true);
+            $this->setOpt(CURLOPT_POST, true);
 
             if (is_array($data) || is_object($data)) {
                 $data = http_build_query($data);
             }
 
-            $this->setopt(CURLOPT_POSTFIELDS, $data);
+            $this->setOpt(CURLOPT_POSTFIELDS, $data);
         }
 
-        $this->setopt(CURLOPT_URL, $url);
-        $this->setopt(CURLOPT_CUSTOMREQUEST, 'PUT');
+        $this->setOpt(CURLOPT_URL, $url);
+        $this->setOpt(CURLOPT_CUSTOMREQUEST, 'PUT');
         $this->_exec();
     }
 
     public function patch($url, $data = array())
     {
-        $this->setopt(CURLOPT_URL, $url);
-        $this->setopt(CURLOPT_CUSTOMREQUEST, 'PATCH');
-        $this->setopt(CURLOPT_POSTFIELDS, $data);
+        $this->setOpt(CURLOPT_URL, $url);
+        $this->setOpt(CURLOPT_CUSTOMREQUEST, 'PATCH');
+        $this->setOpt(CURLOPT_POSTFIELDS, $data);
         $this->_exec();
     }
 
     public function delete($url, $data = array())
     {
-        $this->setopt(CURLOPT_URL, $url . '?' . http_build_query($data));
-        $this->setopt(CURLOPT_CUSTOMREQUEST, 'DELETE');
+        $this->setOpt(CURLOPT_URL, $url . '?' . http_build_query($data));
+        $this->setOpt(CURLOPT_CUSTOMREQUEST, 'DELETE');
         $this->_exec();
     }
 
     public function setBasicAuthentication($username, $password)
     {
         $this->setHttpAuth(self::AUTH_BASIC);
-        $this->setopt(CURLOPT_USERPWD, $username . ':' . $password);
+        $this->setOpt(CURLOPT_USERPWD, $username . ':' . $password);
     }
 
     protected function setHttpAuth($httpauth)
@@ -118,23 +118,23 @@ class Curl
     public function setHeader($key, $value)
     {
         $this->_headers[$key] = $key . ': ' . $value;
-        $this->setopt(CURLOPT_HTTPHEADER, array_values($this->_headers));
+        $this->setOpt(CURLOPT_HTTPHEADER, array_values($this->_headers));
     }
 
     public function setUserAgent($user_agent)
     {
-        $this->setopt(CURLOPT_USERAGENT, $user_agent);
+        $this->setOpt(CURLOPT_USERAGENT, $user_agent);
     }
 
     public function setReferrer($referrer)
     {
-        $this->setopt(CURLOPT_REFERER, $referrer);
+        $this->setOpt(CURLOPT_REFERER, $referrer);
     }
 
     public function setCookie($key, $value)
     {
         $this->_cookies[$key] = $value;
-        $this->setopt(CURLOPT_COOKIE, http_build_query($this->_cookies, '', '; '));
+        $this->setOpt(CURLOPT_COOKIE, http_build_query($this->_cookies, '', '; '));
     }
 
     public function setOpt($option, $value)
@@ -144,7 +144,7 @@ class Curl
 
     public function verbose($on = true)
     {
-        $this->setopt(CURLOPT_VERBOSE, $on);
+        $this->setOpt(CURLOPT_VERBOSE, $on);
     }
 
     public function close()
@@ -210,8 +210,8 @@ class Curl
     {
         $this->curl = curl_init();
         $this->setUserAgent(self::USER_AGENT);
-        $this->setopt(CURLINFO_HEADER_OUT, true);
-        $this->setopt(CURLOPT_HEADER, true);
-        $this->setopt(CURLOPT_RETURNTRANSFER, true);
+        $this->setOpt(CURLINFO_HEADER_OUT, true);
+        $this->setOpt(CURLOPT_HEADER, true);
+        $this->setOpt(CURLOPT_RETURNTRANSFER, true);
     }
 }
