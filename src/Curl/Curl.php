@@ -47,6 +47,17 @@ class Curl
         $this->init();
     }
 
+    protected function preparePayload($data)
+    {
+        $this->setOpt(CURLOPT_POST, true);
+
+        if (is_array($data) || is_object($data)) {
+            $data = http_build_query($data);
+        }
+
+        $this->setOpt(CURLOPT_POSTFIELDS, $data);
+    }
+
     public function get($url, $data = array())
     {
         if (count($data) > 0) {
@@ -55,53 +66,52 @@ class Curl
             $this->setOpt(CURLOPT_URL, $url);
         }
         $this->setOpt(CURLOPT_HTTPGET, true);
-        $this->_exec();
+        $this->exec();
     }
 
     public function post($url, $data = array())
     {
         $this->setOpt(CURLOPT_URL, $url);
-        $this->setOpt(CURLOPT_POST, true);
-       if (is_array($data) || is_object($data))
-		{
-			$data = http_build_query($data);
-		}
-        $this->setOpt(CURLOPT_POSTFIELDS, $data);
-        $this->_exec();
+        $this->preparePayload($data);
+        $this->exec();
     }
 
-    public function put($url, $data = array(), $json = 0)
+    public function put($url, $data = array(), $payload = false)
     {
-        if ($json == 0) {
+        if ($payload === false) {
             $url .= '?' . http_build_query($data);
         } else {
-            $this->setOpt(CURLOPT_POST, true);
-
-            if (is_array($data) || is_object($data)) {
-                $data = http_build_query($data);
-            }
-
-            $this->setOpt(CURLOPT_POSTFIELDS, $data);
+            $this->preparePayload($data);
         }
 
         $this->setOpt(CURLOPT_URL, $url);
         $this->setOpt(CURLOPT_CUSTOMREQUEST, 'PUT');
-        $this->_exec();
+        $this->exec();
     }
 
-    public function patch($url, $data = array())
+    public function patch($url, $data = array(), $payload = false)
     {
+        if ($payload === false) {
+            $url .= '?' . http_build_query($data);
+        } else {
+            $this->preparePayload($data);
+        }
+
         $this->setOpt(CURLOPT_URL, $url);
         $this->setOpt(CURLOPT_CUSTOMREQUEST, 'PATCH');
-        $this->setOpt(CURLOPT_POSTFIELDS, $data);
-        $this->_exec();
+        $this->exec();
     }
 
-    public function delete($url, $data = array())
+    public function delete($url, $data = array(), $payload = false)
     {
-        $this->setOpt(CURLOPT_URL, $url . '?' . http_build_query($data));
+        if ($payload === false) {
+            $url .= '?' . http_build_query($data);
+        } else {
+            $this->preparePayload($data);
+        }
+        $this->setOpt(CURLOPT_URL, $url);
         $this->setOpt(CURLOPT_CUSTOMREQUEST, 'DELETE');
-        $this->_exec();
+        $this->exec();
     }
 
     public function setBasicAuthentication($username, $password)
@@ -174,7 +184,15 @@ class Curl
         $this->init();
     }
 
+    /**
+     * @deprecated calling exec() directly is discouraged
+     */
     public function _exec()
+    {
+        return $this->exec();
+    }
+
+    protected function exec()
     {
         $this->response = curl_exec($this->curl);
         $this->curl_error_code = curl_errno($this->curl);
