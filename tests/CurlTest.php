@@ -123,9 +123,9 @@ class CurlTest extends \PHPUnit_Framework_TestCase
 		$png = $this->create_png();
 		$tmp_file = $this->create_tmp_file($png);
 
-		$this->curl->setopt(CURLOPT_PUT, TRUE);
-		$this->curl->setopt(CURLOPT_INFILE, $tmp_file);
-		$this->curl->setopt(CURLOPT_INFILESIZE, strlen($png));
+		$this->curl->setOpt(CURLOPT_PUT, TRUE);
+		$this->curl->setOpt(CURLOPT_INFILE, $tmp_file);
+		$this->curl->setOpt(CURLOPT_INFILESIZE, strlen($png));
 		$this->curl->put(self::TEST_URL . '/server.php', array(
 				'test' => 'put_file_handle',
 		));
