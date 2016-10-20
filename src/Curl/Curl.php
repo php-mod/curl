@@ -66,14 +66,14 @@ class Curl
             $this->setOpt(CURLOPT_URL, $url);
         }
         $this->setOpt(CURLOPT_HTTPGET, true);
-        $this->_exec();
+        $this->exec();
     }
 
     public function post($url, $data = array())
     {
         $this->setOpt(CURLOPT_URL, $url);
         $this->preparePayload($data);
-        $this->_exec();
+        $this->exec();
     }
 
     public function put($url, $data = array(), $payload = false)
@@ -86,7 +86,7 @@ class Curl
 
         $this->setOpt(CURLOPT_URL, $url);
         $this->setOpt(CURLOPT_CUSTOMREQUEST, 'PUT');
-        $this->_exec();
+        $this->exec();
     }
 
     public function patch($url, $data = array(), $payload = false)
@@ -99,7 +99,7 @@ class Curl
 
         $this->setOpt(CURLOPT_URL, $url);
         $this->setOpt(CURLOPT_CUSTOMREQUEST, 'PATCH');
-        $this->_exec();
+        $this->exec();
     }
 
     public function delete($url, $data = array(), $payload = false)
@@ -111,7 +111,7 @@ class Curl
         }
         $this->setOpt(CURLOPT_URL, $url);
         $this->setOpt(CURLOPT_CUSTOMREQUEST, 'DELETE');
-        $this->_exec();
+        $this->exec();
     }
 
     public function setBasicAuthentication($username, $password)
@@ -184,7 +184,15 @@ class Curl
         $this->init();
     }
 
+    /**
+     * @deprecated calling exec() directly is discouraged
+     */
     public function _exec()
+    {
+        return $this->exec();
+    }
+
+    protected function exec()
     {
         $this->response = curl_exec($this->curl);
         $this->curl_error_code = curl_errno($this->curl);
