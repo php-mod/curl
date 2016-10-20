@@ -47,6 +47,17 @@ class Curl
         $this->init();
     }
 
+    protected function preparePayload($data)
+    {
+        $this->setOpt(CURLOPT_POST, true);
+
+        if (is_array($data) || is_object($data)) {
+            $data = http_build_query($data);
+        }
+
+        $this->setOpt(CURLOPT_POSTFIELDS, $data);
+    }
+
     public function get($url, $data = array())
     {
         if (count($data) > 0) {
@@ -61,27 +72,16 @@ class Curl
     public function post($url, $data = array())
     {
         $this->setOpt(CURLOPT_URL, $url);
-        $this->setOpt(CURLOPT_POST, true);
-       if (is_array($data) || is_object($data))
-		{
-			$data = http_build_query($data);
-		}
-        $this->setOpt(CURLOPT_POSTFIELDS, $data);
+        $this->preparePayload($data);
         $this->_exec();
     }
 
-    public function put($url, $data = array(), $json = 0)
+    public function put($url, $data = array(), $payload = false)
     {
-        if ($json == 0) {
+        if ($payload === false) {
             $url .= '?' . http_build_query($data);
         } else {
-            $this->setOpt(CURLOPT_POST, true);
-
-            if (is_array($data) || is_object($data)) {
-                $data = http_build_query($data);
-            }
-
-            $this->setOpt(CURLOPT_POSTFIELDS, $data);
+            $this->preparePayload($data);
         }
 
         $this->setOpt(CURLOPT_URL, $url);
@@ -89,20 +89,27 @@ class Curl
         $this->_exec();
     }
 
-    public function patch($url, $data = array())
+    public function patch($url, $data = array(), $payload = false)
     {
+        if ($payload === false) {
+            $url .= '?' . http_build_query($data);
+        } else {
+            $this->preparePayload($data);
+        }
+
         $this->setOpt(CURLOPT_URL, $url);
         $this->setOpt(CURLOPT_CUSTOMREQUEST, 'PATCH');
-        if (is_array($data) || is_object($data)) {
-            $data = http_build_query($data);
-        }
-        $this->setOpt(CURLOPT_POSTFIELDS, $data);
         $this->_exec();
     }
 
-    public function delete($url, $data = array())
+    public function delete($url, $data = array(), $payload = false)
     {
-        $this->setOpt(CURLOPT_URL, $url . '?' . http_build_query($data));
+        if ($payload === false) {
+            $url .= '?' . http_build_query($data);
+        } else {
+            $this->preparePayload($data);
+        }
+        $this->setOpt(CURLOPT_URL, $url);
         $this->setOpt(CURLOPT_CUSTOMREQUEST, 'DELETE');
         $this->_exec();
     }
