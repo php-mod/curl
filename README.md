@@ -2,6 +2,14 @@
 
 PHP Curl Class is an object-oriented wrapper of the PHP cURL extension.
 
+## Installation
+
+In order to install this library via composer run the following command in the console:
+
+```sh
+composer require curl/curl
+```
+
 ### Quick Start and Examples
 
 ```php
