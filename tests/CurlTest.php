@@ -169,6 +169,14 @@ class CurlTest extends \PHPUnit_Framework_TestCase
 	}
 
 	public function testReferrer() {
+		$this->curl->setReferer('myreferrer');
+		$this->assertTrue($this->server('GET', array(
+				'test' => 'server',
+				'key' => 'HTTP_REFERER',
+		)) === 'myreferrer');
+	}
+	
+	public function testDeprecatedReferrer() {
 		$this->curl->setReferrer('myreferrer');
 		$this->assertTrue($this->server('GET', array(
 				'test' => 'server',

@@ -408,7 +408,7 @@ class Curl
      */
     public function setReferrer($referrer)
     {
-        $this->setReferer($referer);
+        $this->setReferer($referrer);
     }
 
     /**
