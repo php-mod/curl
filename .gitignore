@@ -7,3 +7,5 @@ vendor/*
 composer.lock
 *~
 tests/phpunit_report/*
+/.settings/
+/.php_cs.cache

@@ -1,6 +1,8 @@
-# php-curl-class
+# PHP Curl Class
 
-PHP Curl Class is an object-oriented wrapper of the PHP cURL extension.
+This library provides an object-oriented wrapper of the PHP cURL extension.
+
+If you have questions or problems with installation or usage [create an Issue](https://github.com/php-mod/curl/issues).
 
 ## Installation
 
@@ -10,10 +12,15 @@ In order to install this library via composer run the following command in the c
 composer require curl/curl
 ```
 
-### Quick Start and Examples
+or add the package manually to your composer.json file in the require section:
+
+```json
+"curl/curl": "^1.5"
+```
+
+## Usage examples
 
 ```php
-
 $curl = new Curl\Curl();
 $curl->get('http://www.example.com/');
 ```
@@ -91,3 +98,12 @@ $curl->close();
 curl_set_opt($curl->curl, CURLOPT_USERAGENT, 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1');
 curl_close($curl->curl);
 ```
+
+## Testing
+
+In order to test the library:
+
+1. Create a fork
+2. Clone the fork to your machine
+3. Install the depencies `composer install`
+4. Run the unit tests `./vendor/bin/phpunit tests`
