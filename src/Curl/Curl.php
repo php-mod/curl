@@ -420,7 +420,7 @@ class Curl
      */
     public function setReferer($referer)
     {
-        $this->setOpt(CURLOPT_REFERER, $referrer);
+        $this->setOpt(CURLOPT_REFERER, $referer);
     }
 
     /**
