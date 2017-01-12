@@ -502,4 +502,59 @@ class Curl
     {
         $this->close();
     }
+
+    /**
+     * Was an 'info' header returned
+     */
+    public function isInfo() {
+	if ($this->http_status_code >= 100 && $this->http_status_code < 200) {
+		return true;
+	}
+    }
+	
+    /**
+     * Was an 'OK' response returned
+     */
+    public function isSuccess() {
+	if ($this->http_status_code >= 200 && $this->http_status_code < 300) {
+		return true;
+	}
+    }
+	
+    /**
+     * Was a 'redirect' returned
+     */
+    public function isRedirect() {
+	if ($this->http_status_code >= 300 && $this->http_status_code < 400) {
+		return true;
+	}
+    }
+	
+    /**
+     * Was an 'error' returned (client error or server error)
+     */
+    public function isError() {
+	if ($this->http_status_code >= 400 && $this->http_status_code < 600) {
+		return true;
+	}
+    }
+	
+    /**
+     * Was a 'client error' returned
+     */
+    public function isClientError() {
+	if ($this->http_status_code >= 400 && $this->http_status_code < 500) {
+		return true;
+	}
+    }
+	
+    /**
+     * Was a 'server error' returned
+     */
+    public function isServerError() {
+	if ($this->http_status_code >= 500 && $this->http_status_code < 600) {
+		return true;
+	}
+    }
+
 }
