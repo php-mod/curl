@@ -157,6 +157,7 @@ class Curl
      * Initializer for the curl resource.
      *
      * Is called by the __construct() of the class or when the curl request is reseted.
+     * @return self
      */
     private function init()
     {
@@ -165,6 +166,7 @@ class Curl
         $this->setOpt(CURLINFO_HEADER_OUT, true);
         $this->setOpt(CURLOPT_HEADER, true);
         $this->setOpt(CURLOPT_RETURNTRANSFER, true);
+        return $this;
     }
 
     // protected methods
@@ -253,6 +255,7 @@ class Curl
      *
      * @param string $url  The url to make the get request for
      * @param array  $data Optional arguments who are part of the url
+     * @return self
      */
     public function get($url, $data = array())
     {
@@ -263,6 +266,7 @@ class Curl
         }
         $this->setOpt(CURLOPT_HTTPGET, true);
         $this->exec();
+        return $this;
     }
 
     /**
@@ -270,12 +274,14 @@ class Curl
      *
      * @param string $url  The url to make the get request
      * @param array  $data Post data to pass to the url
+     * @return self
      */
     public function post($url, $data = array())
     {
         $this->setOpt(CURLOPT_URL, $url);
         $this->preparePayload($data);
         $this->exec();
+        return $this;
     }
 
     /**
@@ -286,6 +292,7 @@ class Curl
      * @param string $url     The url to make the get request
      * @param array  $data    Optional data to pass to the $url
      * @param bool   $payload Whether the data should be transmitted trough payload or as get parameters of the string
+     * @return self
      */
     public function put($url, $data = array(), $payload = false)
     {
@@ -298,6 +305,7 @@ class Curl
         $this->setOpt(CURLOPT_URL, $url);
         $this->setOpt(CURLOPT_CUSTOMREQUEST, 'PUT');
         $this->exec();
+        return $this;
     }
 
     /**
@@ -308,6 +316,7 @@ class Curl
      * @param string $url     The url to make the get request
      * @param array  $data    Optional data to pass to the $url
      * @param bool   $payload Whether the data should be transmitted trough payload or as get parameters of the string
+     * @return self
      */
     public function patch($url, $data = array(), $payload = false)
     {
@@ -320,6 +329,7 @@ class Curl
         $this->setOpt(CURLOPT_URL, $url);
         $this->setOpt(CURLOPT_CUSTOMREQUEST, 'PATCH');
         $this->exec();
+        return $this;
     }
 
     /**
@@ -328,6 +338,7 @@ class Curl
      * @param string $url     The url to make the delete request
      * @param array  $data    Optional data to pass to the $url
      * @param bool   $payload Whether the data should be transmitted trough payload or as get parameters of the string
+     * @return self
      */
     public function delete($url, $data = array(), $payload = false)
     {
@@ -339,6 +350,7 @@ class Curl
         $this->setOpt(CURLOPT_URL, $url);
         $this->setOpt(CURLOPT_CUSTOMREQUEST, 'DELETE');
         $this->exec();
+        return $this;
     }
 
     // setters
@@ -356,11 +368,13 @@ class Curl
      *
      * @param string $username The username for the authentification
      * @param string $password The password for the given username for the authentification
+     * @return self
      */
     public function setBasicAuthentication($username, $password)
     {
         $this->setHttpAuth(self::AUTH_BASIC);
         $this->setOpt(CURLOPT_USERPWD, $username.':'.$password);
+        return $this;
     }
 
     /**
@@ -376,11 +390,13 @@ class Curl
      *
      * @param string $key   The header key
      * @param string $value The value for the given header key
+     * @return self
      */
     public function setHeader($key, $value)
     {
         $this->_headers[$key] = $key.': '.$value;
         $this->setOpt(CURLOPT_HTTPHEADER, array_values($this->_headers));
+        return $this;
     }
 
     /**
@@ -395,10 +411,12 @@ class Curl
      * ```
      *
      * @param string $useragent The name of the user agent to set for the current request
+     * @return self
      */
     public function setUserAgent($useragent)
     {
         $this->setOpt(CURLOPT_USERAGENT, $useragent);
+        return $this;
     }
 
     /**
@@ -407,6 +425,7 @@ class Curl
     public function setReferrer($referrer)
     {
         $this->setReferer($referrer);
+        return $this;
     }
 
     /**
@@ -415,10 +434,12 @@ class Curl
      * The $referer informations can help identify the requested client where the requested was made.
      *
      * @param string $referer An url to pass and will be set as referer header
+     * @return self
      */
     public function setReferer($referer)
     {
         $this->setOpt(CURLOPT_REFERER, $referer);
+        return $this;
     }
 
     /**
@@ -426,11 +447,13 @@ class Curl
      *
      * @param string $key   The name of the cookie
      * @param string $value The value for the provided cookie name
+     * @return self
      */
     public function setCookie($key, $value)
     {
         $this->_cookies[$key] = $value;
         $this->setOpt(CURLOPT_COOKIE, http_build_query($this->_cookies, '', '; '));
+        return $this;
     }
 
     /**
@@ -454,16 +477,19 @@ class Curl
      * @todo As to keep naming convention it should be renamed to `setVerbose()`
      *
      * @param string $on
+     * @return self
      */
     public function verbose($on = true)
     {
         $this->setOpt(CURLOPT_VERBOSE, $on);
+        return $this;
     }
 
     /**
      * Reset all curl options.
      *
      * In order to make multiple requests with the same curl object all settings requires to be reset.
+     * @return self
      */
     public function reset()
     {
@@ -483,16 +509,19 @@ class Curl
         $this->response_headers = null;
         $this->response = null;
         $this->init();
+        return $this;
     }
 
     /**
      * Closing the current open curl resource.
+     * @return self
      */
     public function close()
     {
         if (is_resource($this->curl)) {
             curl_close($this->curl);
         }
+        return $this;
     }
 
     /**
@@ -505,61 +534,55 @@ class Curl
 
     /**
      * Was an 'info' header returned.
+     * @return bool
      */
     public function isInfo()
     {
-        if ($this->http_status_code >= 100 && $this->http_status_code < 200) {
-            return true;
-        }
+        return $this->http_status_code >= 100 && $this->http_status_code < 200;
     }
 
     /**
      * Was an 'OK' response returned.
+     * @return bool
      */
     public function isSuccess()
     {
-        if ($this->http_status_code >= 200 && $this->http_status_code < 300) {
-            return true;
-        }
+        return $this->http_status_code >= 200 && $this->http_status_code < 300;
     }
 
     /**
      * Was a 'redirect' returned.
+     * @return bool
      */
     public function isRedirect()
     {
-        if ($this->http_status_code >= 300 && $this->http_status_code < 400) {
-            return true;
-        }
+        return $this->http_status_code >= 300 && $this->http_status_code < 400;
     }
 
     /**
      * Was an 'error' returned (client error or server error).
+     * @return bool
      */
     public function isError()
     {
-        if ($this->http_status_code >= 400 && $this->http_status_code < 600) {
-            return true;
-        }
+        return $this->http_status_code >= 400 && $this->http_status_code < 600;
     }
 
     /**
      * Was a 'client error' returned.
+     * @return bool
      */
     public function isClientError()
     {
-        if ($this->http_status_code >= 400 && $this->http_status_code < 500) {
-            return true;
-        }
+        return $this->http_status_code >= 400 && $this->http_status_code < 500;
     }
 
     /**
      * Was a 'server error' returned.
+     * @return bool
      */
     public function isServerError()
     {
-        if ($this->http_status_code >= 500 && $this->http_status_code < 600) {
-            return true;
-        }
+        return $this->http_status_code >= 500 && $this->http_status_code < 600;
     }
 }
