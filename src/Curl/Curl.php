@@ -470,6 +470,33 @@ class Curl
     {
         return curl_setopt($this->curl, $option, $value);
     }
+    
+     /**
+     * Get customized curl options.
+     *
+     * To see a full list of options: http://php.net/curl_getinfo
+     *
+     * @see http://php.net/curl_getinfo
+     *
+     * @param int   $option The curl option constante e.g. `CURLOPT_AUTOREFERER`, `CURLOPT_COOKIESESSION`
+     * @param mixed $value  The value to check for the given $option
+     */
+    public function getOpt($option)
+    {
+        return curl_getinfo($this->curl, $option);
+    }
+    
+     /**
+     * Return the endpoint set for curl
+     *
+     * @see http://php.net/curl_getinfo
+     *
+     * @return string of endpoint
+     */
+    public function getEndpoint()
+    {
+        return $this->getOpt(CURLINFO_EFFECTIVE_URL);
+    }
 
     /**
      * Enable verbositiy.
