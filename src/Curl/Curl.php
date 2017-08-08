@@ -296,10 +296,12 @@ class Curl
      */
     public function put($url, $data = array(), $payload = false)
     {
-        if ($payload === false) {
-            $url .= '?'.http_build_query($data);
-        } else {
-            $this->preparePayload($data);
+        if (! empty($data)) {
+            if ($payload === false) {
+                $url .= '?'.http_build_query($data);
+            } else {
+                $this->preparePayload($data);
+            }
         }
 
         $this->setOpt(CURLOPT_URL, $url);
@@ -320,10 +322,12 @@ class Curl
      */
     public function patch($url, $data = array(), $payload = false)
     {
-        if ($payload === false) {
-            $url .= '?'.http_build_query($data);
-        } else {
-            $this->preparePayload($data);
+        if (! empty($data)) {
+            if ($payload === false) {
+                $url .= '?'.http_build_query($data);
+            } else {
+                $this->preparePayload($data);
+            }
         }
 
         $this->setOpt(CURLOPT_URL, $url);
@@ -342,11 +346,14 @@ class Curl
      */
     public function delete($url, $data = array(), $payload = false)
     {
-        if ($payload === false) {
-            $url .= '?'.http_build_query($data);
-        } else {
-            $this->preparePayload($data);
+        if (! empty($data)) {
+            if ($payload === false) {
+                $url .= '?'.http_build_query($data);
+            } else {
+                $this->preparePayload($data);
+            }
         }
+
         $this->setOpt(CURLOPT_URL, $url);
         $this->setOpt(CURLOPT_CUSTOMREQUEST, 'DELETE');
         $this->exec();
