@@ -23,7 +23,7 @@ $data_mapping = array(
 );
 
 if(isset($data_mapping[$test])) {
-    $data = $$data_mapping[$test];
+    $data = ${$data_mapping[$test]};
     $value = isset($data[$key]) ? $data[$key] : '';
 echo $value;
 } else {
