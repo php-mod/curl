@@ -99,6 +99,22 @@ curl_set_opt($curl->curl, CURLOPT_USERAGENT, 'Mozilla/4.0 (compatible; MSIE 7.0;
 curl_close($curl->curl);
 ```
 
+```php
+// Example of downloading a file or any other content
+$curl = new Curl\Curl();
+// open the file where the request response should be written
+$file_handle = fopen($target_file, 'w+');
+// pass it to the curl resource
+$curl->setOpt(CURLOPT_FILE, $file_handle);
+// do any type of request
+$curl->get('https://github.com');
+// disable writing to file
+$curl->setOpt(CURLOPT_FILE, null);
+// close the file for writing
+fclose($file_handle);
+```
+
+
 ## Testing
 
 In order to test the library:
