@@ -130,12 +130,17 @@ class Curl
     /**
      * @var string|array TBD (ensure type) Contains the response header informations
      */
-    public $response_headers = null;
+    public $response_headers = array();
 
     /**
      * @var string Contains the response from the curl request
      */
     public $response = null;
+
+    /**
+     * @var boolean Whether the current section of response headers is after 'HTTP/1.1 100 Continue'
+     */
+    protected $response_header_continue = false;
 
     /**
      * Constructor ensures the available curl extension is loaded.
@@ -164,9 +169,33 @@ class Curl
         $this->curl = curl_init();
         $this->setUserAgent(self::USER_AGENT);
         $this->setOpt(CURLINFO_HEADER_OUT, true);
-        $this->setOpt(CURLOPT_HEADER, true);
+        $this->setOpt(CURLOPT_HEADER, false);
         $this->setOpt(CURLOPT_RETURNTRANSFER, true);
+        $this->setOpt(CURLOPT_HEADERFUNCTION, [$this, 'addResponseHeaderLine']);
         return $this;
+    }
+
+    /**
+     * Handle writing the response headers
+     *
+     * @param resource $curl The current curl resource
+     * @param string $header_line A line from the list of response headers
+     *
+     * @return int Returns the length of the $header_line
+     */
+    public function addResponseHeaderLine($curl, $header_line)
+    {
+        $trimmed_header = trim($header_line, "\r\n");
+
+        if ($trimmed_header === "") {
+            $this->response_header_continue = false;
+        } else if (strtolower($trimmed_header) === 'http/1.1 100 continue') {
+            $this->response_header_continue = true;
+        } else if (!$this->response_header_continue) {
+            $this->response_headers[] = $trimmed_header;
+        }
+        
+        return strlen($header_line);
     }
 
     // protected methods
@@ -178,6 +207,7 @@ class Curl
      */
     protected function exec()
     {
+        $this->response_headers = array();
         $this->response = curl_exec($this->curl);
         $this->curl_error_code = curl_errno($this->curl);
         $this->curl_error_message = curl_error($this->curl);
@@ -186,17 +216,7 @@ class Curl
         $this->http_error = in_array(floor($this->http_status_code / 100), array(4, 5));
         $this->error = $this->curl_error || $this->http_error;
         $this->error_code = $this->error ? ($this->curl_error ? $this->curl_error_code : $this->http_status_code) : 0;
-
         $this->request_headers = preg_split('/\r\n/', curl_getinfo($this->curl, CURLINFO_HEADER_OUT), null, PREG_SPLIT_NO_EMPTY);
-        $this->response_headers = '';
-        if (!(strpos($this->response, "\r\n\r\n") === false)) {
-            list($response_header, $this->response) = explode("\r\n\r\n", $this->response, 2);
-            while (strtolower(trim($response_header)) === 'http/1.1 100 continue') {
-                list($response_header, $this->response) = explode("\r\n\r\n", $this->response, 2);
-            }
-            $this->response_headers = preg_split('/\r\n/', $response_header, null, PREG_SPLIT_NO_EMPTY);
-        }
-
         $this->http_error_message = $this->error ? (isset($this->response_headers['0']) ? $this->response_headers['0'] : '') : '';
         $this->error_message = $this->curl_error ? $this->curl_error_message : $this->http_error_message;
 
@@ -540,7 +560,7 @@ class Curl
         $this->http_status_code = 0;
         $this->http_error_message = null;
         $this->request_headers = null;
-        $this->response_headers = null;
+        $this->response_headers = array();
         $this->response = null;
         $this->init();
         return $this;
