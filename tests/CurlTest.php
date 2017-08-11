@@ -217,6 +217,19 @@ class CurlTest extends \PHPUnit_Framework_TestCase
 				'key' => 'HTTP_ACCEPT',
 		)) === 'application/json');
 	}
+
+	public function testHeadersWithContinue() {
+		$headers = file(dirname(__FILE__) . '/data/response_headers_with_continue.txt');
+		
+		$this->curl->response_headers = array();
+		foreach($headers as $header_line) {
+			$this->curl->addResponseHeaderLine(null, $header_line);
+		}
+
+		$expected_headers = array_values(array_filter(array_map(function($l) { return trim($l, "\r\n"); }, array_slice($headers, 1))));
+
+		$this->assertEquals($expected_headers, $this->curl->response_headers);
+	}
 	
 	public function testReset()
 	{
@@ -236,7 +249,7 @@ class CurlTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame(0, $curl->http_status_code);
 		$this->assertNull($curl->http_error_message);
 		$this->assertNull($curl->request_headers);
-		$this->assertNull($curl->response_headers);
+		$this->assertEmpty($curl->response_headers);
 		$this->assertNull($curl->response);
 	}
 
