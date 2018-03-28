@@ -78,7 +78,7 @@ class Curl
     public $curl;
 
     /**
-     * @var booelan Whether an error occured or not
+     * @var boolean Whether an error occured or not
      */
     public $error = false;
 
@@ -113,7 +113,7 @@ class Curl
     public $http_error = false;
 
     /**
-     * @var int Contains the error code of the curren request, 0 means no error happend
+     * @var int Contains the status code of the current processed request.
      */
     public $http_status_code = 0;
 
@@ -309,9 +309,9 @@ class Curl
      *
      * The put request data can be either sent via payload or as get paramters of the string.
      *
-     * @param string $url     The url to make the get request
-     * @param array  $data    Optional data to pass to the $url
-     * @param bool   $payload Whether the data should be transmitted trough payload or as get parameters of the string
+     * @param string $url The url to make the get request
+     * @param array $data Optional data to pass to the $url
+     * @param boolean $payload Whether the data should be transmitted trough payload or as get parameters of the string
      * @return self
      */
     public function put($url, $data = array(), $payload = false)
@@ -335,9 +335,9 @@ class Curl
      *
      * The patch request data can be either sent via payload or as get paramters of the string.
      *
-     * @param string $url     The url to make the get request
-     * @param array  $data    Optional data to pass to the $url
-     * @param bool   $payload Whether the data should be transmitted trough payload or as get parameters of the string
+     * @param string $url The url to make the get request
+     * @param array $data Optional data to pass to the $url
+     * @param boolean $payload Whether the data should be transmitted trough payload or as get parameters of the string
      * @return self
      */
     public function patch($url, $data = array(), $payload = false)
@@ -359,9 +359,9 @@ class Curl
     /**
      * Make a delete request with optional data.
      *
-     * @param string $url     The url to make the delete request
-     * @param array  $data    Optional data to pass to the $url
-     * @param bool   $payload Whether the data should be transmitted trough payload or as get parameters of the string
+     * @param string $url The url to make the delete request
+     * @param array $data Optional data to pass to the $url
+     * @param boolean $payload Whether the data should be transmitted trough payload or as get parameters of the string
      * @return self
      */
     public function delete($url, $data = array(), $payload = false)
@@ -588,7 +588,7 @@ class Curl
 
     /**
      * Was an 'info' header returned.
-     * @return bool
+     * @return boolean
      */
     public function isInfo()
     {
@@ -597,7 +597,7 @@ class Curl
 
     /**
      * Was an 'OK' response returned.
-     * @return bool
+     * @return boolean
      */
     public function isSuccess()
     {
@@ -606,7 +606,7 @@ class Curl
 
     /**
      * Was a 'redirect' returned.
-     * @return bool
+     * @return boolean
      */
     public function isRedirect()
     {
@@ -615,7 +615,7 @@ class Curl
 
     /**
      * Was an 'error' returned (client error or server error).
-     * @return bool
+     * @return boolean
      */
     public function isError()
     {
@@ -624,7 +624,7 @@ class Curl
 
     /**
      * Was a 'client error' returned.
-     * @return bool
+     * @return boolean
      */
     public function isClientError()
     {
