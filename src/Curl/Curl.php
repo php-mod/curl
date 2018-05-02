@@ -66,7 +66,7 @@ class Curl
     /**
      * @var string The user agent name which is set when making a request
      */
-    const USER_AGENT = 'PHP Curl/1.6 (+https://github.com/php-mod/curl)';
+    const USER_AGENT = 'PHP Curl/1.9 (+https://github.com/php-mod/curl)';
 
     private $_cookies = array();
 
@@ -638,5 +638,49 @@ class Curl
     public function isServerError()
     {
         return $this->http_status_code >= 500 && $this->http_status_code < 600;
+    }
+    
+    /**
+     * Get a specific response header key or all values from the response headers array.
+     * 
+     * Usage example:
+     * 
+     * ```php
+     * $curl = (new Curl())->get('http://example.com');
+     * 
+     * echo $curl->getResponseHeaders('Content-Type');
+     * ```
+     * 
+     * Or in order to dump all keys with the given values use:
+     * 
+     * ```php
+     * $curl = (new Curl())->get('http://example.com');
+     * 
+     * var_dump($curl->getResponseHeaders());
+     * ```
+     * 
+     * @param string $headerKey Optional key to get from the array.
+     * @return boolean|string
+     * @since 1.9
+     */
+    public function getResponseHeaders($headerKey = null)
+    {
+        $headers = [];
+        $headerKey = strtolower($headerKey);
+        
+        foreach ($this->response_headers as $header) {
+            $parts = explode(":", $header, 2);
+            
+            $key = isset($parts[0]) ? $parts[0] : null;
+            $value = isset($parts[1]) ? $parts[1] : null;
+            
+            $headers[trim(strtolower($key))] = trim($value);
+        }
+        
+        if ($headerKey) {
+            return isset($headers[$headerKey]) ? $headers[$headerKey] : false;
+        }
+        
+        return $headers;
     }
 }
