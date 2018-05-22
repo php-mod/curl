@@ -78,7 +78,7 @@ class Curl
     public $curl;
 
     /**
-     * @var boolean Whether an error occured or not
+     * @var bool Whether an error occured or not
      */
     public $error = false;
 
@@ -138,7 +138,7 @@ class Curl
     public $response = null;
 
     /**
-     * @var boolean Whether the current section of response headers is after 'HTTP/1.1 100 Continue'
+     * @var bool Whether the current section of response headers is after 'HTTP/1.1 100 Continue'
      */
     protected $response_header_continue = false;
 
@@ -311,7 +311,7 @@ class Curl
      *
      * @param string $url The url to make the get request
      * @param array $data Optional data to pass to the $url
-     * @param boolean $payload Whether the data should be transmitted trough payload or as get parameters of the string
+     * @param bool $payload Whether the data should be transmitted trough payload or as get parameters of the string
      * @return self
      */
     public function put($url, $data = array(), $payload = false)
@@ -337,7 +337,7 @@ class Curl
      *
      * @param string $url The url to make the get request
      * @param array $data Optional data to pass to the $url
-     * @param boolean $payload Whether the data should be transmitted trough payload or as get parameters of the string
+     * @param bool $payload Whether the data should be transmitted trough payload or as get parameters of the string
      * @return self
      */
     public function patch($url, $data = array(), $payload = false)
@@ -361,7 +361,7 @@ class Curl
      *
      * @param string $url The url to make the delete request
      * @param array $data Optional data to pass to the $url
-     * @param boolean $payload Whether the data should be transmitted trough payload or as get parameters of the string
+     * @param bool $payload Whether the data should be transmitted trough payload or as get parameters of the string
      * @return self
      */
     public function delete($url, $data = array(), $payload = false)
@@ -588,7 +588,7 @@ class Curl
 
     /**
      * Was an 'info' header returned.
-     * @return boolean
+     * @return bool
      */
     public function isInfo()
     {
@@ -597,7 +597,7 @@ class Curl
 
     /**
      * Was an 'OK' response returned.
-     * @return boolean
+     * @return bool
      */
     public function isSuccess()
     {
@@ -606,7 +606,7 @@ class Curl
 
     /**
      * Was a 'redirect' returned.
-     * @return boolean
+     * @return bool
      */
     public function isRedirect()
     {
@@ -615,7 +615,7 @@ class Curl
 
     /**
      * Was an 'error' returned (client error or server error).
-     * @return boolean
+     * @return bool
      */
     public function isError()
     {
@@ -624,7 +624,7 @@ class Curl
 
     /**
      * Was a 'client error' returned.
-     * @return boolean
+     * @return bool
      */
     public function isClientError()
     {
