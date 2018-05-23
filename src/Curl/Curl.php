@@ -292,7 +292,7 @@ class Curl
     /**
      * Make a post request with optional post data.
      *
-     * @param string $url  The url to make the get request
+     * @param string $url  The url to make the post request
      * @param array  $data Post data to pass to the url
      * @return self
      */
@@ -309,7 +309,7 @@ class Curl
      *
      * The put request data can be either sent via payload or as get paramters of the string.
      *
-     * @param string $url The url to make the get request
+     * @param string $url The url to make the put request
      * @param array $data Optional data to pass to the $url
      * @param bool $payload Whether the data should be transmitted trough payload or as get parameters of the string
      * @return self
@@ -335,7 +335,7 @@ class Curl
      *
      * The patch request data can be either sent via payload or as get paramters of the string.
      *
-     * @param string $url The url to make the get request
+     * @param string $url The url to make the patch request
      * @param array $data Optional data to pass to the $url
      * @param bool $payload Whether the data should be transmitted trough payload or as get parameters of the string
      * @return self
