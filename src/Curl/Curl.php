@@ -78,7 +78,7 @@ class Curl
     public $curl;
 
     /**
-     * @var booelan Whether an error occured or not
+     * @var bool Whether an error occured or not
      */
     public $error = false;
 
@@ -113,7 +113,7 @@ class Curl
     public $http_error = false;
 
     /**
-     * @var int Contains the error code of the curren request, 0 means no error happend
+     * @var int Contains the status code of the current processed request.
      */
     public $http_status_code = 0;
 
@@ -138,7 +138,7 @@ class Curl
     public $response = null;
 
     /**
-     * @var boolean Whether the current section of response headers is after 'HTTP/1.1 100 Continue'
+     * @var bool Whether the current section of response headers is after 'HTTP/1.1 100 Continue'
      */
     protected $response_header_continue = false;
 
@@ -292,7 +292,7 @@ class Curl
     /**
      * Make a post request with optional post data.
      *
-     * @param string $url  The url to make the get request
+     * @param string $url  The url to make the post request
      * @param array  $data Post data to pass to the url
      * @return self
      */
@@ -309,9 +309,9 @@ class Curl
      *
      * The put request data can be either sent via payload or as get paramters of the string.
      *
-     * @param string $url     The url to make the get request
-     * @param array  $data    Optional data to pass to the $url
-     * @param bool   $payload Whether the data should be transmitted trough payload or as get parameters of the string
+     * @param string $url The url to make the put request
+     * @param array $data Optional data to pass to the $url
+     * @param bool $payload Whether the data should be transmitted trough payload or as get parameters of the string
      * @return self
      */
     public function put($url, $data = array(), $payload = false)
@@ -335,9 +335,9 @@ class Curl
      *
      * The patch request data can be either sent via payload or as get paramters of the string.
      *
-     * @param string $url     The url to make the get request
-     * @param array  $data    Optional data to pass to the $url
-     * @param bool   $payload Whether the data should be transmitted trough payload or as get parameters of the string
+     * @param string $url The url to make the patch request
+     * @param array $data Optional data to pass to the $url
+     * @param bool $payload Whether the data should be transmitted trough payload or as get parameters of the string
      * @return self
      */
     public function patch($url, $data = array(), $payload = false)
@@ -359,9 +359,9 @@ class Curl
     /**
      * Make a delete request with optional data.
      *
-     * @param string $url     The url to make the delete request
-     * @param array  $data    Optional data to pass to the $url
-     * @param bool   $payload Whether the data should be transmitted trough payload or as get parameters of the string
+     * @param string $url The url to make the delete request
+     * @param array $data Optional data to pass to the $url
+     * @param bool $payload Whether the data should be transmitted trough payload or as get parameters of the string
      * @return self
      */
     public function delete($url, $data = array(), $payload = false)
