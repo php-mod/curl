@@ -93,7 +93,7 @@ class Curl
     public $error_message = null;
 
     /**
-     * @var booelan Whether an error occured or not
+     * @var bool Whether an error occured or not
      */
     public $curl_error = false;
 
