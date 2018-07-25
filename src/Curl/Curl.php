@@ -108,7 +108,7 @@ class Curl
     public $curl_error_message = null;
 
     /**
-     * @var booelan Whether an error occured or not
+     * @var bool Whether an error occured or not
      */
     public $http_error = false;
 
@@ -660,7 +660,7 @@ class Curl
      * ```
      * 
      * @param string $headerKey Optional key to get from the array.
-     * @return boolean|string
+     * @return bool|string
      * @since 1.9
      */
     public function getResponseHeaders($headerKey = null)
