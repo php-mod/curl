@@ -98,7 +98,8 @@ class Curl
     public $curl_error = false;
 
     /**
-     * @var int Contains the error code of the curren request, 0 means no error happend
+     * @var int Contains the error code of the curren request, 0 means no error happend.
+     * @see https://curl.haxx.se/libcurl/c/libcurl-errors.html
      */
     public $curl_error_code = 0;
 
