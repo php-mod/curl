@@ -666,7 +666,7 @@ class Curl
      */
     public function getResponseHeaders($headerKey = null)
     {
-        $headers = [];
+        $headers = array();
         $headerKey = strtolower($headerKey);
         
         foreach ($this->response_headers as $header) {
