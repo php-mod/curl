@@ -232,7 +232,19 @@ class Curl
         $this->setOpt(CURLOPT_POST, true);
 
         if (is_array($data) || is_object($data)) {
-            $data = http_build_query($data);
+            $skip = false;
+            foreach ($data as $key => $value) {
+                // If a value is an instance of CurlFile skip the http_build_query 
+                // see issue https://github.com/php-mod/curl/issues/46
+                // suggestion from: https://stackoverflow.com/a/36603038/4611030
+                if ($value instanceof \CurlFile) {
+                    $skip = true;
+                }
+            }
+            
+            if (!$skip) {
+                $data = http_build_query($data);
+            }
         }
 
         $this->setOpt(CURLOPT_POSTFIELDS, $data);
