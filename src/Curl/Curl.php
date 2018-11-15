@@ -643,23 +643,23 @@ class Curl
     
     /**
      * Get a specific response header key or all values from the response headers array.
-     * 
+     *
      * Usage example:
-     * 
+     *
      * ```php
      * $curl = (new Curl())->get('http://example.com');
-     * 
+     *
      * echo $curl->getResponseHeaders('Content-Type');
      * ```
-     * 
+     *
      * Or in order to dump all keys with the given values use:
-     * 
+     *
      * ```php
      * $curl = (new Curl())->get('http://example.com');
-     * 
+     *
      * var_dump($curl->getResponseHeaders());
      * ```
-     * 
+     *
      * @param string $headerKey Optional key to get from the array.
      * @return bool|string
      * @since 1.9
