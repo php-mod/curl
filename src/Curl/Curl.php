@@ -190,9 +190,9 @@ class Curl
 
         if ($trimmed_header === "") {
             $this->response_header_continue = false;
-        } else if (strtolower($trimmed_header) === 'http/1.1 100 continue') {
+        } elseif (strtolower($trimmed_header) === 'http/1.1 100 continue') {
             $this->response_header_continue = true;
-        } else if (!$this->response_header_continue) {
+        } elseif (!$this->response_header_continue) {
             $this->response_headers[] = $trimmed_header;
         }
         
@@ -234,7 +234,7 @@ class Curl
         if (is_array($data) || is_object($data)) {
             $skip = false;
             foreach ($data as $key => $value) {
-                // If a value is an instance of CurlFile skip the http_build_query 
+                // If a value is an instance of CurlFile skip the http_build_query
                 // see issue https://github.com/php-mod/curl/issues/46
                 // suggestion from: https://stackoverflow.com/a/36603038/4611030
                 if ($value instanceof \CurlFile) {
@@ -511,28 +511,28 @@ class Curl
         return curl_setopt($this->curl, $option, $value);
     }
     
-     /**
-     * Get customized curl options.
-     *
-     * To see a full list of options: http://php.net/curl_getinfo
-     *
-     * @see http://php.net/curl_getinfo
-     *
-     * @param int   $option The curl option constante e.g. `CURLOPT_AUTOREFERER`, `CURLOPT_COOKIESESSION`
-     * @param mixed $value  The value to check for the given $option
-     */
+    /**
+    * Get customized curl options.
+    *
+    * To see a full list of options: http://php.net/curl_getinfo
+    *
+    * @see http://php.net/curl_getinfo
+    *
+    * @param int   $option The curl option constante e.g. `CURLOPT_AUTOREFERER`, `CURLOPT_COOKIESESSION`
+    * @param mixed $value  The value to check for the given $option
+    */
     public function getOpt($option)
     {
         return curl_getinfo($this->curl, $option);
     }
     
-     /**
-     * Return the endpoint set for curl
-     *
-     * @see http://php.net/curl_getinfo
-     *
-     * @return string of endpoint
-     */
+    /**
+    * Return the endpoint set for curl
+    *
+    * @see http://php.net/curl_getinfo
+    *
+    * @return string of endpoint
+    */
     public function getEndpoint()
     {
         return $this->getOpt(CURLINFO_EFFECTIVE_URL);
