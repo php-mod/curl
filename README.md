@@ -15,7 +15,7 @@ composer require curl/curl
 or add the package manually to your composer.json file in the require section:
 
 ```json
-"curl/curl": "^1.5"
+"curl/curl": "^2.0"
 ```
 
 ## Usage examples
