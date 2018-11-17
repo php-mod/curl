@@ -11,6 +11,9 @@ build-test-server:
         - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
         - docker build --pull -t "$CI_REGISTRY_IMAGE:server-test" tests/server
         - docker push "$CI_REGISTRY_IMAGE:server-test"
+    only:
+        changes:
+            - tests/server
 
 tests-php5.6:
     image: alpine:3.7
@@ -29,7 +32,6 @@ tests-php5.6:
         - if [ -n "$DOWLOAD_COMPOSER" ] ; then php -r "unlink('composer-setup.php');" ; fi;
         - php composer.phar install
         - vendor/bin/phpcs --warning-severity=0 --standard=PSR2 src
-#        - nohup php -S localhost:8000 -t tests/server/php-curl-test > phpd.log 2>&1 &
         - vendor/bin/phpunit
     cache:
         key: php5.6
