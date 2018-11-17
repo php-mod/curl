@@ -1,7 +1,5 @@
 # PHP Curl Class
 
-[![Build Status](https://travis-ci.org/php-mod/curl.svg?branch=master)](https://travis-ci.org/php-mod/curl)
-
 This library provides an object-oriented wrapper of the PHP cURL extension.
 
 If you have questions or problems with installation or usage [create an Issue](https://github.com/php-mod/curl/issues).
