@@ -696,4 +696,24 @@ class Curl
         
         return $headers;
     }
+
+    public function getResponse()
+    {
+        return $this->response;
+    }
+
+    public function getErrorCode()
+    {
+        return $this->curl_error_code;
+    }
+
+    public function getErrorMessage()
+    {
+        return $this->curl_error_message;
+    }
+
+    public function getHttpStatus()
+    {
+        return $this->http_status_code;
+    }
 }
