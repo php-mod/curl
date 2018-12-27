@@ -151,7 +151,7 @@ class Curl
     public function __construct()
     {
         if (!extension_loaded('curl')) {
-            throw new \ErrorException('The cURL extensions is not loaded, make sure you have installed the cURL extension: https://php.net/manual/curl.setup.php');
+            throw new \RuntimeException('The cURL extensions is not loaded, make sure you have installed the cURL extension: https://php.net/manual/curl.setup.php');
         }
 
         $this->init();
