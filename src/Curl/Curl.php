@@ -546,10 +546,17 @@ class Curl
      * @param bool $on
      * @return self
      */
-    public function verbose($on = true)
+    public function setVerbose($on = true)
     {
         $this->setOpt(CURLOPT_VERBOSE, $on);
         return $this;
+    }
+
+    /**
+     * @deprecated Call setVerbose() instead
+     */
+    public function verbose($on = true) {
+        return $this->setVerbose($on);
     }
 
     /**
