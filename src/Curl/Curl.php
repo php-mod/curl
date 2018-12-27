@@ -114,7 +114,7 @@ class Curl
     public $http_error = false;
 
     /**
-     * @var int Contains the status code of the current processed request.
+     * @var integer Contains the status code of the current processed request.
      */
     public $http_status_code = 0;
 
@@ -213,7 +213,7 @@ class Curl
         $this->curl_error_code = curl_errno($this->curl);
         $this->curl_error_message = curl_error($this->curl);
         $this->curl_error = !($this->getErrorCode() === 0);
-        $this->http_status_code = curl_getinfo($this->curl, CURLINFO_HTTP_CODE);
+        $this->http_status_code = intval(curl_getinfo($this->curl, CURLINFO_HTTP_CODE));
         $this->http_error = $this->isError();
         $this->error = $this->curl_error || $this->http_error;
         $this->error_code = $this->error ? ($this->curl_error ? $this->getErrorCode() : $this->getHttpStatus()) : 0;
@@ -739,7 +739,7 @@ class Curl
 
     /**
      * Get http status code from the curl request
-     * @return string
+     * @return integer
      */
     public function getHttpStatus()
     {
