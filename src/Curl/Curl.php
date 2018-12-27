@@ -134,9 +134,9 @@ class Curl
     public $response_headers = array();
 
     /**
-     * @var string Contains the response from the curl request
+     * @var string|false Contains the response from the curl request
      */
-    public $response = null;
+    public $response = false;
 
     /**
      * @var bool Whether the current section of response headers is after 'HTTP/1.1 100 Continue'
@@ -587,7 +587,7 @@ class Curl
         $this->http_error_message = null;
         $this->request_headers = null;
         $this->response_headers = array();
-        $this->response = null;
+        $this->response = false;
         $this->init();
         return $this;
     }
@@ -712,7 +712,7 @@ class Curl
 
     /**
      * Get response from the curl request
-     * @return string
+     * @return string|false
      */
     public function getResponse()
     {
