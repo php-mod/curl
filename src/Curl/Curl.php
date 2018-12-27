@@ -212,14 +212,14 @@ class Curl
         $this->response = curl_exec($this->curl);
         $this->curl_error_code = curl_errno($this->curl);
         $this->curl_error_message = curl_error($this->curl);
-        $this->curl_error = !($this->curl_error_code === 0);
+        $this->curl_error = !($this->getErrorCode() === 0);
         $this->http_status_code = curl_getinfo($this->curl, CURLINFO_HTTP_CODE);
-        $this->http_error = in_array(floor($this->http_status_code / 100), array(4, 5));
+        $this->http_error = $this->isError();
         $this->error = $this->curl_error || $this->http_error;
-        $this->error_code = $this->error ? ($this->curl_error ? $this->curl_error_code : $this->http_status_code) : 0;
+        $this->error_code = $this->error ? ($this->curl_error ? $this->getErrorCode() : $this->getHttpStatus()) : 0;
         $this->request_headers = preg_split('/\r\n/', curl_getinfo($this->curl, CURLINFO_HEADER_OUT), null, PREG_SPLIT_NO_EMPTY);
         $this->http_error_message = $this->error ? (isset($this->response_headers['0']) ? $this->response_headers['0'] : '') : '';
-        $this->error_message = $this->curl_error ? $this->curl_error_message : $this->http_error_message;
+        $this->error_message = $this->curl_error ? $this->getErrorMessage() : $this->http_error_message;
 
         return $this->error_code;
     }
@@ -605,7 +605,7 @@ class Curl
      */
     public function isInfo()
     {
-        return $this->http_status_code >= 100 && $this->http_status_code < 200;
+        return $this->getHttpStatus() >= 100 && $this->getHttpStatus() < 200;
     }
 
     /**
@@ -614,7 +614,7 @@ class Curl
      */
     public function isSuccess()
     {
-        return $this->http_status_code >= 200 && $this->http_status_code < 300;
+        return $this->getHttpStatus() >= 200 && $this->getHttpStatus() < 300;
     }
 
     /**
@@ -623,7 +623,7 @@ class Curl
      */
     public function isRedirect()
     {
-        return $this->http_status_code >= 300 && $this->http_status_code < 400;
+        return $this->getHttpStatus() >= 300 && $this->getHttpStatus() < 400;
     }
 
     /**
@@ -632,7 +632,7 @@ class Curl
      */
     public function isError()
     {
-        return $this->http_status_code >= 400 && $this->http_status_code < 600;
+        return $this->getHttpStatus() >= 400 && $this->getHttpStatus() < 600;
     }
 
     /**
@@ -641,7 +641,7 @@ class Curl
      */
     public function isClientError()
     {
-        return $this->http_status_code >= 400 && $this->http_status_code < 500;
+        return $this->getHttpStatus() >= 400 && $this->getHttpStatus() < 500;
     }
 
     /**
@@ -650,7 +650,7 @@ class Curl
      */
     public function isServerError()
     {
-        return $this->http_status_code >= 500 && $this->http_status_code < 600;
+        return $this->getHttpStatus() >= 500 && $this->getHttpStatus() < 600;
     }
     
     /**
