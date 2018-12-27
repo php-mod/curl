@@ -146,7 +146,7 @@ class Curl
     /**
      * Constructor ensures the available curl extension is loaded.
      *
-     * @throws \ErrorException
+     * @throws \RuntimeException
      */
     public function __construct()
     {
@@ -418,7 +418,7 @@ class Curl
     }
 
     /**
-     * Provide optional header informations.
+     * Provide optional header information.
      *
      * In order to pass optional headers by key value pairing:
      *
@@ -461,6 +461,9 @@ class Curl
 
     /**
      * @deprecated Call setReferer() instead
+     *
+     * @param $referrer
+     * @return self
      */
     public function setReferrer($referrer)
     {
@@ -554,6 +557,9 @@ class Curl
 
     /**
      * @deprecated Call setVerbose() instead
+     *
+     * @param bool $on
+     * @return self
      */
     public function verbose($on = true) {
         return $this->setVerbose($on);
