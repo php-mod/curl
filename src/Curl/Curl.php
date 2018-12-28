@@ -114,7 +114,7 @@ class Curl
     public $http_error = false;
 
     /**
-     * @var integer Contains the status code of the current processed request.
+     * @var int Contains the status code of the current processed request.
      */
     public $http_status_code = 0;
 
@@ -739,7 +739,7 @@ class Curl
 
     /**
      * Get http status code from the curl request
-     * @return integer
+     * @return int
      */
     public function getHttpStatus()
     {
