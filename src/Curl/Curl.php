@@ -561,7 +561,8 @@ class Curl
      * @param bool $on
      * @return self
      */
-    public function verbose($on = true) {
+    public function verbose($on = true)
+    {
         return $this->setVerbose($on);
     }
 
