@@ -134,9 +134,9 @@ class Curl
     public $response_headers = array();
 
     /**
-     * @var string|false Contains the response from the curl request
+     * @var string|false|null Contains the response from the curl request
      */
-    public $response = false;
+    public $response = null;
 
     /**
      * @var bool Whether the current section of response headers is after 'HTTP/1.1 100 Continue'
