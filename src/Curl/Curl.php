@@ -526,9 +526,14 @@ class Curl
      * @param mixed The value to check for the given $option
      * @return mixed
      */
-    public function getOpt($option)
+    public function getOpt($option = null)
     {
-        return curl_getinfo($this->curl, $option);
+        if (is_null($option)) {
+            $result = curl_getinfo($this->curl);
+        } else {
+            $result = curl_getinfo($this->curl, $option);
+        }
+        return $result;
     }
     
     /**
