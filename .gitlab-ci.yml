@@ -16,7 +16,7 @@ build-test-server:
             - tests/server
 
 tests-php5.6:
-    image: alpine:3.8
+    image: alpine:3.7
     stage: test
     services:
         - name: "$CI_REGISTRY_IMAGE:server-test"
