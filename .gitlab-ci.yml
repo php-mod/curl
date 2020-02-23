@@ -131,7 +131,7 @@ tests-php7.3:
         - nohup php -S localhost:8000 -t tests/server/php-curl-test > phpd.log 2>&1 &
         - vendor/bin/phpunit
     cache:
-        key: php7.2
+        key: php7.3
         paths:
             - composer.phar
             - vendor
