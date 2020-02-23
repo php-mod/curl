@@ -22,10 +22,14 @@ tests-php5.6:
         - name: "$CI_REGISTRY_IMAGE:server-test"
           alias: server_test
     script:
-        - apk add --no-cache composer php5-cli php5-curl php5-gd php5-phar php5-json php5-openssl php5-dom php5-xml php5-zlib
+        - apk add --no-cache php5-cli php5-curl php5-gd php5-phar php5-json php5-openssl php5-dom php5-xml php5-zlib
         - ln -s /usr/bin/php5 /usr/bin/php
         - php --version
-        - composer install
+        - if [ ! -f composer.phar ]; then DOWLOAD_COMPOSER=1 ; fi;
+        - if [ -n "$DOWLOAD_COMPOSER" ] ; then php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" ; fi;
+        - if [ -n "$DOWLOAD_COMPOSER" ] ; then php composer-setup.php ; fi;
+        - if [ -n "$DOWLOAD_COMPOSER" ] ; then php -r "unlink('composer-setup.php');" ; fi;
+        - php composer.phar install
         - vendor/bin/phpcs --warning-severity=0 --standard=PSR2 src
         - vendor/bin/phpunit
     cache:
