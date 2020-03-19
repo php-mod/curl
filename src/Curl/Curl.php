@@ -251,6 +251,18 @@ class Curl
     }
 
     /**
+     * Set the json payload informations to the postfield curl option.
+     *
+     * @param array $data The data to be sent.
+     * @return void
+     */
+    protected function prepareJsonPayload(array $data)
+    {
+        $this->setOpt(CURLOPT_POST, true);
+        $this->setOpt(CURLOPT_POSTFIELDS, json_encode($data));
+    }
+
+    /**
      * Set auth options for the current request.
      *
      * Available auth types are:
@@ -307,12 +319,17 @@ class Curl
      *
      * @param string $url  The url to make the post request
      * @param array  $data Post data to pass to the url
+     * @param boolean $asJson Whether the data should be passed as json or not. {@insce 2.2.1}
      * @return self
      */
-    public function post($url, $data = array())
+    public function post($url, $data = array(), $asJson = false)
     {
         $this->setOpt(CURLOPT_URL, $url);
-        $this->preparePayload($data);
+        if ($asJson) {
+            $this->prepareJsonPayload($data);
+        } else {
+            $this->preparePayload($data);
+        }
         $this->exec();
         return $this;
     }
