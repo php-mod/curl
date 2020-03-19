@@ -199,14 +199,12 @@ class Curl
         return strlen($header_line);
     }
 
-    // protected methods
-
     /**
      * Execute the curl request based on the respective settings.
      *
      * @return int Returns the error code for the current curl request
      */
-    protected function exec()
+    public function exec()
     {
         $this->response_headers = array();
         $this->response = curl_exec($this->curl);
@@ -223,6 +221,8 @@ class Curl
 
         return $this->error_code;
     }
+    
+    // protected methods
 
     /**
      * @param array|object|string $data
