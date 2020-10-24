@@ -9,15 +9,6 @@
     {
       "name": "php-curl-class",
       "homepage": "https://github.com/php-curl-class"
-    },
-    {
-      "name": "Hassan Amouhzi",
-      "email": "hassan@anezi.net",
-      "homepage": "http://hassan.amouhzi.com"
-    },
-    {
-      "name": "user52",
-      "homepage": "https://github.com/user52"
     }
   ],
   "require": {
@@ -32,5 +23,9 @@
     "psr-0": {
       "Curl": "src/"
     }
+  },
+  "support": {
+    "source": "https://github.com/php-curl-class/php-curl-class",
+    "issues": "https://github.com/php-curl-class/php-curl-class/issues"
   }
 }
