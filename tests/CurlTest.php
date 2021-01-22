@@ -2,7 +2,9 @@
 
 namespace Curl;
 
-class CurlTest extends \PHPUnit_Framework_TestCase
+use Yoast\PHPUnitPolyfills\TestCases\TestCase;
+
+class CurlTest extends TestCase
 {
 
 	const TEST_URL = 'http://localhost:1234';
@@ -13,7 +15,8 @@ class CurlTest extends \PHPUnit_Framework_TestCase
 	 */
 	protected $curl;
 
-	function setUp() {
+	function set_up() {
+		parent::set_up();
 		$this->curl = new Curl();
 		$this->curl->setOpt(CURLOPT_SSL_VERIFYPEER, FALSE);
 		$this->curl->setOpt(CURLOPT_SSL_VERIFYHOST, FALSE);
