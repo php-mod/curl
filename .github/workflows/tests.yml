@@ -24,7 +24,7 @@ jobs:
         working-directory: ./tests/server
 
       - name: Run test server
-        run: docker run localserver
+        run: docker run -d localserver
 
       ## Install php
       - name: Install PHP
