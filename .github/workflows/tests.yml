@@ -15,11 +15,15 @@ jobs:
       matrix:
         os: [ubuntu-latest]
         php: ['7.0', '7.1', '7.2', '7.3', '7.4', '8.0']
-
     steps:
       ## checkout the repoistory 
       - name: Checkout Repo
         uses: actions/checkout@v2
+
+      - name: Build server image
+        run: docker build tests/server -t localserver
+      - name: Run test server
+        run: docker run localserver
 
       ## Install(?) php
       - name: Install PHP
