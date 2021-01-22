@@ -4,7 +4,6 @@ on: [push, pull_request]
 
 env:
   DEFAULT_COMPOSER_FLAGS: "--prefer-dist --no-interaction"
-  PHPUNIT_EXCLUDE_GROUP: mssql,oci,wincache,xcache,zenddata,cubrid
   CC_TEST_REPORTER_ID: CODECLIMATE_REPORTER_ID
 jobs:
   phpunit:
@@ -16,16 +15,18 @@ jobs:
         os: [ubuntu-latest]
         php: ['7.0', '7.1', '7.2', '7.3', '7.4', '8.0']
     steps:
-      ## checkout the repoistory 
+      ## checkout the repoistory §
       - name: Checkout Repo
         uses: actions/checkout@v2
 
       - name: Build server image
-        run: docker build tests/server -t localserver
+        run: docker build . -t localserver
+        working-directory: ./tests/server
+
       - name: Run test server
         run: docker run localserver
 
-      ## Install(?) php
+      ## Install php
       - name: Install PHP
         uses: shivammathur/setup-php@v2
         with:
