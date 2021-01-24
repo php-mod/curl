@@ -6,15 +6,15 @@ All notable changes to this project will be documented in this file. This projec
 
 + Added GitHub Actions Tests (from 5.6 - 8.0)
 
-## 2.3.1 (21. January 2021)
+## 2.3.1 (21. January 2021)
 
 + Supports PHP8
 
-## 2.3.0 (19. March 2019)
+## 2.3.0 (19. March 2019)
 
 + add asJson option (#67)
 
-## 2.2.0 (4. December 2018)
+## 2.2.0 (4. December 2018)
 
 + Added some getters.
 

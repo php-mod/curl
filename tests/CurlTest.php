@@ -64,6 +64,18 @@ class CurlTest extends TestCase
 		)) === 'post');
 	}
 
+	public function testPostJsonData()
+	{
+		$resp = $this->curl->post(self::TEST_URL.'/server.php', ['foo' => 'bar'], true);
+
+		$this->assertTrue($resp->isSuccess());
+
+		$this->assertArrayHasKey('x-powered-by', $resp->getResponseHeaders());
+
+		// syntax error check
+		$resp->reset();
+	}
+
 	public function testPostMultidimensionalData() {
 
 		$data = array(

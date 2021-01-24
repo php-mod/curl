@@ -128,4 +128,5 @@ In order to test the library:
 1. Create a fork
 2. Clone the fork to your machine
 3. Install the depencies `composer install`
+4. Build and start the docker image (in `tests/server`) `docker build . -t curlserver` start `docker run -p 1234:80 curlserver`
 4. Run the unit tests `./vendor/bin/phpunit tests`
