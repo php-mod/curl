@@ -12,17 +12,8 @@
     bootstrap="vendor/autoload.php"
 >
     <testsuites>
-        <testsuite name="Package Test Suite">
-            <directory>./tests</directory>
+        <testsuite name="PHP-MOD CURL">
+            <directory>tests</directory>
         </testsuite>
     </testsuites>
-    <filter>
-		<blacklist>
-			<directory>./vendor</directory>
-			<directory>./tests</directory>
-		</blacklist>
-		<whitelist processUncoveredFilesFromWhitelist="false">
-            <directory suffix=".php">./src</directory>
-        </whitelist>
-	</filter>
 </phpunit>
