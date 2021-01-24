@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 env:
   DEFAULT_COMPOSER_FLAGS: "--prefer-dist --no-interaction"
-  CC_TEST_REPORTER_ID: CODECLIMATE_REPORTER_ID
+  CC_TEST_REPORTER_ID: 40d4890deed3bca8888c04ca67b9768edf11d7a089d2960977997791daea31f6
 jobs:
   phpunit:
     name: PHP ${{ matrix.php }} on ${{ matrix.os }}
