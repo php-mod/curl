@@ -18,4 +18,6 @@ if (isset($_FILES[$key])) {
     $response['mime_content_type'] = 'ERROR';
 }
 
+header('Content-Type: application/json');
+
 echo json_encode($response);
