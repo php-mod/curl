@@ -571,6 +571,46 @@ class Curl
         $this->setOpt(CURLOPT_VERBOSE, $on);
         return $this;
     }
+    
+    /**
+     * set the proxy
+     *
+     * @param   string $type      value can be CURLPROXY_HTTP(default),CURLPROXY_SOCKS4,CURLPROXY_SOCKS5,CURLPROXY_SOCKS4A and CURLPROXY_SOCKS5_HOSTNAME
+     * @param   int $port         default: 8080
+     * @param   string $host      default: 127.0.0.1
+     * @param   string $userpwd   default: Null, example: 'username.password', value are string
+     * @return  self
+     * @author  dugulingping
+     * @email   dugulingping@outlook.com
+     */
+    public function setProxy($type = 'CURLPROXY_HTTP',$port = 8080, $host = '127.0.0.1', $userpwd = null) : Curl{
+        $this->setOpt(CURLOPT_PROXYAUTH, 'CURLAUTH_BASIC');
+        $this->setOpt(CURLOPT_PROXYTYPE, $type);
+        $this->setOpt(CURLOPT_PROXY, $host);
+        $this->setOpt(CURLOPT_PROXYPORT, $port);
+        if(isset($userpwd)) {
+            $this->setOpt(CURLOPT_PROXYUSERPWD, $userpwd);
+        }
+
+        return $this;
+    }
+
+    /**
+     * set SSL
+     *
+     * @param   bool $type    When the param is set to FALSE, the certificate check and authentication will be ignored.
+     * @return  self
+     * @author  dugulingping
+     * @email   dugulingping@outlook.com
+     */
+    public function setSsl($type = true) : Curl{
+        $this->setOpt(CURLOPT_SSL_VERIFYPEER, $type);
+        // SSL CA pubilc key file ： http://curl.haxx.se/ca/cacert.pem
+        // After downloading, please put it in the folder where the library is located
+        $this->setOpt(CURLOPT_CAINFO, dirname(__FILE__).'/cacert.pem');
+
+        return $this;
+    }
 
     /**
      * @deprecated Call setVerbose() instead
