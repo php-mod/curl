@@ -590,8 +590,7 @@ class Curl
         $this->setOpt(CURLOPT_PROXY, $host);
         $this->setOpt(CURLOPT_PROXYPORT, $port);
         if(isset($username)) {
-            //The format is: 'username.password'
-            $this->setOpt(CURLOPT_PROXYUSERPWD, $username.':'.$password);
+            $this->setOpt(CURLOPT_PROXYUSERPWD, ($username.':'.$password));
         }
 
         return $this;
