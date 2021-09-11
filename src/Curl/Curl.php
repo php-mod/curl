@@ -578,19 +578,20 @@ class Curl
      * @param   string $type            value can be CURLPROXY_HTTP(default),CURLPROXY_SOCKS4,CURLPROXY_SOCKS5,CURLPROXY_SOCKS4A and CURLPROXY_SOCKS5_HOSTNAME
      * @param   int $port               default: 8080
      * @param   string $host            default: 127.0.0.1
-     * @param   string $userAndPasswd   default: Null, example: 'username.password', value are string
+     * @param   string $username        default: Null, if this param is null, user authentication will not take effect
+     * @param   string $password        default: Null,
      * @return  self
      * @author  dugulingping
      * @email   dugulingping@outlook.com
      */
-    public function setProxy($type = 'CURLPROXY_HTTP', $host = '127.0.0.1', $port = 8080,  $userAndPasswd = null) : Curl{
+    public function setProxy($type = 'CURLPROXY_HTTP', $host = '127.0.0.1', $port = 8080, $username= null, $password = null) : Curl{
         $this->setOpt(CURLOPT_PROXYAUTH, 'CURLAUTH_BASIC');
         $this->setOpt(CURLOPT_PROXYTYPE, $type);
         $this->setOpt(CURLOPT_PROXY, $host);
         $this->setOpt(CURLOPT_PROXYPORT, $port);
-        if(isset($userpwd)) {
+        if(isset($username)) {
             //The format is: 'username.password'
-            $this->setOpt(CURLOPT_PROXYUSERPWD, $userAndPasswd);
+            $this->setOpt(CURLOPT_PROXYUSERPWD, $username.':'.$password);
         }
 
         return $this;
@@ -599,20 +600,19 @@ class Curl
     /**
      * set SSL
      *
-     * @param   bool $type    When the param is set to FALSE, the certificate check and authentication will be ignored.
-     * @param   string $filePath
-     * @param   string $fileName
+     * @param   bool $type          When the param is set to FALSE, the certificate check and authentication will be ignored.
+     * @param   string $filePath    
      * @return  self
      * @author  dugulingping
      * @email   dugulingping@outlook.com
      */
-    public function setSsl($type = true, $filePath = '', $fileName =  'cacert.pem') : Curl{
+    public function setSsl($type = true, $filePath = '') : Curl{
         // When the type is true, set the pem file 
         if($type){
-            $filePath = ($filePath == '') ? dirname(__FILE__) : $filePath;
+            $filePath = ($filePath == '') ? dirname(__FILE__).'/cacert.pem' : $filePath;
             // SSL CA pubilc key file ： http://curl.haxx.se/ca/cacert.pem
             // After downloading, please put it in the folder where the library is located
-            $this->setOpt(CURLOPT_CAINFO, $filePath . '/' . $fileName);
+            $this->setOpt(CURLOPT_CAINFO, $filePath);
         }
         $this->setOpt(CURLOPT_SSL_VERIFYPEER, $type);
         
