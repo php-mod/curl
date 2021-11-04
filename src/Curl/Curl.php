@@ -374,15 +374,21 @@ class Curl
      * @param string $url The url to make the patch request
      * @param array $data Optional data to pass to the $url
      * @param bool $payload Whether the data should be transmitted trough payload or as get parameters of the string
+     * @param boolean $asJson Whether the data should be passed as json or not.
      * @return self
      */
-    public function patch($url, $data = array(), $payload = false)
+    public function patch($url, $data = array(), $payload = false, $asJson = false)
     {
         if (! empty($data)) {
             if ($payload === false) {
                 $url .= '?'.http_build_query($data);
             } else {
-                $this->preparePayload($data);
+                if ($asJson) {
+                    $this->prepareJsonPayload($data);
+                }
+                else {
+                    $this->preparePayload($data);
+                }
             }
         }
 
