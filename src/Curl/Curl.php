@@ -445,8 +445,8 @@ class Curl
      * $curl->get('http://example.com/request.php');
      * ```
      *
-     * @param string $key   The header key
-     * @param string $value The value for the given header key
+     * @param string|int $key The header key
+     * @param string $value   The value for the given header key
      * @return self
      */
     public function setHeader($key, $value)
