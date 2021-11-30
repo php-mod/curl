@@ -217,7 +217,7 @@ class Curl
         $this->http_error = $this->isError();
         $this->error = $this->curl_error || $this->http_error;
         $this->error_code = $this->error ? ($this->curl_error ? $this->getErrorCode() : $this->getHttpStatus()) : 0;
-        $this->request_headers = preg_split('/\r\n/', curl_getinfo($this->curl, CURLINFO_HEADER_OUT), null, PREG_SPLIT_NO_EMPTY);
+        $this->request_headers = preg_split('/\r\n/', curl_getinfo($this->curl, CURLINFO_HEADER_OUT), -1, PREG_SPLIT_NO_EMPTY);
         $this->http_error_message = $this->error ? (isset($this->response_headers['0']) ? $this->response_headers['0'] : '') : '';
         $this->error_message = $this->curl_error ? $this->getErrorMessage() : $this->http_error_message;
 
@@ -715,8 +715,8 @@ class Curl
         foreach ($this->response_headers as $header) {
             $parts = explode(":", $header, 2);
             
-            $key = isset($parts[0]) ? $parts[0] : null;
-            $value = isset($parts[1]) ? $parts[1] : null;
+            $key = isset($parts[0]) ? $parts[0] : '';
+            $value = isset($parts[1]) ? $parts[1] : '';
             
             $headers[trim(strtolower($key))] = trim($value);
         }
