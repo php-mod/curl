@@ -1,8 +1,8 @@
 {
-  "name": "curl/curl",
-  "description": "cURL class for PHP",
+  "name": "migrad/curl",
+  "description": "Fork from curl/curl: cURL class for PHP",
   "keywords": ["dot", "curl"],
-  "homepage": "https://github.com/php-mod/curl",
+  "homepage": "https://github.com/migrad/curl",
   "type": "library",
   "license": "MIT",
   "authors": [
@@ -18,6 +18,10 @@
     {
       "name": "user52",
       "homepage": "https://github.com/user52"
+    },
+    {
+      "name": "migrad"
+      "homepage": "https://github.com/migrad"
     }
   ],
   "require": {
