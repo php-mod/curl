@@ -710,8 +710,10 @@ class Curl
     public function getResponseHeaders($headerKey = null)
     {
         $headers = array();
-        $headerKey = strtolower($headerKey);
-        
+        if (!is_null($headerKey)) {
+            $headerKey = strtolower($headerKey);
+        }
+
         foreach ($this->response_headers as $header) {
             $parts = explode(":", $header, 2);
             
