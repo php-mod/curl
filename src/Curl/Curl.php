@@ -323,14 +323,14 @@ class Curl
      * @param strng $url The url to make the purge request
      * @param string $hostname An optional hostname which will be sent as http host header
      * @return self
-     * @since
+     * @since 2.4.0
      */
     public function purge($url, $hostName = null)
     {
         $this->setOpt(CURLOPT_URL, $url);
         $this->setOpt(CURLOPT_CUSTOMREQUEST, 'PURGE'); 
         if ($hostName) {
-            $this->setOpt(CURLOPT_HTTPHEADER, ['Host: '. $hostName]);
+            $this->setOpt(CURLOPT_HTTPHEADER, array('Host: '. $hostName));
         }
         $this->exec();
         return $this;
