@@ -206,7 +206,7 @@ class Curl
      *
      * @return int Returns the error code for the current curl request
      */
-    protected function exec()
+    public function exec()
     {
         $this->response_headers = array();
         $this->response = curl_exec($this->curl);
@@ -284,7 +284,7 @@ class Curl
     // public methods
 
     /**
-     * @deprecated calling exec() directly is discouraged
+     * @deprecated use `exec()` directly.
      */
     public function _exec()
     {
