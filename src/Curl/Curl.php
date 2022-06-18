@@ -315,6 +315,28 @@ class Curl
     }
 
     /**
+     * Purge Request
+     *
+     * A very common scenario to send a purge request is within the use of varnish, therefore 
+     * the optional hostname can be defined.
+     * 
+     * @param strng $url The url to make the purge request
+     * @param string $hostname An optional hostname which will be sent as http host header
+     * @return self
+     * @since 2.4.0
+     */
+    public function purge($url, $hostName = null)
+    {
+        $this->setOpt(CURLOPT_URL, $url);
+        $this->setOpt(CURLOPT_CUSTOMREQUEST, 'PURGE'); 
+        if ($hostName) {
+            $this->setOpt(CURLOPT_HTTPHEADER, array('Host: '. $hostName));
+        }
+        $this->exec();
+        return $this;
+    }
+    
+    /**
      * Make a post request with optional post data.
      *
      * @param string $url  The url to make the post request
