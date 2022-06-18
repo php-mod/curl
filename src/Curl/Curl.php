@@ -330,7 +330,7 @@ class Curl
         $this->setOpt(CURLOPT_URL, $url);
         $this->setOpt(CURLOPT_CUSTOMREQUEST, 'PURGE'); 
         if ($hostName) {
-            $this->setOpt(CURLOPT_HTTPHEADER, array('Host: '. $hostName));
+            $this->setHeader('Host', $hostName);
         }
         $this->exec();
         return $this;

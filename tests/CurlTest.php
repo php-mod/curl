@@ -79,6 +79,12 @@ class CurlTest extends TestCase
         $resp->reset();
     }
 
+    public function testPurge()
+    {
+        $object = $this->curl->purge('testurl_to_purge', 'example.com');
+        $this->assertTrue($object instanceof Curl);
+    }
+
     public function testPostMultidimensionalData()
     {
         $data = array(
