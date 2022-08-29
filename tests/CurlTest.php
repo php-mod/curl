@@ -79,6 +79,24 @@ class CurlTest extends TestCase
         $resp->reset();
     }
 
+    public function testPutJsonData()
+    {
+        $resp = $this->curl->put(self::TEST_URL.'/server.php', ['foo' => 'bar'], true, true);
+        $this->assertTrue($resp->isSuccess());
+        $this->assertArrayHasKey('x-powered-by', $resp->getResponseHeaders());
+        // syntax error check
+        $resp->reset();
+    }
+
+    public function testPatchJsonData()
+    {
+        $resp = $this->curl->patch(self::TEST_URL.'/server.php', ['foo' => 'bar'], true, true);
+        $this->assertTrue($resp->isSuccess());
+        $this->assertArrayHasKey('x-powered-by', $resp->getResponseHeaders());
+        // syntax error check
+        $resp->reset();
+    }
+
     public function testPurge()
     {
         $object = $this->curl->purge('testurl_to_purge', 'example.com');
