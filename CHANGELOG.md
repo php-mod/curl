@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file. This projec
 
 ## 2.4.0 (in progress)
 
++ [#91](https://github.com/php-mod/curl/pull/91) Added `$asJson` param for `put()` and `patch()` requests.
 + [#61](https://github.com/php-mod/curl/issues/61) Adjust user agent version to latest version.
 + [#74](https://github.com/php-mod/curl/pull/75) Fixed PHPDoc Block, Added more Unit Tests.
 + Added GitHub Actions Tests (from 5.6 - 8.0)
