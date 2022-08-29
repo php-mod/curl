@@ -304,6 +304,7 @@ class Curl
      */
     public function get($url, $data = array())
     {
+        $this->setOpt(CURLOPT_CUSTOMREQUEST, "GET");
         if (count($data) > 0) {
             $this->setOpt(CURLOPT_URL, $url.'?'.http_build_query($data));
         } else {
@@ -346,6 +347,7 @@ class Curl
      */
     public function post($url, $data = array(), $asJson = false)
     {
+        $this->setOpt(CURLOPT_CUSTOMREQUEST, "POST");
         $this->setOpt(CURLOPT_URL, $url);
         if ($asJson) {
             $this->prepareJsonPayload($data);
