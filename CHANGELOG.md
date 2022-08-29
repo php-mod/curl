@@ -11,6 +11,14 @@ All notable changes to this project will be documented in this file. This projec
 + [#74](https://github.com/php-mod/curl/pull/75) Fixed PHPDoc Block, Added more Unit Tests.
 + Added GitHub Actions Tests (from 5.6 - 8.0)
 
+## 2.3.3 (30. November 2021)
+
++ Support php 8.1
+
+## 2.3.2 (11. April 2021)
+
++ Fix a security issue in the test files. Thanks to Erwan from wpscan.com.
+
 ## 2.3.1 (21. January 2021)
 
 + Supports PHP8
