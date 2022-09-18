@@ -195,7 +195,7 @@ class Curl
         } elseif (!$this->response_header_continue) {
             $this->response_headers[] = $trimmed_header;
         }
-        
+
         return strlen($header_line);
     }
 
@@ -241,7 +241,7 @@ class Curl
                     $skip = true;
                 }
             }
-            
+
             if (!$skip) {
                 $data = http_build_query($data);
             }
@@ -318,9 +318,9 @@ class Curl
     /**
      * Purge Request
      *
-     * A very common scenario to send a purge request is within the use of varnish, therefore 
+     * A very common scenario to send a purge request is within the use of varnish, therefore
      * the optional hostname can be defined.
-     * 
+     *
      * @param strng $url The url to make the purge request
      * @param string $hostname An optional hostname which will be sent as http host header
      * @return self
@@ -329,14 +329,14 @@ class Curl
     public function purge($url, $hostName = null)
     {
         $this->setOpt(CURLOPT_URL, $url);
-        $this->setOpt(CURLOPT_CUSTOMREQUEST, 'PURGE'); 
+        $this->setOpt(CURLOPT_CUSTOMREQUEST, 'PURGE');
         if ($hostName) {
             $this->setHeader('Host', $hostName);
         }
         $this->exec();
         return $this;
     }
-    
+
     /**
      * Make a post request with optional post data.
      *
@@ -581,7 +581,7 @@ class Curl
     {
         return curl_getinfo($this->curl, $option);
     }
-    
+
     /**
     * Return the endpoint set for curl
     *
@@ -717,7 +717,7 @@ class Curl
     {
         return $this->getHttpStatus() >= 500 && $this->getHttpStatus() < 600;
     }
-    
+
     /**
      * Get a specific response header key or all values from the response headers array.
      *
@@ -750,17 +750,17 @@ class Curl
 
         foreach ($this->response_headers as $header) {
             $parts = explode(":", $header, 2);
-            
+
             $key = isset($parts[0]) ? $parts[0] : '';
             $value = isset($parts[1]) ? $parts[1] : '';
-            
+
             $headers[trim(strtolower($key))] = trim($value);
         }
-        
+
         if ($headerKey) {
             return isset($headers[$headerKey]) ? $headers[$headerKey] : false;
         }
-        
+
         return $headers;
     }
 

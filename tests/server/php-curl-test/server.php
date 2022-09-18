@@ -1,4 +1,5 @@
 <?php
+
 $request_method = isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : '';
 $data_values = $request_method === 'POST' ? $_POST : $_GET;
 $test = isset($data_values['test']) ? $data_values['test'] : '';
