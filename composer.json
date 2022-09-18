@@ -25,15 +25,11 @@
     "ext-curl": "*"
   },
   "require-dev": {
-    "yoast/phpunit-polyfills": "^0.2.0",
-    "friendsofphp/php-cs-fixer": "^3.11"
+    "yoast/phpunit-polyfills": "^0.2.0"
   },
   "autoload": {
     "psr-0": {
       "Curl": "src/"
     }
-  },
-  "scripts": {
-    "phpcsfixer" : "vendor/bin/php-cs-fixer fix"
   }
 }
