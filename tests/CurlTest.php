@@ -223,7 +223,7 @@ class CurlTest extends TestCase
                 'key' => 'HTTP_REFERER',
         )) === 'myreferrer');
     }
-    
+
     public function testDeprecatedReferrer()
     {
         $this->curl->setReferrer('myreferrer');
@@ -273,7 +273,7 @@ class CurlTest extends TestCase
     public function testHeadersWithContinue()
     {
         $headers = file(dirname(__FILE__) . '/data/response_headers_with_continue.txt');
-        
+
         $this->curl->response_headers = array();
         foreach ($headers as $header_line) {
             $this->curl->addResponseHeaderLine(null, $header_line);
@@ -285,7 +285,7 @@ class CurlTest extends TestCase
 
         $this->assertEquals($expected_headers, $this->curl->response_headers);
     }
-    
+
     public function testReset()
     {
         $curl = $this->getMockBuilder(get_class($this->curl))->getMock();
