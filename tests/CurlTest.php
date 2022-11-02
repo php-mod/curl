@@ -199,7 +199,7 @@ class CurlTest extends TestCase
         $this->curl->get(self::TEST_URL . '/http_basic_auth.php');
         $opts = $this->curl->getOpts();
         $this->arrayHasKey('http_code', $opts);
-        $this->assertEmpty($this->curl->getOpt(CURLINFO_HTTP_CODE));
+        $this->assertSame(0, $this->curl->getOpt(CURLINFO_HTTP_CODE));
     }
 
     public function testBasicHttpAuth()
