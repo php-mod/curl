@@ -172,7 +172,6 @@ class Curl
         $this->setOpt(CURLINFO_HEADER_OUT, true);
         $this->setOpt(CURLOPT_HEADER, false);
         $this->setOpt(CURLOPT_RETURNTRANSFER, true);
-        $this->setOpt(CURLOPT_HEADERFUNCTION, array($this, 'addResponseHeaderLine'));
         return $this;
     }
 
@@ -209,7 +208,9 @@ class Curl
     public function exec()
     {
         $this->response_headers = array();
+        $this->setOpt(CURLOPT_HEADERFUNCTION, array($this, 'addResponseHeaderLine'));
         $this->response = curl_exec($this->curl);
+        $this->setOpt(CURLOPT_HEADERFUNCTION, null);
         $this->curl_error_code = curl_errno($this->curl);
         $this->curl_error_message = curl_error($this->curl);
         $this->curl_error = !($this->getErrorCode() === 0);
