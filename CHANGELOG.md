@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file. This projec
 
 ## 2.5.0
 
-+ [#94]() Added method to retrieve all curl options from current object.
++ [#94](https://github.com/php-mod/curl/pull/94) Added method to retrieve all curl options from current object.
 + [#93](https://github.com/php-mod/curl/pull/93) Text and Coding Standards update
 
 ## 2.4.0 (29. August 2022)

@@ -199,7 +199,8 @@ class CurlTest extends TestCase
         $this->curl->get(self::TEST_URL . '/http_basic_auth.php');
         $opts = $this->curl->getOpts();
         $this->arrayHasKey('http_code', $opts);
-        $this->assertSame(0, $this->curl->getOpt(CURLINFO_HTTP_CODE));
+        // since we not autorized, this should return a 401 status code
+        $this->assertSame(401, $this->curl->getOpt(CURLINFO_HTTP_CODE));
     }
 
     public function testBasicHttpAuth()
