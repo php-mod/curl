@@ -207,8 +207,8 @@ class Curl
      */
     public function exec()
     {
-        $this->response_headers = array();
         $this->setOpt(CURLOPT_HEADERFUNCTION, array($this, 'addResponseHeaderLine'));
+        $this->response_headers = array();
         $this->response = curl_exec($this->curl);
         $this->setOpt(CURLOPT_HEADERFUNCTION, null);
         $this->curl_error_code = curl_errno($this->curl);
