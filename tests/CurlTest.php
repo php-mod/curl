@@ -194,6 +194,15 @@ class CurlTest extends TestCase
         )) === 'delete');
     }
 
+    public function testGetOpts()
+    {
+        $this->curl->get(self::TEST_URL . '/http_basic_auth.php');
+        $opts = $this->curl->getOpts();
+        $this->arrayHasKey('http_code', $opts);
+        // since we not autorized, this should return a 401 status code
+        $this->assertSame(401, $this->curl->getOpt(CURLINFO_HTTP_CODE));
+    }
+
     public function testBasicHttpAuth()
     {
         $data = array();

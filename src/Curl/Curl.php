@@ -556,7 +556,6 @@ class Curl
      * To see a full list of options: http://php.net/curl_setopt
      *
      * @see http://php.net/curl_setopt
-     *
      * @param int $option The curl option constant e.g. `CURLOPT_AUTOREFERER`, `CURLOPT_COOKIESESSION`
      * @param mixed $value The value to pass for the given $option
      * @return bool
@@ -567,12 +566,11 @@ class Curl
     }
 
     /**
-     * Get customized curl options.
+     * Get curl option for a certain name
      *
      * To see a full list of options: http://php.net/curl_getinfo
      *
      * @see http://php.net/curl_getinfo
-     *
      * @param int $option The curl option constant e.g. `CURLOPT_AUTOREFERER`, `CURLOPT_COOKIESESSION`
      * @param mixed The value to check for the given $option
      * @return mixed
@@ -583,10 +581,23 @@ class Curl
     }
 
     /**
+     * Return the all options for current curl ressource
+     * 
+     * To see a full list of options: http://php.net/curl_getinfo
+     *
+     * @see http://php.net/curl_getinfo
+     * @return array
+     * @since 2.5.0
+     */
+    public function getOpts()
+    {
+        return curl_getinfo($this->curl);
+    }
+
+    /**
     * Return the endpoint set for curl
     *
     * @see http://php.net/curl_getinfo
-    *
     * @return string of endpoint
     */
     public function getEndpoint()
