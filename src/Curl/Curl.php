@@ -172,6 +172,7 @@ class Curl
         $this->setOpt(CURLINFO_HEADER_OUT, true);
         $this->setOpt(CURLOPT_HEADER, false);
         $this->setOpt(CURLOPT_RETURNTRANSFER, true);
+        
         return $this;
     }
 
@@ -210,7 +211,6 @@ class Curl
         $this->setOpt(CURLOPT_HEADERFUNCTION, array($this, 'addResponseHeaderLine'));
         $this->response_headers = array();
         $this->response = curl_exec($this->curl);
-        $this->setOpt(CURLOPT_HEADERFUNCTION, null);
         $this->curl_error_code = curl_errno($this->curl);
         $this->curl_error_message = curl_error($this->curl);
         $this->curl_error = !($this->getErrorCode() === 0);
@@ -221,7 +221,7 @@ class Curl
         $this->request_headers = preg_split('/\r\n/', curl_getinfo($this->curl, CURLINFO_HEADER_OUT), -1, PREG_SPLIT_NO_EMPTY);
         $this->http_error_message = $this->error ? (isset($this->response_headers['0']) ? $this->response_headers['0'] : '') : '';
         $this->error_message = $this->curl_error ? $this->getErrorMessage() : $this->http_error_message;
-
+        $this->setOpt(CURLOPT_HEADERFUNCTION, null);
         return $this->error_code;
     }
 
