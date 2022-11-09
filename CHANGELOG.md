@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file. This project adheres to [Semantic Versioning](http://semver.org/).
 
-## 2.5.0
+## 2.5.0
 
 + [#94](https://github.com/php-mod/curl/pull/94) Added method to retrieve all curl options from current object.
 + [#93](https://github.com/php-mod/curl/pull/93) Text and Coding Standards update
