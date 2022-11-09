@@ -66,7 +66,7 @@ class Curl
     /**
      * @var string The user agent name which is set when making a request
      */
-    const USER_AGENT = 'PHP Curl/2.3 (+https://github.com/php-mod/curl)';
+    const USER_AGENT = 'PHP Curl/2.5 (+https://github.com/php-mod/curl)';
 
     private $_cookies = array();
 
