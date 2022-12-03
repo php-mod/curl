@@ -285,7 +285,7 @@ class Curl
     // public methods
 
     /**
-     * @deprecated use `exec()` directly.
+     * @deprecated use `exec()` directly. Will be removed in 3.0
      */
     public function _exec()
     {
@@ -512,7 +512,7 @@ class Curl
     }
 
     /**
-     * @deprecated Call setReferer() instead
+     * @deprecated Call setReferer() instead. Will be removed in 3.0
      *
      * @param $referrer
      * @return self
@@ -619,7 +619,7 @@ class Curl
     }
 
     /**
-     * @deprecated Call setVerbose() instead
+     * @deprecated Call setVerbose() instead. Will be removed in 3.0
      *
      * @param bool $on
      * @return self
