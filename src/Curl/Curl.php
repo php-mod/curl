@@ -34,32 +34,32 @@ class Curl
     // The HTTP authentication method(s) to use.
 
     /**
-     * @var string Type AUTH_BASIC
+     * @var int Type AUTH_BASIC
      */
     const AUTH_BASIC = CURLAUTH_BASIC;
 
     /**
-     * @var string Type AUTH_DIGEST
+     * @var int Type AUTH_DIGEST
      */
     const AUTH_DIGEST = CURLAUTH_DIGEST;
 
     /**
-     * @var string Type AUTH_GSSNEGOTIATE
+     * @var int Type AUTH_GSSNEGOTIATE
      */
     const AUTH_GSSNEGOTIATE = CURLAUTH_GSSNEGOTIATE;
 
     /**
-     * @var string Type AUTH_NTLM
+     * @var int Type AUTH_NTLM
      */
     const AUTH_NTLM = CURLAUTH_NTLM;
 
     /**
-     * @var string Type AUTH_ANY
+     * @var int Type AUTH_ANY
      */
     const AUTH_ANY = CURLAUTH_ANY;
 
     /**
-     * @var string Type AUTH_ANYSAFE
+     * @var int Type AUTH_ANYSAFE
      */
     const AUTH_ANYSAFE = CURLAUTH_ANYSAFE;
 
@@ -322,8 +322,8 @@ class Curl
      * A very common scenario to send a purge request is within the use of varnish, therefore
      * the optional hostname can be defined.
      *
-     * @param strng $url The url to make the purge request
-     * @param string $hostname An optional hostname which will be sent as http host header
+     * @param string $url The url to make the purge request
+     * @param string $hostName An optional hostname which will be sent as http host header
      * @return self
      * @since 2.4.0
      */
@@ -573,7 +573,6 @@ class Curl
      *
      * @see http://php.net/curl_getinfo
      * @param int $option The curl option constant e.g. `CURLOPT_AUTOREFERER`, `CURLOPT_COOKIESESSION`
-     * @param mixed The value to check for the given $option
      * @return mixed
      */
     public function getOpt($option)
