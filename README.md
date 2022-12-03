@@ -1,6 +1,6 @@
 # PHP Curl Class
 
-This library provides an object-oriented wrapper of the PHP cURL extension.
+This library provides an object-oriented and dependency free wrapper of the PHP cURL extension.
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/6c34bb31f3eb6df36c7d/maintainability)](https://codeclimate.com/github/php-mod/curl/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/6c34bb31f3eb6df36c7d/test_coverage)](https://codeclimate.com/github/php-mod/curl/test_coverage)
@@ -8,8 +8,6 @@ This library provides an object-oriented wrapper of the PHP cURL extension.
 [![Tests](https://github.com/php-mod/curl/actions/workflows/tests.yml/badge.svg)](https://github.com/php-mod/curl/actions/workflows/tests.yml)
 
 If you have questions or problems with installation or usage [create an Issue](https://github.com/php-mod/curl/issues).
-
-
 
 ## Installation
 
