@@ -786,7 +786,7 @@ class Curl
 
     /**
      * Get curl error code
-     * @return string
+     * @return int
      */
     public function getErrorCode()
     {
