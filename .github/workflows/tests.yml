@@ -6,6 +6,29 @@ env:
   DEFAULT_COMPOSER_FLAGS: "--prefer-dist --no-interaction"
   CC_TEST_REPORTER_ID: 40d4890deed3bca8888c04ca67b9768edf11d7a089d2960977997791daea31f6
 jobs:
+  ## PHPSTAN
+  phpstan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install PHP
+        uses: shivammathur/setup-php@2.21.0
+        with:
+          php-version: '8.0'
+          extensions: mbstring, intl
+          coverage: none
+        env:
+          COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          update: true
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-interaction --no-progress --optimize-autoloader
+
+      - name: PHPStan tests
+        run: composer phpstan
+
   ## PHPUNIT
   phpunit:
     name: PHP ${{ matrix.php }} on ${{ matrix.os }}

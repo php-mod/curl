@@ -1,7 +1,10 @@
 {
   "name": "curl/curl",
   "description": "cURL class for PHP",
-  "keywords": ["dot", "curl"],
+  "keywords": [
+    "dot",
+    "curl"
+  ],
   "homepage": "https://github.com/php-mod/curl",
   "type": "library",
   "license": "MIT",
@@ -25,11 +28,15 @@
     "ext-curl": "*"
   },
   "require-dev": {
-    "yoast/phpunit-polyfills": "^0.2.0"
+    "yoast/phpunit-polyfills": "^0.2.0",
+    "phpstan/phpstan": "^1.9"
   },
   "autoload": {
     "psr-0": {
       "Curl": "src/"
     }
+  },
+  "scripts": {
+    "phpstan": "vendor/bin/phpstan -v"
   }
 }
