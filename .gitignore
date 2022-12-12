@@ -10,3 +10,4 @@ tests/phpunit_report/*
 /.settings/
 /.php_cs.cache
 .php-cs-fixer.cache
+.tmp
