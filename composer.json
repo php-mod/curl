@@ -28,8 +28,7 @@
     "ext-curl": "*"
   },
   "require-dev": {
-    "yoast/phpunit-polyfills": "^0.2.0",
-    "phpstan/phpstan": "^1.9"
+    "yoast/phpunit-polyfills": "^0.2.0"
   },
   "autoload": {
     "psr-0": {
@@ -37,6 +36,6 @@
     }
   },
   "scripts": {
-    "phpstan": "vendor/bin/phpstan -v"
+    "phpstan": "./phpstan.phar -v"
   }
 }

@@ -9,4 +9,4 @@
 tests               export-ignore
 vendor              export-ignore
 actions.phpunit.xml export-ignore
-
+phpstan.phar export-ignore

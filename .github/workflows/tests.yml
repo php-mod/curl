@@ -62,12 +62,6 @@ jobs:
       ## install composer
       - name: Install dependencies
         run: composer install $DEFAULT_COMPOSER_FLAGS
-        if: matrix.php == '8.1' || matrix.php == '8.0' || matrix.php == '7.4' || matrix.php == '7.3' || matrix.php == '7.2'
-
-      ## install composer but remove phpstan for older systems
-      - name: Install dependencies
-        run: composer remove phpstan/phpstan && composer install $DEFAULT_COMPOSER_FLAGS
-        if: matrix.php == '7.1' || matrix.php == '7.0' || matrix.php == '5.6'
 
       ## run unit tests
       - name: PHP Unit tests for PHP 
