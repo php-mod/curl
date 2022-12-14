@@ -172,7 +172,7 @@ class Curl
         $this->setOpt(CURLINFO_HEADER_OUT, true);
         $this->setOpt(CURLOPT_HEADER, false);
         $this->setOpt(CURLOPT_RETURNTRANSFER, true);
-        
+
         return $this;
     }
 
@@ -582,7 +582,7 @@ class Curl
 
     /**
      * Return the all options for current curl ressource
-     * 
+     *
      * To see a full list of options: http://php.net/curl_getinfo
      *
      * @see http://php.net/curl_getinfo
