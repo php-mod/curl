@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.6.0
+
 ## 2.5.0 (14. December 2022)
 
 + [#95](https://github.com/php-mod/curl/issues/95) Potential memory leak prevention where curl object was not destroyed due to object reference.
