@@ -88,9 +88,26 @@ class CurlTest extends TestCase
         $resp->reset();
     }
 
+    public function testPutJsonNotAsJsonData()
+    {
+        $resp = $this->curl->put(self::TEST_URL.'/server.php', ['foo' => 'bar'], true, false);
+        $this->assertTrue($resp->isSuccess());
+        $this->assertArrayHasKey('x-powered-by', $resp->getResponseHeaders());
+        // syntax error check
+        $resp->reset();
+    }
+
     public function testPatchJsonData()
     {
         $resp = $this->curl->patch(self::TEST_URL.'/server.php', ['foo' => 'bar'], true, true);
+        $this->assertTrue($resp->isSuccess());
+        $this->assertArrayHasKey('x-powered-by', $resp->getResponseHeaders());
+        // syntax error check
+        $resp->reset();
+    }
+    public function testPatchJsonNotAsJsonData()
+    {
+        $resp = $this->curl->patch(self::TEST_URL.'/server.php', ['foo' => 'bar'], true, false);
         $this->assertTrue($resp->isSuccess());
         $this->assertArrayHasKey('x-powered-by', $resp->getResponseHeaders());
         // syntax error check
@@ -192,6 +209,22 @@ class CurlTest extends TestCase
                 'test' => 'delete',
                 'key' => 'test',
         )) === 'delete');
+    }
+
+    public function testDeleteWithPayload()
+    {
+        $this->curl->setVerbose();
+        $resp = $this->curl->delete(self::TEST_URL.'/server.php', ['foo' => 'bar'], true);
+        $this->assertTrue($resp->isSuccess());
+        $this->assertFalse($resp->isInfo());
+        $this->assertFalse($resp->isRedirect());
+        $this->assertFalse($resp->isClientError());
+        $this->assertFalse($resp->isServerError());
+        $this->assertSame('http://localhost:1234/server.php', $resp->getEndpoint());
+
+        $this->assertSame('Error.', $resp->getResponse());
+        $this->assertSame('localhost:1234', $resp->getResponseHeaders('HOST'));
+        unset($this->curl);
     }
 
     public function testGetOpts()
