@@ -2,7 +2,12 @@
 
 All notable changes to this project will be documented in this file. This project adheres to [Semantic Versioning](http://semver.org/).
 
-## 2.6.0
+## 3.0.0
+
+> Check the [UPGRADE document](UPGRADE.md) to read more about breaking changes.
+
++ [#105](https://github.com/php-mod/curl/pull/105) Min PHP version is 8.x, json-extension is required and dropped deprecated methods.
+
 
 ## 2.5.0 (14. December 2022)
 

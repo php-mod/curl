@@ -37,7 +37,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        php: ['5.6', '7.0', '7.1', '7.2', '7.3', '7.4', '8.0', '8.1', '8.2', '8.3']
+        php: ['8.0', '8.1', '8.2', '8.3']
     steps:
       ## checkout the repoistory
       - name: Checkout Repo
@@ -66,12 +66,12 @@ jobs:
       ## run unit tests
       - name: PHP Unit tests for PHP 
         run: vendor/bin/phpunit --verbose --configuration actions.phpunit.xml
-        if: matrix.php == '8.3' || matrix.php == '8.2' || matrix.php == '8.1' || matrix.php == '8.0' || matrix.php == '7.4' || matrix.php == '7.3' || matrix.php == '7.2' || matrix.php == '7.0' || matrix.php == '5.6'
+        if: matrix.php == '8.3' || matrix.php == '8.2' || matrix.php == '8.1'
 
       ## unit test with coverage
-      - name: PHP Unit tests for PHP 7.1
+      - name: PHP Unit tests for PHP 8.0
         run: vendor/bin/phpunit --verbose --coverage-clover=clover.xml --configuration actions.phpunit.xml
-        if: matrix.php == '7.1'
+        if: matrix.php == '8.0'
 
       ## coverage
       - name: Code coverage
@@ -79,5 +79,5 @@ jobs:
           curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
           chmod +x ./cc-test-reporter
           ./cc-test-reporter after-build -t clover
-        if: matrix.php == '7.1'
+        if: matrix.php == '8.0'
         continue-on-error: true # if is fork

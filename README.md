@@ -17,12 +17,6 @@ In order to install this library via composer run the following command in the c
 composer require curl/curl
 ```
 
-or add the package manually to your composer.json file in the require section:
-
-```json
-"curl/curl": "^2.0"
-```
-
 ## Usage examples
 
 A few example for using CURL with get:

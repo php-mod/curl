@@ -266,15 +266,6 @@ class CurlTest extends TestCase
         )) === 'myreferrer');
     }
 
-    public function testDeprecatedReferrer()
-    {
-        $this->curl->setReferrer('myreferrer');
-        $this->assertTrue($this->server('GET', array(
-                'test' => 'server',
-                'key' => 'HTTP_REFERER',
-        )) === 'myreferrer');
-    }
-
     public function testCookies()
     {
         $this->curl->setCookie('mycookie', 'yum');

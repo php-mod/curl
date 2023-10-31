@@ -24,8 +24,9 @@
     }
   ],
   "require": {
-    "php": "^5.6 | ^7.0 | ^8.0",
-    "ext-curl": "*"
+    "php": "^8.0",
+    "ext-curl": "*",
+    "ext-json": "*"
   },
   "require-dev": {
     "yoast/phpunit-polyfills": "^0.2.0"
