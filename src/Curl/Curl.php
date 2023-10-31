@@ -282,16 +282,6 @@ class Curl
         $this->setOpt(CURLOPT_HTTPAUTH, $httpauth);
     }
 
-    // public methods
-
-    /**
-     * @deprecated use `exec()` directly. Will be removed in 3.0
-     */
-    public function _exec()
-    {
-        return $this->exec();
-    }
-
     // functions
 
     /**
@@ -512,18 +502,6 @@ class Curl
     }
 
     /**
-     * @deprecated Call setReferer() instead. Will be removed in 3.0
-     *
-     * @param $referrer
-     * @return self
-     */
-    public function setReferrer($referrer)
-    {
-        $this->setReferer($referrer);
-        return $this;
-    }
-
-    /**
      * Set the HTTP referer header.
      *
      * The $referer Information can help identify the requested client where the requested was made.
@@ -615,17 +593,6 @@ class Curl
     {
         $this->setOpt(CURLOPT_VERBOSE, $on);
         return $this;
-    }
-
-    /**
-     * @deprecated Call setVerbose() instead. Will be removed in 3.0
-     *
-     * @param bool $on
-     * @return self
-     */
-    public function verbose($on = true)
-    {
-        return $this->setVerbose($on);
     }
 
     /**
