@@ -11,3 +11,5 @@ vendor              export-ignore
 actions.phpunit.xml export-ignore
 phpstan.phar        export-ignore
 phpstan.neon        export-ignore
+.php-cs-fixer.dist.php export-ignore
+CHANGELOG.md        export-ignore
