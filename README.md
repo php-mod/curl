@@ -75,15 +75,6 @@ var_dump($curl->request_headers);
 var_dump($curl->response_headers);
 ```
 
-SSL verification setup:
-
-```php
-$curl = new Curl\Curl();
-$curl->setOpt(CURLOPT_RETURNTRANSFER, TRUE);
-$curl->setOpt(CURLOPT_SSL_VERIFYPEER, FALSE);
-$curl->get('https://encrypted.example.com/');
-```
-
 Example access to curl object:
 
 ```php
