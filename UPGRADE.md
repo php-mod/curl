@@ -1,7 +1,10 @@
-This document will help you upgrading from a Version into another.
+This document will guide you through upgrading from one version to another.
 
-# 2.x to 3.0
+# Upgrading from 2.x to 3.0
 
-+ Raised minimum PHP version to 8.x
-+ Added php `json` extensions are required in composer defintion
-+ Removed deprecated methods `_exec()` use `exec()`, `setReferrer()` use `setReferer()` and `verbose()` use `setVerbose()`
++ **Raised minimum PHP version** to 8.x.  
++ **Added the `json` extension** to Composer requirements, as formatting payloads to JSON is a common use case.  
++ **Removed deprecated methods**:  
+  - `_exec()` → Use `exec()`  
+  - `setReferrer()` → Use `setReferer()`  
+  - `verbose()` → Use `setVerbose()`  
