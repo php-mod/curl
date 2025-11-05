@@ -296,6 +296,7 @@ class Curl
     public function get($url, $data = array())
     {
         $this->setOpt(CURLOPT_CUSTOMREQUEST, null);
+        $this->setOpt(CURLOPT_POSTFIELDS, null);
         if (count($data) > 0) {
             $this->setOpt(CURLOPT_URL, $url.'?'.http_build_query($data));
         } else {
