@@ -491,9 +491,7 @@ class Curl
      * $curl->getHeaders();
      * ```
      *
-     * @param string $key   The header key
-     * @param string $value The value for the given header key
-     * @return self
+     * @return array
      */
     public function getHeaders()
     {
