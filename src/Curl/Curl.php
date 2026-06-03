@@ -480,6 +480,32 @@ class Curl
         $this->setOpt(CURLOPT_HTTPHEADER, array_values($this->_headers));
         return $this;
     }
+    
+    /**
+     * Provide header information.
+     *
+     * Provide your customized optional headers.
+     *
+     * ```php
+     * $curl = new Curl();
+     * $curl->getHeaders();
+     * ```
+     *
+     * @param string $key   The header key
+     * @param string $value The value for the given header key
+     * @return self
+     */
+    public function getHeaders
+    {
+      $headers = [];
+
+      foreach ($this->_headers as $value)
+      {
+        list($name, $value) = explode(": ", $value, 2);
+        $headers[trim($name)] = trim($value);
+      }
+      return $headers;
+    }
 
     /**
      * Provide a User Agent.
