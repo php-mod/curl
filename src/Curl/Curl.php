@@ -496,10 +496,10 @@ class Curl
     public function getHeaders()
     {
       $headers = [];
-      foreach ($this->_headers as $value)
+      foreach ($this->_headers as $header)
       {
-        list($name, $value) = explode(": ", $value, 2);
-        $headers[trim($name)] = trim($value);
+        $values = explode(": ", $header, 2);
+        $headers[trim($values[0])] = trim($values[1]);
       }
       return $headers;
     }
