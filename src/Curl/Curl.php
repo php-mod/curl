@@ -495,10 +495,9 @@ class Curl
      * @param string $value The value for the given header key
      * @return self
      */
-    public function getHeaders
+    public function getHeaders()
     {
       $headers = [];
-
       foreach ($this->_headers as $value)
       {
         list($name, $value) = explode(": ", $value, 2);
